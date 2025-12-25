@@ -571,11 +571,11 @@ a:hover {
 }
 
 /* =================================================================
-   MOBILE RESPONSIVE FINAL (FIX MẤT CUỘN NGANG + CHỐNG FONT TO)
+   MOBILE RESPONSIVE FINAL (GIỮ DESIGN CŨ - FIX LỖI CUỘN KẸT)
    ================================================================= */
 @media screen and (max-width: 900px) {
 
-    /* --- 1. RESET BODY & CHỐNG FONT BOOSTING --- */
+    /* --- 1. CƠ BẢN (CHỐNG FONT TO) --- */
     html, body {
         width: 100% !important;
         overflow-x: hidden !important;
@@ -583,26 +583,7 @@ a:hover {
         text-size-adjust: 100% !important;
     }
 
-    /* --- 2. CẤU HÌNH CODE BLOCK (SỬA LỖI MẤT SCROLL) --- */
-    /* Target tất cả thành phần trong code */
-    .highlight, .highlight * {
-        font-size: 12px !important; 
-        line-height: 1.5 !important;
-        max-height: 999999px; /* Trick chống font to */
-        -webkit-text-size-adjust: none !important;
-    }
-
-    /* 🔥 QUAN TRỌNG: Cấm code xuống dòng để hiện thanh cuộn 🔥 */
-    .highlight pre, 
-    .highlight code, 
-    .highlight span {
-        white-space: pre !important; /* Bắt buộc chạy thẳng 1 dòng */
-        word-wrap: normal !important; /* Cấm ngắt từ */
-        word-break: normal !important;
-        overflow-x: auto !important; /* Hiện thanh cuộn */
-    }
-
-    /* --- 3. SIDEBAR (GIỮ NGUYÊN) --- */
+    /* --- 2. SIDEBAR (GIỮ NGUYÊN) --- */
     #sidebar {
         position: relative !important; width: 100% !important;
         display: flex !important; flex-direction: column !important;
@@ -612,7 +593,6 @@ a:hover {
     }
     #sidebar > * { display: none !important; }
 
-    /* Welcome (Lên đầu) */
     #sidebar > :nth-child(4) { 
         display: block !important; order: 1 !important; width: 100% !important; 
         text-align: center !important; margin-bottom: 5px !important; border: none !important;
@@ -620,7 +600,6 @@ a:hover {
     #sidebar > :nth-child(4) h1 { font-size: 20px !important; margin: 0 !important; color: #fff; }
     #sidebar > :nth-child(4) p { font-size: 13px !important; color: #aaa; margin: 0 !important; }
 
-    /* Categories (Xuống dưới) */
     #sidebar > :nth-child(3) {
         display: block !important; order: 2 !important; width: 100% !important; 
         margin-top: 5px !important; border: none !important; background: transparent !important;
@@ -631,7 +610,7 @@ a:hover {
     }
     #sidebar > :nth-child(3) li { display: inline-block !important; margin: 0 !important; }
 
-    /* --- 4. NAVBAR (GIỮ NGUYÊN) --- */
+    /* --- 3. NAVBAR (GIỮ NGUYÊN) --- */
     nav {
         position: relative !important; height: auto !important; 
         display: flex !important; flex-wrap: wrap !important;
@@ -648,7 +627,7 @@ a:hover {
     #theme-toggle, .theme-switch { margin-left: auto !important; transform: scale(0.8); }
     #search-input, input[type="text"] { order: 99; width: 100% !important; margin-top: 5px !important; height: 32px !important; }
 
-    /* --- 5. MAIN CONTENT --- */
+    /* --- 4. CONTENT (GIỮ NGUYÊN) --- */
     main {
         position: relative !important; width: 100% !important; max-width: 100% !important;
         margin: 0 !important; padding: 20px 15px 0 15px !important; 
@@ -657,7 +636,6 @@ a:hover {
     main > div, article, .container, .content, .post-content {
         width: 100% !important; padding: 0 !important; margin: 0 !important;
     }
-    /* Text thường (Trừ code ra) */
     p:not(.highlight), li:not(.highlight), span:not(.highlight *) {
         width: 100% !important; font-size: 16px !important; line-height: 1.6 !important;
         text-align: justify !important; word-wrap: break-word !important;
@@ -665,43 +643,73 @@ a:hover {
     h1, h2, h3, h4, h5 { text-align: left !important; margin-top: 1.5em !important; }
     .post-title, h1:first-of-type { margin-top: 10px !important; text-align: center !important; }
 
-    /* --- 6. FIX HIỂN THỊ KHUNG CODE --- */
+    /* --- 5. CODE BLOCK (FIX SCROLL + GIỮ DESIGN) --- */
+    
+    /* Khung ngoài: Giữ design bo góc, màu nền */
     .highlight {
         width: 100% !important; margin: 15px 0 !important; border-radius: 6px !important;
         background-color: #1a2844 !important; border: 1px solid #30363d !important;
-        overflow: hidden !important; 
+        overflow: hidden !important; /* Ẩn thanh cuộn của khung bao */
     }
-    .highlight table { display: block !important; width: 100% !important; }
+
+    /* Font chữ: Giữ 12px, cấm font to */
+    .highlight, .highlight * {
+        font-size: 12px !important; 
+        line-height: 1.5 !important;
+        max-height: 999999px; 
+        -webkit-text-size-adjust: none !important;
+    }
+
+    /* 🔥 FLEXBOX LAYOUT CHO CODE TABLE 🔥 */
+    /* Phá vỡ cấu trúc bảng để cuộn mượt hơn */
+    .highlight table, .highlight tbody { 
+        display: block !important; 
+        width: 100% !important; 
+    }
     
-    /* Chỉnh lại cột số dòng bên trái */
+    .highlight tr {
+        display: flex !important; /* Xếp ngang dòng số và dòng code */
+        width: 100% !important;
+    }
+
+    /* Cột SỐ DÒNG (Bên trái) */
     .highlight td:first-child {
-        width: 35px !important; min-width: 35px !important;
+        display: block !important;
+        flex: 0 0 35px !important; /* Cố định 35px, ko co giãn */
+        width: 35px !important;
         padding-right: 5px !important;
         text-align: right !important;
-        vertical-align: top !important;
+        border-right: 1px solid #30363d !important;
+        background-color: rgba(0,0,0,0.2) !important;
     }
 
-    /* Cột code bên phải -> Bắt buộc hiện Scroll */
+    /* Cột CODE (Bên phải) - ĐÂY LÀ CHỖ SỬA LỖI SCROLL */
     .highlight td:last-child {
-        width: calc(100% - 35px) !important; /* Trừ đi phần cột số */
-        overflow-x: auto !important;
         display: block !important;
+        flex: 1 !important;        /* Chiếm toàn bộ phần còn lại */
+        width: 0 !important;       /* 🔥 QUAN TRỌNG: Reset width về 0 để Flexbox tự tính scroll */
+        min-width: 0 !important;   /* 🔥 QUAN TRỌNG: Cho phép nội dung co nhỏ hơn container */
+        overflow-x: auto !important; /* Bật thanh cuộn */
+        padding-left: 8px !important;
     }
 
-    .highlight td:last-child pre { 
-        overflow-x: auto !important; 
-        padding-bottom: 5px !important; 
-        display: block !important;
-        white-space: pre !important; /* QUAN TRỌNG: Giữ dòng code thẳng tắp */
-    }
-    
-    /* Inline Code */
-    p code, li code {
-        font-size: 13px !important;
-        padding: 2px 4px !important;
-        word-break: break-all !important; /* Inline thì cho phép xuống dòng */
+    /* Nội dung code bên trong */
+    .highlight pre {
+        width: auto !important;   /* Để nó tự dài ra theo nội dung */
+        white-space: pre !important; /* Cấm xuống dòng */
+        overflow: visible !important; /* Để thằng cha (td) lo việc cuộn */
+        word-wrap: normal !important;
     }
 
+    /* Style thanh cuộn cho nó đẹp tí */
+    .highlight td:last-child::-webkit-scrollbar { height: 6px !important; }
+    .highlight td:last-child::-webkit-scrollbar-thumb { 
+        background: #58a6ff; 
+        border-radius: 3px; 
+    }
+
+    /* Inline code & Ảnh */
+    p code, li code { font-size: 13px !important; padding: 2px 4px !important; word-break: break-all !important; }
     img { max-width: 100% !important; height: auto !important; margin: 15px auto !important; display: block; border-radius: 5px; }
 }
 
