@@ -571,38 +571,38 @@ a:hover {
 }
 
 /* =================================================================
-   MOBILE RESPONSIVE FINAL (FIX LỖI FONT TO KHỔNG LỒ)
+   MOBILE RESPONSIVE FINAL (FIX MẤT CUỘN NGANG + CHỐNG FONT TO)
    ================================================================= */
 @media screen and (max-width: 900px) {
 
-    /* --- 1. THUỐC ĐẶC TRỊ FONT BOOSTING (QUAN TRỌNG NHẤT) --- */
+    /* --- 1. RESET BODY & CHỐNG FONT BOOSTING --- */
     html, body {
         width: 100% !important;
         overflow-x: hidden !important;
-        
-        /* Chặn trình duyệt tự phóng to chữ */
         -webkit-text-size-adjust: 100% !important;
-        -moz-text-size-adjust: 100% !important;
-        -ms-text-size-adjust: 100% !important;
         text-size-adjust: 100% !important;
     }
 
-    /* --- 2. CẤU HÌNH CODE BLOCK & INLINE CODE --- */
-    /* Target tất cả mọi thứ liên quan đến code */
-    pre, code, .highlight, .highlight *, .highlight tr, .highlight td {
-        /* 1. Ép font size cứng */
+    /* --- 2. CẤU HÌNH CODE BLOCK (SỬA LỖI MẤT SCROLL) --- */
+    /* Target tất cả thành phần trong code */
+    .highlight, .highlight * {
         font-size: 12px !important; 
         line-height: 1.5 !important;
-        
-        /* 2. Chiêu HACK trị dứt điểm Font Boosting */
-        max-height: 999999px; /* Đánh lừa trình duyệt rằng element này rất cao, đừng zoom */
-        
-        /* 3. Nhắc lại lệnh cấm zoom */
-        -webkit-text-size-adjust: 100% !important;
-        text-size-adjust: 100% !important;
+        max-height: 999999px; /* Trick chống font to */
+        -webkit-text-size-adjust: none !important;
     }
 
-    /* --- 3. SIDEBAR --- */
+    /* 🔥 QUAN TRỌNG: Cấm code xuống dòng để hiện thanh cuộn 🔥 */
+    .highlight pre, 
+    .highlight code, 
+    .highlight span {
+        white-space: pre !important; /* Bắt buộc chạy thẳng 1 dòng */
+        word-wrap: normal !important; /* Cấm ngắt từ */
+        word-break: normal !important;
+        overflow-x: auto !important; /* Hiện thanh cuộn */
+    }
+
+    /* --- 3. SIDEBAR (GIỮ NGUYÊN) --- */
     #sidebar {
         position: relative !important; width: 100% !important;
         display: flex !important; flex-direction: column !important;
@@ -631,7 +631,7 @@ a:hover {
     }
     #sidebar > :nth-child(3) li { display: inline-block !important; margin: 0 !important; }
 
-    /* --- 4. NAVBAR --- */
+    /* --- 4. NAVBAR (GIỮ NGUYÊN) --- */
     nav {
         position: relative !important; height: auto !important; 
         display: flex !important; flex-wrap: wrap !important;
@@ -657,8 +657,8 @@ a:hover {
     main > div, article, .container, .content, .post-content {
         width: 100% !important; padding: 0 !important; margin: 0 !important;
     }
-    /* Text thường */
-    p, li, span {
+    /* Text thường (Trừ code ra) */
+    p:not(.highlight), li:not(.highlight), span:not(.highlight *) {
         width: 100% !important; font-size: 16px !important; line-height: 1.6 !important;
         text-align: justify !important; word-wrap: break-word !important;
     }
@@ -668,8 +668,8 @@ a:hover {
     /* --- 6. FIX HIỂN THỊ KHUNG CODE --- */
     .highlight {
         width: 100% !important; margin: 15px 0 !important; border-radius: 6px !important;
-        background-color: #0d1117 !important; border: 1px solid #30363d !important;
-        overflow: hidden !important; /* Ẩn thanh cuộn khung ngoài */
+        background-color: #1a2844 !important; border: 1px solid #30363d !important;
+        overflow: hidden !important; 
     }
     .highlight table { display: block !important; width: 100% !important; }
     
@@ -681,19 +681,25 @@ a:hover {
         vertical-align: top !important;
     }
 
-    /* Thanh cuộn mobile */
+    /* Cột code bên phải -> Bắt buộc hiện Scroll */
+    .highlight td:last-child {
+        width: calc(100% - 35px) !important; /* Trừ đi phần cột số */
+        overflow-x: auto !important;
+        display: block !important;
+    }
+
     .highlight td:last-child pre { 
         overflow-x: auto !important; 
         padding-bottom: 5px !important; 
         display: block !important;
-        white-space: pre !important;
+        white-space: pre !important; /* QUAN TRỌNG: Giữ dòng code thẳng tắp */
     }
     
-    /* Xử lý Inline Code (Cái chữ flag_checker.exe bị to) */
+    /* Inline Code */
     p code, li code {
-        font-size: 13px !important; /* Kích thước riêng cho code trong dòng */
+        font-size: 13px !important;
         padding: 2px 4px !important;
-        word-break: break-all !important;
+        word-break: break-all !important; /* Inline thì cho phép xuống dòng */
     }
 
     img { max-width: 100% !important; height: auto !important; margin: 15px auto !important; display: block; border-radius: 5px; }
