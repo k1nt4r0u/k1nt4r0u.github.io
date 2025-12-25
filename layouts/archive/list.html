@@ -1,0 +1,64 @@
+{{ define "main" }}
+<div id="content-full">
+    <main class="archive-page">
+        <h1>Archive</h1>
+        
+        <section class="archive-section">
+            <h2>CTF Writeups</h2>
+            
+            {{ $writeupsByContest := dict }}
+            {{ range where .Site.RegularPages "Section" "writeups" }}
+                {{ $contest := .Params.contest | default "Other CTFs" }}
+                {{ $existing := index $writeupsByContest $contest }}
+                {{ if $existing }}
+                    {{ $writeupsByContest = merge $writeupsByContest (dict $contest ($existing | append .)) }}
+                {{ else }}
+                    {{ $writeupsByContest = merge $writeupsByContest (dict $contest (slice .)) }}
+                {{ end }}
+            {{ end }}
+            
+            {{ range $contest, $writeups := $writeupsByContest }}
+            <div class="archive-subsection">
+                <h3>{{ $contest }}</h3>
+                <ul class="archive-list">
+                {{ range $writeups }}
+                    <li>
+                        <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </li>
+                {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </section>
+        
+        <section class="archive-section">
+            <h2>Research</h2>
+            <ul class="archive-list">
+            {{ range where .Site.RegularPages "Section" "research" }}
+                <li>
+                    <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </li>
+            {{ else }}
+                <li class="no-content">No research articles yet</li>
+            {{ end }}
+            </ul>
+        </section>
+        
+        <section class="archive-section">
+            <h2>Malware Analysis</h2>
+            <ul class="archive-list">
+            {{ range where .Site.RegularPages "Section" "malware-analysis" }}
+                <li>
+                    <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </li>
+            {{ else }}
+                <li class="no-content">No malware analysis yet</li>
+            {{ end }}
+            </ul>
+        </section>
+    </main>
+</div>
+{{ end }}

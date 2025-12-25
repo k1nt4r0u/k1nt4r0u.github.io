@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+<head>
+    <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+    <link rel="canonical" href="{{ .Site.BaseURL }}">
+    
+    {{ partial "style.html" . }}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <meta charset="utf-8">
+    <script src="/js/theme-switcher.js"></script>
+</head>
+<body>
+{{ partial "navbar.html" . }}
+<main>
+    {{ block "main" . }}{{ end }}
+</main>
+</body>
+</html>

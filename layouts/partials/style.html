@@ -1,0 +1,482 @@
+<style>
+{{ $themeName := .Site.Params.theme }}
+{{ $theme := index (where .Site.Data.themes "name" $themeName) 0 }}
+{{ $custom_themes := (index .Site.Data "custom_themes") }}
+{{ if $custom_themes }}
+    {{ if not $theme }}
+        {{ $theme = index (where $custom_themes "name" $themeName) 0 }}
+    {{ end }}
+{{ end }}
+
+:root {
+    --accent-color: {{ index $theme "accent-color" }};
+    --select-color: {{ index $theme "select-color" }};
+    --link-color: {{ index $theme "link-color" }};
+    --bg-color: {{ index $theme "bg-color" }};
+    --text-color: {{ index $theme "text-color" }};
+    --bg-color2: {{ index $theme "bg2-color" }};
+    --border-color: {{ index $theme "border-color" }};
+    --post-shadow-color: {{ index $theme "post-shadow-color" }};
+    --special-text-color: {{ index $theme "special-text-color" }};
+}
+
+* { box-sizing: border-box; font-family: Verdana, Geneva, Tahoma, sans-serif; }
+
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+    padding-top: 60px;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+/* FIX NỘI DUNG WELCOME BỊ THỤT SÂU */
+
+/* 1. Xử lý thằng tiêu đề (Welcome to my blog, Interests...) */
+#top section h1, 
+#top section h2, 
+#top section h3 {
+    margin-top: 0 !important; /* Xóa sạch khoảng cách thừa ở trên đầu tiêu đề */
+    padding-top: 0 !important;
+    line-height: 1.2 !important; /* Siết lại dòng cho gọn */
+}
+
+/* 2. (Tùy chọn) Nếu vẫn thấy sâu, giảm padding của cái hộp xuống */
+#top section {
+    padding-top: 15px !important; /* Mặc định nó là 1em (~16px), mày chỉnh nhỏ lại tùy ý */
+    /* padding-bottom: ... giữ nguyên */
+}
+
+/* Top Navbar */
+#top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: var(--bg-color2);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 2px 10px var(--post-shadow-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2em;
+    z-index: 1000;
+}
+
+.navbar-left .home-btn {
+    font-size: 24px;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.navbar-center {
+    display: flex;
+    gap: 2em;
+}
+
+.navbar-center .nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+.navbar-center .nav-link:hover {
+    background-color: var(--select-color);
+    color: var(--accent-color);
+}
+
+.navbar-right {
+    display: flex;
+    gap: 1em;
+}
+
+#search-box, #theme-switcher {
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+/* Sidebar */
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    min-width: 320px;
+    max-width: 380px;
+    margin-top: 1em;
+    margin-right: 2em;
+    flex-shrink: 0;
+}
+
+.sidebar-box {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+    padding: 1.5em;
+}
+
+#avatar-box {
+    text-align: center;
+}
+
+#avatar-box .flower {
+    width: 280px;
+    border-radius: 50%;
+}
+
+#tags-box h3, #categories-box h3 {
+    margin: 0 0 1em 0;
+    color: var(--special-text-color);
+    font-size: 1.1em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5em;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.tag-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-list li {
+    margin-bottom: 0.8em;
+}
+
+.category-list a {
+    color: var(--link-color);
+    text-decoration: none;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.category-list a:hover {
+    background-color: var(--select-color);
+}
+
+#content {
+    display: flex;
+    max-width: 1400px;
+    margin: auto;
+}
+
+main {
+    flex: 1;
+    padding: 1em;
+}
+
+#top section {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5em;
+    margin-bottom: 23px;
+    padding: 1em 1.5em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+}
+
+/* Writeups, Search, Archive pages */
+#content-full {
+    max-width: 90%;
+    margin: 2em auto;
+    padding: 0 3em;
+}
+
+.writeups-page h1, .search-page h1, .archive-page h1 {
+    font-size: 3em;
+    color: var(--special-text-color);
+    margin-bottom: 1em;
+    border-bottom: 3px solid var(--border-color);
+    padding-bottom: 0.5em;
+}
+
+.contest-name {
+    color: var(--accent-color);
+    font-size: 2.2em;
+    margin-bottom: 1.2em;
+    padding-left: 1em;
+    border-left: 5px solid var(--accent-color);
+}
+
+.writeups-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 2em;
+}
+
+.writeup-card {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5em;
+    padding: 2em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+}
+
+.writeup-card h3 {
+    font-size: 1.5em;
+    margin: 0 0 0.8em 0;
+}
+
+/* Search page */
+#search-input-container { margin: 2em 0; }
+
+#search-input {
+    width: 100%;
+    padding: 1em 1.5em;
+    font-size: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-color2);
+    color: var(--text-color);
+}
+
+.search-result-item {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5em;
+    padding: 1.5em 2em;
+    margin-bottom: 1.5em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+}
+
+/* Archive page */
+.archive-section {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5em;
+    padding: 1.5em;
+    margin-bottom: 2.5em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+}
+
+.archive-list li {
+    padding: 0.8em 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Single post */
+.single-post {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.post-content {
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+/* ======================================================
+   FIX MÀU & FONT CODE (BẢN FINAL CHUẨN MEN)
+====================================================== */
+
+/* --- 1. INLINE CODE (Code dòng đơn `...`) --- */
+/* QUAN TRỌNG: Dùng :not() để nó KHÔNG ám quẻ vào thằng code block */
+code:not(.highlight code) {
+    background-color: var(--select-color);
+    color: var(--accent-color); /* Chỉ code dòng mới ăn màu theme */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+}
+
+/* --- 2. BLOCK CODE WRAPPER (Cái khung bao ngoài) --- */
+.highlight {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden; 
+}
+
+/* --- 3. FIX CÁI BẢNG (TABLE) --- */
+.highlight table {
+    width: 100%;
+    border-collapse: collapse; 
+    border: none;
+    margin: 0;
+}
+
+/* --- 4. CẤU HÌNH CÁC Ô (CELL) --- */
+.highlight td {
+    padding: 10px 15px;
+    border: none;
+    vertical-align: top;
+}
+
+/* --- 5. CỘT SỐ DÒNG (BÊN TRÁI) --- */
+.highlight td:first-child {
+    width: 45px;
+    text-align: right; 
+    padding-right: 10px;
+    border-right: 2px solid var(--border-color);
+    background-color: rgba(0,0,0,0.1); 
+    color: var(--text-color); /* Số dòng dùng màu chữ thường */
+    opacity: 0.7;
+    user-select: none; 
+}
+
+/* --- 6. CỘT CODE (BÊN PHẢI) --- */
+.highlight td:last-child {
+    width: auto;
+    overflow-x: auto; 
+}
+
+/* --- 7. RESET & UNLOCK MÀU SYNTAX (PHẦN QUAN TRỌNG NHẤT) --- */
+/* Reset thẻ pre bên trong */
+.highlight pre {
+    background: transparent !important;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Reset thẻ code bên trong bảng highlight để nó nhận màu từ Hugo Chroma */
+.highlight code {
+    background-color: transparent !important; /* Xóa nền xanh nếu bị dính */
+    color: unset !important; /* QUAN TRỌNG: Gỡ bỏ màu accent, để nó tự do */
+    padding: 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* --- 8. ÉP FONT VÀ CHO PHÉP HIỆN MÀU --- */
+/* Đảm bảo các span (nơi chứa màu syntax) không bị đè */
+.highlight span {
+    font-family: 'Consolas', 'Monaco', monospace !important;
+    font-size: 15px !important;
+    /* KHÔNG ĐƯỢC set color ở đây, để Hugo tự sinh inline style */
+}
+
+/* Archive subsections */
+.archive-subsection {
+    margin-bottom: 2em;
+    padding-left: 1em;
+}
+
+.archive-subsection h3 {
+    color: var(--accent-color);
+    font-size: 1.3em;
+    margin-bottom: 0.8em;
+    padding-left: 0.5em;
+    border-left: 3px solid var(--accent-color);
+}
+
+.no-content {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-style: italic;
+}
+
+/* About page */
+.about-page {
+    max-width: 900px;
+    margin: 2em auto;
+}
+
+.about-page article {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5em;
+    padding: 2em 3em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+    line-height: 1.8;
+}
+
+.about-page h1 {
+    color: var(--special-text-color);
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    border-bottom: 3px solid var(--border-color);
+    padding-bottom: 0.5em;
+}
+
+.about-page h2 {
+    color: var(--accent-color);
+    font-size: 1.8em;
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+}
+
+.about-page h3 {
+    color: var(--special-text-color);
+    font-size: 1.3em;
+    margin-top: 1.5em;
+}
+
+.about-page ul {
+    padding-left: 2em;
+}
+
+.about-page a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.about-page a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+a {
+    color: inherit !important; 
+    text-decoration: none;     
+}
+
+a:visited, a:active, a:focus {
+    color: inherit !important; 
+    outline: none;             
+}
+
+a:hover {
+    color: var(--accent-color); 
+    cursor: pointer;
+}
+
+/* --- FIX LỖI BACKGROUND "TÙM LUM" --- */
+/* Bắt buộc code bên trong bảng highlight phải trong suốt */
+.highlight code {
+    background-color: transparent !important; /* Xóa cái nền xanh var(--select-color) đi */
+    padding: 0 !important; /* Bỏ padding thừa */
+    border-radius: 0 !important;
+    color: inherit !important; /* Để màu sắc tuân theo syntax highlighting */
+    font-size: inherit !important;
+}
+
+/* Đảm bảo dòng code không bị ám màu lạ */
+.highlight pre {
+    background-color: transparent !important;
+}
+
+</style>

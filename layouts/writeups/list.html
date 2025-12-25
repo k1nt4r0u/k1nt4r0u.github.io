@@ -1,0 +1,45 @@
+
+{{ define "main" }}
+<div id="content-full">
+    <main class="writeups-page">
+        <h1>CTF Writeups</h1>
+        
+        {{ $writeupsByContest := dict }}
+        {{ range where .Site.RegularPages "Section" "writeups" }}
+            {{ $contest := .Params.contest | default "Other CTFs" }}
+            {{ $existing := index $writeupsByContest $contest }}
+            {{ if $existing }}
+                {{ $writeupsByContest = merge $writeupsByContest (dict $contest ($existing | append .)) }}
+            {{ else }}
+                {{ $writeupsByContest = merge $writeupsByContest (dict $contest (slice .)) }}
+            {{ end }}
+        {{ end }}
+        
+        {{ range $contest, $writeups := $writeupsByContest }}
+        <div class="contest-section">
+            <h2 class="contest-name">{{ $contest }}</h2>
+            <div class="writeups-list">
+                {{ range $writeups }}
+                <article class="writeup-card">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    <div class="writeup-meta">
+                        <span class="date">{{ .Date.Format "Jan 2, 2006" }}</span>
+                        {{ with .Params.tags }}
+                        <div class="tags-inline">
+                            {{ range . }}
+                            <span class="tag">{{ . }}</span>
+                            {{ end }}
+                        </div>
+                        {{ end }}
+                    </div>
+                    {{ with .Description }}
+                    <p class="writeup-desc">{{ . }}</p>
+                    {{ end }}
+                </article>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </main>
+</div>
+{{ end }}

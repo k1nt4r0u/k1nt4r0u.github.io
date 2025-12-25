@@ -1,0 +1,56 @@
+{{ define "main" }}
+<div id="content">
+<aside id="sidebar">
+    <div class="sidebar-box" id="avatar-box">
+        <div id="avatar">
+            {{ with .Site.GetPage "section" "/sidebar/_index.md" }}
+            <img class="flower" src="{{ index .Params "icon-path" }}">
+            {{ end }}
+        </div>
+    </div>
+    
+    <div class="sidebar-box" id="tags-box">
+        <h3>Tags</h3>
+        <div class="tag-list">
+            <a href="{{ relLangURL "/tags/ctf" }}" class="tag-badge">CTF</a>
+            <a href="{{ relLangURL "/tags/reverse-engineering" }}" class="tag-badge">RE</a>
+            <a href="{{ relLangURL "/tags/malware-analysis" }}" class="tag-badge">Malware Analysis</a>
+        </div>
+    </div>
+    
+    <div class="sidebar-box" id="categories-box">
+        <h3>Categories</h3>
+        <ul class="category-list">
+            <li><a href="{{ relLangURL "/writeups" }}">Writeups</a></li>
+            <li><a href="{{ relLangURL "/research" }}">Research</a></li>
+            <li><a href="{{ relLangURL "/malware-analysis" }}">Malware Analysis</a></li>
+        </ul>
+    </div>
+</aside>
+<main>
+    {{ with .Site.GetPage "section" "/welcome-header/_index.md" }}
+    <article id="top" class="clearfix">
+        <section>
+        <div class="img-right">
+            <img src="{{ .Params.image }}">
+        </div>
+        <div>
+        <h1>{{ .Params.title }}</h1>
+        {{ range .Params.intro }}
+            <p>{{ . }}</p>
+        {{ end }}
+        </div>
+        </section>
+        <section>
+        <h4>{{ .Params.list.name }}</h4>
+            <ul>
+            {{ range .Params.list.items }}
+                <li>{{ . }}</li>
+            {{ end }}
+            </ul>
+        </section>
+    </article>
+    {{ end }}
+</main>
+</div>
+{{ end }}

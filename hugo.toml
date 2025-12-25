@@ -1,0 +1,32 @@
+baseURL = 'https://k1nt4r0u.github.io/'
+languageCode = 'en-us'
+title = "k1nt4r0u's blog"
+theme = 'neopost'
+
+[params]
+theme = "midnight-blue-fancy" 
+description = "Reverse Engineering & Binary Exploitation - CTF Player @ Sky1nNorth"
+author = "Hoang Anh Dung (k1nt4r0u)"
+keywords = ["reverse engineering", "binary exploitation", "CTF", "infosec", "cybersecurity"]
+
+[params.social]
+github = "k1nt4r0u"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "Nord"
+    noClasses = false
