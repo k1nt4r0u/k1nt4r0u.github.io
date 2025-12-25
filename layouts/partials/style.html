@@ -30,9 +30,6 @@ body {
     color: var(--text-color);
 }
 
-/* FIX NỘI DUNG WELCOME BỊ THỤT SÂU */
-
-/* 1. Xử lý thằng tiêu đề (Welcome to my blog, Interests...) */
 #top section h1, 
 #top section h2, 
 #top section h3 {
@@ -41,10 +38,8 @@ body {
     line-height: 1.2 !important; /* Siết lại dòng cho gọn */
 }
 
-/* 2. (Tùy chọn) Nếu vẫn thấy sâu, giảm padding của cái hộp xuống */
 #top section {
     padding-top: 15px !important; /* Mặc định nó là 1em (~16px), mày chỉnh nhỏ lại tùy ý */
-    /* padding-bottom: ... giữ nguyên */
 }
 
 /* Top Navbar */
@@ -294,12 +289,6 @@ main {
     font-size: 16px;
 }
 
-/* ======================================================
-   FIX MÀU & FONT CODE (BẢN FINAL CHUẨN MEN)
-====================================================== */
-
-/* --- 1. INLINE CODE (Code dòng đơn `...`) --- */
-/* QUAN TRỌNG: Dùng :not() để nó KHÔNG ám quẻ vào thằng code block */
 code:not(.highlight code) {
     background-color: var(--select-color);
     color: var(--accent-color); /* Chỉ code dòng mới ăn màu theme */
@@ -309,7 +298,6 @@ code:not(.highlight code) {
     font-size: 0.9em;
 }
 
-/* --- 2. BLOCK CODE WRAPPER (Cái khung bao ngoài) --- */
 .highlight {
     background-color: var(--bg-color2);
     border: 2px solid var(--border-color);
@@ -318,7 +306,6 @@ code:not(.highlight code) {
     overflow: hidden; 
 }
 
-/* --- 3. FIX CÁI BẢNG (TABLE) --- */
 .highlight table {
     width: 100%;
     border-collapse: collapse; 
@@ -326,14 +313,12 @@ code:not(.highlight code) {
     margin: 0;
 }
 
-/* --- 4. CẤU HÌNH CÁC Ô (CELL) --- */
 .highlight td {
     padding: 10px 15px;
     border: none;
     vertical-align: top;
 }
 
-/* --- 5. CỘT SỐ DÒNG (BÊN TRÁI) --- */
 .highlight td:first-child {
     width: 45px;
     text-align: right; 
@@ -345,14 +330,11 @@ code:not(.highlight code) {
     user-select: none; 
 }
 
-/* --- 6. CỘT CODE (BÊN PHẢI) --- */
 .highlight td:last-child {
     width: auto;
     overflow-x: auto; 
 }
 
-/* --- 7. RESET & UNLOCK MÀU SYNTAX (PHẦN QUAN TRỌNG NHẤT) --- */
-/* Reset thẻ pre bên trong */
 .highlight pre {
     background: transparent !important;
     border: none;
@@ -363,7 +345,6 @@ code:not(.highlight code) {
     line-height: 1.5;
 }
 
-/* Reset thẻ code bên trong bảng highlight để nó nhận màu từ Hugo Chroma */
 .highlight code {
     background-color: transparent !important; /* Xóa nền xanh nếu bị dính */
     color: unset !important; /* QUAN TRỌNG: Gỡ bỏ màu accent, để nó tự do */
@@ -371,15 +352,12 @@ code:not(.highlight code) {
     font-family: 'Consolas', 'Monaco', monospace;
 }
 
-/* --- 8. ÉP FONT VÀ CHO PHÉP HIỆN MÀU --- */
-/* Đảm bảo các span (nơi chứa màu syntax) không bị đè */
 .highlight span {
     font-family: 'Consolas', 'Monaco', monospace !important;
     font-size: 15px !important;
     /* KHÔNG ĐƯỢC set color ở đây, để Hugo tự sinh inline style */
 }
 
-/* Archive subsections */
 .archive-subsection {
     margin-bottom: 2em;
     padding-left: 1em;
@@ -399,7 +377,6 @@ code:not(.highlight code) {
     font-style: italic;
 }
 
-/* About page */
 .about-page {
     max-width: 900px;
     margin: 2em auto;
@@ -464,8 +441,6 @@ a:hover {
     cursor: pointer;
 }
 
-/* --- FIX LỖI BACKGROUND "TÙM LUM" --- */
-/* Bắt buộc code bên trong bảng highlight phải trong suốt */
 .highlight code {
     background-color: transparent !important; /* Xóa cái nền xanh var(--select-color) đi */
     padding: 0 !important; /* Bỏ padding thừa */
@@ -474,15 +449,10 @@ a:hover {
     font-size: inherit !important;
 }
 
-/* Đảm bảo dòng code không bị ám màu lạ */
 .highlight pre {
     background-color: transparent !important;
 }
-/* =================================================================
-   FIX LỖI TABLE CODE: THANH CUỘN & THẲNG HÀNG (PC & MOBILE)
-   ================================================================= */
 
-/* 1. CỐ ĐỊNH LAYOUT BẢNG (Chìa khóa để hiện thanh cuộn) */
 .highlight table {
     table-layout: fixed !important; /* Bắt buộc bảng không được tự giãn */
     width: 100% !important;
@@ -490,14 +460,13 @@ a:hover {
     margin: 0 !important;
 }
 
-/* 2. ĐỒNG BỘ CHIỀU CAO DÒNG (FIX LỖI LỆCH DÒNG) */
 .highlight td, 
 .highlight td pre, 
 .highlight td code,
 .highlight span {
     line-height: 1.5 !important; /* Ép tất cả cao bằng nhau */
     font-size: 15px !important;  /* Ép font bằng nhau */
-    font-family: 'JetBrains Mono', Consolas, Monaco, monospace !important;
+    font-family: 'Consolas', Consolas, Monaco, monospace !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     vertical-align: top !important; /* Căn đỉnh để dòng 1 luôn khớp dòng 1 */
