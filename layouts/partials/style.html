@@ -571,52 +571,59 @@ a:hover {
 }
 
 /* =================================================================
-   MOBILE RESPONSIVE FINAL (FULL OPTION)
-   - Text giãn đều (Justify)
-   - Code block chuẩn PC + Scrollbar
-   - Sidebar gọn gàng
+   MOBILE RESPONSIVE FINAL (FIX LỖI FONT TO KHỔNG LỒ)
    ================================================================= */
 @media screen and (max-width: 900px) {
 
-    /* --- 1. RESET BODY & HTML --- */
+    /* --- 1. THUỐC ĐẶC TRỊ FONT BOOSTING (QUAN TRỌNG NHẤT) --- */
     html, body {
         width: 100% !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: hidden !important; /* Chặn cuộn ngang toàn trang */
-        scroll-padding-top: 100px !important;
+        overflow-x: hidden !important;
+        
+        /* Chặn trình duyệt tự phóng to chữ */
+        -webkit-text-size-adjust: 100% !important;
+        -moz-text-size-adjust: 100% !important;
+        -ms-text-size-adjust: 100% !important;
+        text-size-adjust: 100% !important;
     }
 
-    /* --- 2. SIDEBAR (HEADER) --- */
+    /* --- 2. CẤU HÌNH CODE BLOCK & INLINE CODE --- */
+    /* Target tất cả mọi thứ liên quan đến code */
+    pre, code, .highlight, .highlight *, .highlight tr, .highlight td {
+        /* 1. Ép font size cứng */
+        font-size: 12px !important; 
+        line-height: 1.5 !important;
+        
+        /* 2. Chiêu HACK trị dứt điểm Font Boosting */
+        max-height: 999999px; /* Đánh lừa trình duyệt rằng element này rất cao, đừng zoom */
+        
+        /* 3. Nhắc lại lệnh cấm zoom */
+        -webkit-text-size-adjust: 100% !important;
+        text-size-adjust: 100% !important;
+    }
+
+    /* --- 3. SIDEBAR --- */
     #sidebar {
-        position: relative !important;
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        padding: 15px 10px !important;
-        border-bottom: 1px solid #333;
-        background: var(--bg-color, #1a1a1a);
+        position: relative !important; width: 100% !important;
+        display: flex !important; flex-direction: column !important;
+        align-items: center !important; padding: 15px 10px !important;
+        border-bottom: 1px solid #333; background: var(--bg-color, #1a1a1a);
         z-index: 100;
     }
-
     #sidebar > * { display: none !important; }
 
-    /* Welcome Text (Số 4 - Đưa lên đầu) */
+    /* Welcome (Lên đầu) */
     #sidebar > :nth-child(4) { 
-        display: block !important; order: 1 !important; 
-        width: 100% !important; text-align: center !important; 
-        margin-bottom: 5px !important; border: none !important;
+        display: block !important; order: 1 !important; width: 100% !important; 
+        text-align: center !important; margin-bottom: 5px !important; border: none !important;
     }
     #sidebar > :nth-child(4) h1 { font-size: 20px !important; margin: 0 !important; color: #fff; }
     #sidebar > :nth-child(4) p { font-size: 13px !important; color: #aaa; margin: 0 !important; }
 
-    /* Categories (Số 3 - Đưa xuống dưới) */
+    /* Categories (Xuống dưới) */
     #sidebar > :nth-child(3) {
-        display: block !important; order: 2 !important; 
-        width: 100% !important; margin-top: 5px !important; border: none !important; 
-        background: transparent !important;
+        display: block !important; order: 2 !important; width: 100% !important; 
+        margin-top: 5px !important; border: none !important; background: transparent !important;
     }
     #sidebar > :nth-child(3) ul {
         display: flex !important; flex-wrap: wrap !important; justify-content: center !important;
@@ -624,18 +631,13 @@ a:hover {
     }
     #sidebar > :nth-child(3) li { display: inline-block !important; margin: 0 !important; }
 
-    /* --- 3. NAVBAR (THANH ĐIỀU HƯỚNG) --- */
+    /* --- 4. NAVBAR --- */
     nav {
-        position: relative !important; top: auto; left: auto;
-        height: auto !important; 
+        position: relative !important; height: auto !important; 
         display: flex !important; flex-wrap: wrap !important;
         justify-content: space-between !important; align-items: center !important;
-        padding: 5px 15px !important; /* Căn lề đồng bộ với content */
-        background: var(--bg-color, #1a1a1a);
-        z-index: 99;
+        padding: 5px 15px !important; background: var(--bg-color, #1a1a1a); z-index: 99;
     }
-
-    .nav-left { display: flex; align-items: center; }
     nav > a:first-child { margin-right: 10px !important; display: flex; align-items: center; }
     nav svg { width: 20px; height: 20px; }
     nav ul { display: flex !important; gap: 10px !important; margin: 0 !important; padding: 0 !important; }
@@ -646,68 +648,55 @@ a:hover {
     #theme-toggle, .theme-switch { margin-left: auto !important; transform: scale(0.8); }
     #search-input, input[type="text"] { order: 99; width: 100% !important; margin-top: 5px !important; height: 32px !important; }
 
-    /* --- 4. MAIN CONTENT (CĂN GIỮA & GIÃN ĐỀU) --- */
+    /* --- 5. MAIN CONTENT --- */
     main {
-        position: relative !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        /* Padding 15px: Khoảng cách an toàn để chữ không dính mép */
-        padding: 20px 15px 0 15px !important; 
+        position: relative !important; width: 100% !important; max-width: 100% !important;
+        margin: 0 !important; padding: 20px 15px 0 15px !important; 
         box-sizing: border-box !important;
     }
-
     main > div, article, .container, .content, .post-content {
         width: 100% !important; padding: 0 !important; margin: 0 !important;
     }
-
-    /* Text: Căn đều 2 bên (Justify) */
+    /* Text thường */
     p, li, span {
-        width: 100% !important;
-        font-size: 16px !important; 
-        line-height: 1.6 !important;
-        text-align: justify !important; /* 🔥 LỆNH LÀM ĐẦY 2 BÊN LỀ 🔥 */
-        word-wrap: break-word !important;
+        width: 100% !important; font-size: 16px !important; line-height: 1.6 !important;
+        text-align: justify !important; word-wrap: break-word !important;
     }
-    
-    /* Tiêu đề vẫn căn trái cho đẹp */
     h1, h2, h3, h4, h5 { text-align: left !important; margin-top: 1.5em !important; }
     .post-title, h1:first-of-type { margin-top: 10px !important; text-align: center !important; }
 
-    /* --- 5. CODE BLOCK (SCROLLBAR & STYLE GIỐNG PC) --- */
+    /* --- 6. FIX HIỂN THỊ KHUNG CODE --- */
     .highlight {
-        width: 100% !important;
-        margin: 15px 0 !important;
-        border-radius: 6px !important;
-        background-color: #1a2844 !important; /* Màu xanh đen GitHub */
-        border: 1px solid #30363d !important;
-        overflow: hidden !important; /* Ẩn thanh cuộn của khung ngoài */
+        width: 100% !important; margin: 15px 0 !important; border-radius: 6px !important;
+        background-color: #0d1117 !important; border: 1px solid #30363d !important;
+        overflow: hidden !important; /* Ẩn thanh cuộn khung ngoài */
+    }
+    .highlight table { display: block !important; width: 100% !important; }
+    
+    /* Chỉnh lại cột số dòng bên trái */
+    .highlight td:first-child {
+        width: 35px !important; min-width: 35px !important;
+        padding-right: 5px !important;
+        text-align: right !important;
+        vertical-align: top !important;
     }
 
-    .highlight table {
+    /* Thanh cuộn mobile */
+    .highlight td:last-child pre { 
+        overflow-x: auto !important; 
+        padding-bottom: 5px !important; 
         display: block !important;
-        width: 100% !important;
-        overflow-x: auto !important; /* Chỉ cuộn cái bảng bên trong */
-    }
-
-    /* Cột code bên phải: Ép hiện thanh cuộn */
-    .highlight td:last-child pre {
-        overflow-x: auto !important;
-        padding-bottom: 5px !important;
+        white-space: pre !important;
     }
     
-    /* Thanh cuộn trên điện thoại (Mảnh hơn PC chút) */
-    .highlight td:last-child pre::-webkit-scrollbar { height: 4px !important; }
-    .highlight td:last-child pre::-webkit-scrollbar-thumb { background: #58a6ff; border-radius: 2px; }
-
-    /* Ảnh */
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-        margin: 15px auto !important;
-        display: block;
-        border-radius: 5px;
+    /* Xử lý Inline Code (Cái chữ flag_checker.exe bị to) */
+    p code, li code {
+        font-size: 13px !important; /* Kích thước riêng cho code trong dòng */
+        padding: 2px 4px !important;
+        word-break: break-all !important;
     }
+
+    img { max-width: 100% !important; height: auto !important; margin: 15px auto !important; display: block; border-radius: 5px; }
 }
 
 </style>
