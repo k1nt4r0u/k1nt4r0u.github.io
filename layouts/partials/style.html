@@ -526,7 +526,6 @@ a:hover {
     vertical-align: top !important; /* Căn đỉnh để dòng 1 luôn khớp dòng 1 */
 }
 
-/* 3. CỘT SỐ DÒNG (BÊN TRÁI) */
 .highlight td:first-child {
     width: 50px !important; /* Cố định chiều rộng cột số */
     min-width: 50px !important;
@@ -610,25 +609,35 @@ a:hover {
     }
     #sidebar > :nth-child(3) li { display: inline-block !important; margin: 0 !important; }
 
-    /* --- 3. NAVBAR (GIỮ NGUYÊN) --- */
-    nav {
+	nav {
         position: relative !important; height: auto !important; 
         display: flex !important; flex-wrap: wrap !important;
-        justify-content: space-between !important; align-items: center !important;
+        /* Căn giữa menu vì mất nút Home bên trái rồi */
+        justify-content: center !important; 
+        align-items: center !important;
         padding: 5px 15px !important; background: var(--bg-color, #1a1a1a); z-index: 99;
     }
-    nav > a:first-child { margin-right: 10px !important; display: flex; align-items: center; }
+
+    /* 🔥 XÓA SỔ NÚT HOME HÌNH NGÔI NHÀ 🔥 */
+    .home-btn, 
+    .navbar-left, 
+    nav > a:first-child,
+    nav a[href="/"] svg { 
+        display: none !important; 
+    }
+
     nav svg { width: 20px; height: 20px; }
     nav ul { display: flex !important; gap: 10px !important; margin: 0 !important; padding: 0 !important; }
     nav ul li { list-style: none; display: inline-block; }
     nav ul li a { font-size: 13px !important; font-weight: bold; }
-    nav ul li a[href="/"], nav ul li a[href="https://k1nt4r0u.github.io/"] { font-size: 0 !important; }
-    nav ul li a[href="/"] svg { font-size: 14px !important; }
+    
+    /* Ẩn luôn link Home trong list nếu mày không thích, hoặc để lại text */
+    /* nav ul li a[href="/"] { display: none !important; } */
+
     #theme-toggle, .theme-switch { margin-left: auto !important; transform: scale(0.8); }
     #search-input, input[type="text"] { order: 99; width: 100% !important; margin-top: 5px !important; height: 32px !important; }
 
-    /* --- 4. CONTENT (GIỮ NGUYÊN) --- */
-    main {
+	main {
         position: relative !important; width: 100% !important; max-width: 100% !important;
         margin: 0 !important; padding: 20px 15px 0 15px !important; 
         box-sizing: border-box !important;
