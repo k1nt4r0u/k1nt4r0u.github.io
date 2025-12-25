@@ -3,7 +3,8 @@ title: "WannaGame Championship 2025 - Reversing Writeup"
 date: 2025-12-25T21:37:47+07:00
 draft: false
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["WannaGame Championship 2025"]
+contest: "WannaGame Championship 2025"
 author: "k1nt4r0u"
 description: "Description: "
 ---
