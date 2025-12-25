@@ -479,4 +479,146 @@ a:hover {
     background-color: transparent !important;
 }
 
+/* =================================================================
+   MOBILE RESPONSIVE (BẢN FINAL - HIỆN WELCOME TEXT)
+   ================================================================= */
+@media screen and (max-width: 900px) {
+
+    /* --- 1. RESET BODY --- */
+    html, body {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+	/* ... (Phần trên giữ nguyên) ... */
+
+    /* 2. XỬ LÝ SIDEBAR (STACK: WELCOME TRÊN, CATS DƯỚI) */
+    #sidebar {
+        position: relative !important;
+        height: auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        
+        display: flex !important;
+        flex-direction: column !important; /* Xếp dọc từ trên xuống */
+        align-items: center !important;
+        justify-content: center !important;
+        
+        padding: 15px 10px !important;
+        border-bottom: 1px solid #333;
+        background: var(--bg-color, #1a1a1a);
+    }
+
+    /* ❌ BƯỚC 1: ẨN HẾT TẤT CẢ */
+    #sidebar > * { display: none !important; }
+
+    /* ✅ BƯỚC 2: HIỆN CATEGORIES (SỐ 3) - CHO XUỐNG DƯỚI */
+    #sidebar > :nth-child(3) {
+        display: block !important;
+        order: 2 !important; /* Số to hơn thì nằm dưới */
+        width: 100% !important;
+        margin-top: 10px !important; /* Cách thằng trên ra một tí */
+        border: none !important;
+    }
+
+    /* ✅ BƯỚC 3: HIỆN WELCOME (THỬ SỐ 4) - CHO LÊN ĐẦU */
+    /* Nếu F5 mà ko thấy Welcome, hãy sửa số 4 thành số 5 nhé! */
+    #sidebar > :nth-child(4) {
+        display: block !important;
+        order: 1 !important; /* Số bé hơn thì nằm trên */
+        width: 100% !important;
+        text-align: center !important;
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Chỉnh chữ Welcome cho đẹp */
+    #sidebar > :nth-child(4) h1, 
+    #sidebar > :nth-child(4) h2 { 
+        font-size: 20px !important; 
+        color: var(--primary-color, #fff);
+        margin: 0 0 5px 0 !important;
+    }
+    #sidebar > :nth-child(4) p { color: #aaa; margin: 0 !important; }
+
+    /* Chỉnh chữ Categories cho gọn lại (nếu nó to quá) */
+    #sidebar > :nth-child(3) h2 { /* Tiêu đề "Categories" */
+        font-size: 16px !important;
+        text-align: center;
+        margin-bottom: 5px !important;
+        text-transform: uppercase;
+        color: #888;
+    }
+    
+    #sidebar > :nth-child(3) ul { /* List danh mục */
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    #sidebar > :nth-child(3) ul li {
+        list-style: none !important;
+        display: inline-block !important;
+        font-size: 13px !important;
+        background: #222; /* Màu nền nút category */
+        padding: 2px 8px;
+        border-radius: 4px;
+    }
+
+    /* ... (Phần Navbar giữ nguyên) ... */
+    
+	/* --- 3. NAVBAR & NÚT THEME NHỎ --- */
+    nav {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 5px 10px !important;
+        height: auto !important;
+    }
+
+    .nav-left { display: flex; align-items: center; }
+    nav > a:first-child { margin-right: 10px !important; }
+    nav svg { width: 20px; height: 20px; }
+
+    nav ul {
+        display: flex !important;
+        gap: 15px !important;
+        margin: 0 !important; padding: 0 !important;
+    }
+    nav ul li { display: inline-block; list-style: none; }
+    nav ul li a { font-size: 13px !important; font-weight: bold; }
+    
+    /* Ẩn chữ Home */
+    nav ul li a[href="/"], nav ul li a[href="https://k1nt4r0u.github.io/"] {
+        font-size: 0 !important;
+    }
+    nav ul li a[href="/"] svg { font-size: 14px !important; }
+
+    /* 🔥 NÚT THEME BÉ XÍU 🔥 */
+    #theme-toggle, .theme-switch {
+        margin-left: auto !important;
+        transform: scale(0.7) !important; /* Thu nhỏ còn 70% */
+        transform-origin: right center; /* Co về phía bên phải */
+    }
+
+    /* Search Bar */
+    #search-input, input[type="text"] {
+        width: 100% !important;
+        order: 99;
+        margin-top: 5px !important;
+        height: 30px !important;
+        font-size: 12px !important;
+    }
+
+    main { width: 100% !important; padding: 15px !important; }
+}
+
 </style>

@@ -6,7 +6,7 @@ title: "About Me"
 
 Hi there! 👋 I'm **Hoang Anh Dung**, but you can call me **k1nt4r0u**.
 
-I'm a freshman student studying **Information Security** at **Ho Chi Minh City University of Information Technology (HCMUIT)**, and I'm passionate about diving deep into the world of cybersecurity.
+I'm a **Information Security** freshman at **Ho Chi Minh City University of Information Technology (HCMUIT)**, and I'm passionate about diving deep into the world of cybersecurity.
 
 ## What I Do
 
