@@ -571,11 +571,11 @@ a:hover {
 }
 
 /* =================================================================
-   MOBILE RESPONSIVE FINAL (GIỮ DESIGN CŨ - FIX LỖI CUỘN KẸT)
+   MOBILE RESPONSIVE FINAL (FIX WIDTH CỘT SỐ DÒNG NHỎ LẠI)
    ================================================================= */
 @media screen and (max-width: 900px) {
 
-    /* --- 1. CƠ BẢN (CHỐNG FONT TO) --- */
+    /* --- 1. CƠ BẢN --- */
     html, body {
         width: 100% !important;
         overflow-x: hidden !important;
@@ -643,16 +643,13 @@ a:hover {
     h1, h2, h3, h4, h5 { text-align: left !important; margin-top: 1.5em !important; }
     .post-title, h1:first-of-type { margin-top: 10px !important; text-align: center !important; }
 
-    /* --- 5. CODE BLOCK (FIX SCROLL + GIỮ DESIGN) --- */
-    
-    /* Khung ngoài: Giữ design bo góc, màu nền */
+    /* --- 5. CODE BLOCK --- */
     .highlight {
         width: 100% !important; margin: 15px 0 !important; border-radius: 6px !important;
         background-color: #1a2844 !important; border: 1px solid #30363d !important;
-        overflow: hidden !important; /* Ẩn thanh cuộn của khung bao */
+        overflow: hidden !important; 
     }
 
-    /* Font chữ: Giữ 12px, cấm font to */
     .highlight, .highlight * {
         font-size: 12px !important; 
         line-height: 1.5 !important;
@@ -660,55 +657,47 @@ a:hover {
         -webkit-text-size-adjust: none !important;
     }
 
-    /* 🔥 FLEXBOX LAYOUT CHO CODE TABLE 🔥 */
-    /* Phá vỡ cấu trúc bảng để cuộn mượt hơn */
-    .highlight table, .highlight tbody { 
-        display: block !important; 
-        width: 100% !important; 
-    }
-    
-    .highlight tr {
-        display: flex !important; /* Xếp ngang dòng số và dòng code */
-        width: 100% !important;
-    }
+    /* Flex layout */
+    .highlight table, .highlight tbody { display: block !important; width: 100% !important; }
+    .highlight tr { display: flex !important; width: 100% !important; }
 
-    /* Cột SỐ DÒNG (Bên trái) */
+    /* 🔥 Cột SỐ DÒNG (Bên trái) - ĐÃ THU NHỎ 🔥 */
     .highlight td:first-child {
         display: block !important;
-        flex: 0 0 35px !important; /* Cố định 35px, ko co giãn */
-        width: 35px !important;
-        padding-right: 5px !important;
-        text-align: right !important;
+        /* Giảm xuống 25px */
+        flex: 0 0 10px !important; 
+        width: 7px !important;
+        
+        padding-right: 4px !important; /* Giảm padding lại chút cho đỡ lấn */
+        text-align: center !important;
         border-right: 1px solid #30363d !important;
         background-color: rgba(0,0,0,0.2) !important;
+        
+        /* Font số dòng bé hơn tí cho lọt khung */
+        font-size: 11px !important; 
     }
 
-    /* Cột CODE (Bên phải) - ĐÂY LÀ CHỖ SỬA LỖI SCROLL */
+    /* Cột CODE (Bên phải) - FIX SCROLL */
     .highlight td:last-child {
         display: block !important;
-        flex: 1 !important;        /* Chiếm toàn bộ phần còn lại */
-        width: 0 !important;       /* 🔥 QUAN TRỌNG: Reset width về 0 để Flexbox tự tính scroll */
-        min-width: 0 !important;   /* 🔥 QUAN TRỌNG: Cho phép nội dung co nhỏ hơn container */
-        overflow-x: auto !important; /* Bật thanh cuộn */
+        flex: 1 !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        overflow-x: auto !important;
         padding-left: 8px !important;
     }
 
-    /* Nội dung code bên trong */
     .highlight pre {
-        width: auto !important;   /* Để nó tự dài ra theo nội dung */
-        white-space: pre !important; /* Cấm xuống dòng */
-        overflow: visible !important; /* Để thằng cha (td) lo việc cuộn */
+        width: auto !important;
+        white-space: pre !important;
+        overflow: visible !important;
         word-wrap: normal !important;
     }
 
-    /* Style thanh cuộn cho nó đẹp tí */
+    /* Scrollbar */
     .highlight td:last-child::-webkit-scrollbar { height: 6px !important; }
-    .highlight td:last-child::-webkit-scrollbar-thumb { 
-        background: #58a6ff; 
-        border-radius: 3px; 
-    }
+    .highlight td:last-child::-webkit-scrollbar-thumb { background: #58a6ff; border-radius: 3px; }
 
-    /* Inline code & Ảnh */
     p code, li code { font-size: 13px !important; padding: 2px 4px !important; word-break: break-all !important; }
     img { max-width: 100% !important; height: auto !important; margin: 15px auto !important; display: block; border-radius: 5px; }
 }
