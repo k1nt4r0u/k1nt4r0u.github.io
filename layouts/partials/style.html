@@ -278,6 +278,60 @@ main {
     border-bottom: 1px solid var(--border-color);
 }
 
+/* =================================================================
+   FIX ARCHIVE LAYOUT: SWAP VỊ TRÍ (TIÊU ĐỀ TRÁI - NGÀY PHẢI)
+   ================================================================= */
+
+/* 1. Thiết lập Flexbox cho dòng bài viết */
+.archive-list li {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important; /* Đẩy 2 đầu */
+    padding: 10px 0 !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 2. ĐƯA TIÊU ĐỀ SANG TRÁI (ORDER 1) */
+.archive-list li a, 
+.archive-list li h1, 
+.archive-list li h2, 
+.archive-list li h3 {
+    order: 1 !important; /* Ưu tiên số 1 -> Nhảy sang trái */
+    text-align: left !important;
+    margin-right: auto !important; /* Đẩy thằng ngày tháng ra xa tít mù khơi */
+    padding-right: 15px !important; /* Khoảng cách an toàn */
+    font-weight: bold !important;
+    flex: 1 !important; /* Cho phép chiếm không gian */
+}
+
+/* 3. ĐƯA NGÀY THÁNG SANG PHẢI (ORDER 2) */
+/* Tao target tất cả các thẻ có khả năng là ngày tháng */
+.archive-list li > :not(a):not(h1):not(h2):not(h3), /* Chọn thằng KHÔNG PHẢI là tiêu đề */
+.archive-list li span, 
+.archive-list li time, 
+.archive-list li .date {
+    order: 2 !important; /* Số 2 -> Nhảy sang phải */
+    text-align: right !important;
+    white-space: nowrap !important; /* Giữ thẳng hàng */
+    font-size: 14px !important;
+    color: var(--text-color);
+    opacity: 0.7;
+    min-width: fit-content !important;
+}
+
+/* Mobile: Xếp dọc lại nếu màn hình quá bé */
+@media screen and (max-width: 600px) {
+    .archive-list li { flex-wrap: wrap !important; }
+    .archive-list li > :not(a):not(h1):not(h2):not(h3) {
+        order: 3 !important; /* Rớt xuống dòng dưới cùng */
+        width: 100% !important;
+        text-align: left !important;
+        margin-top: 5px !important;
+        font-size: 12px !important;
+    }
+}
+
 /* Single post */
 .single-post {
     max-width: 1000px;
