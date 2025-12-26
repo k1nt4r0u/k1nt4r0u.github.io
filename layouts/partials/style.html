@@ -22,6 +22,13 @@
 
 * { box-sizing: border-box; font-family: Verdana, Geneva, Tahoma, sans-serif; }
 
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: var(--bg-color);
     margin: 0;
@@ -33,16 +40,16 @@ body {
 #top section h1, 
 #top section h2, 
 #top section h3 {
-    margin-top: 0 !important; /* Xóa sạch khoảng cách thừa ở trên đầu tiêu đề */
+    margin-top: 0 !important; 
     padding-top: 0 !important;
-    line-height: 1.2 !important; /* Siết lại dòng cho gọn */
+    line-height: 1.2 !important; 
 }
 
 #top section {
-    padding-top: 15px !important; /* Mặc định nó là 1em (~16px), mày chỉnh nhỏ lại tùy ý */
+    padding-top: 15px !important; 
 }
 
-/* Top Navbar */
+
 #top-navbar {
     position: fixed;
     top: 0;
@@ -98,7 +105,6 @@ body {
     font-size: 14px;
 }
 
-/* Sidebar */
 #sidebar {
     display: flex;
     flex-direction: column;
@@ -194,7 +200,6 @@ main {
     box-shadow: var(--post-shadow-color) 5px 5px;
 }
 
-/* Writeups, Search, Archive pages */
 #content-full {
     max-width: 90%;
     margin: 2em auto;
@@ -236,7 +241,6 @@ main {
     margin: 0 0 0.8em 0;
 }
 
-/* Search page */
 #search-input-container { margin: 2em 0; }
 
 #search-input {
@@ -258,7 +262,6 @@ main {
     box-shadow: var(--post-shadow-color) 5px 5px;
 }
 
-/* Archive page */
 .archive-section {
     background-color: var(--bg-color2);
     border: 2px solid var(--border-color);
@@ -278,53 +281,44 @@ main {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* =================================================================
-   FIX ARCHIVE LAYOUT: SWAP VỊ TRÍ (TIÊU ĐỀ TRÁI - NGÀY PHẢI)
-   ================================================================= */
-
-/* 1. Thiết lập Flexbox cho dòng bài viết */
 .archive-list li {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: space-between !important; /* Đẩy 2 đầu */
+    justify-content: space-between !important; 
     padding: 10px 0 !important;
     border-bottom: 1px solid var(--border-color);
 }
 
-/* 2. ĐƯA TIÊU ĐỀ SANG TRÁI (ORDER 1) */
 .archive-list li a, 
 .archive-list li h1, 
 .archive-list li h2, 
 .archive-list li h3 {
-    order: 1 !important; /* Ưu tiên số 1 -> Nhảy sang trái */
+    order: 1 !important; 
     text-align: left !important;
-    margin-right: auto !important; /* Đẩy thằng ngày tháng ra xa tít mù khơi */
-    padding-right: 15px !important; /* Khoảng cách an toàn */
+    margin-right: auto !important; 
+    padding-right: 15px !important; 
     font-weight: bold !important;
-    flex: 1 !important; /* Cho phép chiếm không gian */
+    flex: 1 !important; 
 }
 
-/* 3. ĐƯA NGÀY THÁNG SANG PHẢI (ORDER 2) */
-/* Tao target tất cả các thẻ có khả năng là ngày tháng */
-.archive-list li > :not(a):not(h1):not(h2):not(h3), /* Chọn thằng KHÔNG PHẢI là tiêu đề */
+.archive-list li > :not(a):not(h1):not(h2):not(h3), 
 .archive-list li span, 
 .archive-list li time, 
 .archive-list li .date {
-    order: 2 !important; /* Số 2 -> Nhảy sang phải */
+    order: 2 !important; 
     text-align: right !important;
-    white-space: nowrap !important; /* Giữ thẳng hàng */
+    white-space: nowrap !important; 
     font-size: 14px !important;
     color: var(--text-color);
     opacity: 0.7;
     min-width: fit-content !important;
 }
 
-/* Mobile: Xếp dọc lại nếu màn hình quá bé */
 @media screen and (max-width: 600px) {
     .archive-list li { flex-wrap: wrap !important; }
     .archive-list li > :not(a):not(h1):not(h2):not(h3) {
-        order: 3 !important; /* Rớt xuống dòng dưới cùng */
+        order: 3 !important; 
         width: 100% !important;
         text-align: left !important;
         margin-top: 5px !important;
@@ -332,7 +326,6 @@ main {
     }
 }
 
-/* Single post */
 .single-post {
     max-width: 1000px;
     margin: 0 auto;
@@ -345,7 +338,7 @@ main {
 
 code:not(.highlight code) {
     background-color: var(--select-color);
-    color: var(--accent-color); /* Chỉ code dòng mới ăn màu theme */
+    color: var(--accent-color); 
     padding: 2px 6px;
     border-radius: 4px;
     font-family:'JetBrains Mono' ,'Consolas', 'Monaco', monospace;
@@ -379,7 +372,7 @@ code:not(.highlight code) {
     padding-right: 10px;
     border-right: 2px solid var(--border-color);
     background-color: rgba(0,0,0,0.1); 
-    color: var(--text-color); /* Số dòng dùng màu chữ thường */
+    color: var(--text-color); 
     opacity: 0.7;
     user-select: none; 
 }
@@ -400,8 +393,8 @@ code:not(.highlight code) {
 }
 
 .highlight code {
-    background-color: transparent !important; /* Xóa nền xanh nếu bị dính */
-    color: unset !important; /* QUAN TRỌNG: Gỡ bỏ màu accent, để nó tự do */
+    background-color: transparent !important; 
+    color: unset !important; 
     padding: 0;
     font-family: 'Consolas', 'Monaco', monospace;
 }
@@ -409,7 +402,6 @@ code:not(.highlight code) {
 .highlight span {
     font-family: 'Consolas', 'Monaco', monospace !important;
     font-size: 15px !important;
-    /* KHÔNG ĐƯỢC set color ở đây, để Hugo tự sinh inline style */
 }
 
 .archive-subsection {
@@ -496,10 +488,10 @@ a:hover {
 }
 
 .highlight code {
-    background-color: transparent !important; /* Xóa cái nền xanh var(--select-color) đi */
-    padding: 0 !important; /* Bỏ padding thừa */
+    background-color: transparent !important; 
+    padding: 0 !important; 
     border-radius: 0 !important;
-    color: inherit !important; /* Để màu sắc tuân theo syntax highlighting */
+    color: inherit !important; 
     font-size: inherit !important;
 }
 
@@ -508,7 +500,7 @@ a:hover {
 }
 
 .highlight table {
-    table-layout: fixed !important; /* Bắt buộc bảng không được tự giãn */
+    table-layout: fixed !important; 
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 0 !important;
@@ -518,45 +510,42 @@ a:hover {
 .highlight td pre, 
 .highlight td code,
 .highlight span {
-    line-height: 1.5 !important; /* Ép tất cả cao bằng nhau */
-    font-size: 15px !important;  /* Ép font bằng nhau */
+    line-height: 1.5 !important; 
+    font-size: 15px !important;  
     font-family: 'JetBrains Mono', Consolas, Monaco, monospace !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    vertical-align: top !important; /* Căn đỉnh để dòng 1 luôn khớp dòng 1 */
+    vertical-align: top !important; 
 }
 
 .highlight td:first-child {
-    width: 50px !important; /* Cố định chiều rộng cột số */
+    width: 50px !important; 
     min-width: 50px !important;
     max-width: 50px !important;
     text-align: right !important;
-    padding: 10px 10px 10px 0 !important; /* Căn chỉnh padding */
-    background-color: rgba(0,0,0,0.2) !important; /* Màu nền cột số */
-    color: #6e7681 !important; /* Màu số dòng */
+    padding: 10px 10px 10px 0 !important; 
+    background-color: rgba(0,0,0,0.2) !important; 
+    color: #6e7681 !important; 
     border-right: 1px solid #30363d !important;
     user-select: none;
 }
 
-/* 4. CỘT CODE (BÊN PHẢI) - QUAN TRỌNG NHẤT */
 .highlight td:last-child {
-    width: auto !important; /* Chiếm phần còn lại */
-    padding: 10px !important; /* Padding bao quanh code */
-    overflow: hidden !important; /* Ẩn cái thừa của ô chứa */
+    width: auto !important; 
+    padding: 10px !important; 
+    overflow: hidden !important; 
 }
 
-/* 5. THẺ PRE BÊN TRONG (KẺ TẠO RA THANH CUỘN) */
 .highlight td:last-child pre {
     width: 100% !important;
-    overflow-x: auto !important; /* TỰ ĐỘNG HIỆN THANH CUỘN */
-    white-space: pre !important; /* CẤM XUỐNG DÒNG */
+    overflow-x: auto !important; 
+    white-space: pre !important; 
     word-wrap: normal !important;
     display: block !important;
     background: transparent !important;
     border: none !important;
 }
 
-/* 6. STYLE THANH CUỘN CHO ĐẸP (Giống GitHub) */
 .highlight pre::-webkit-scrollbar {
     height: 8px !important;
     background: #0d1117;
@@ -569,7 +558,6 @@ a:hover {
     background: #58a6ff;
 }
 
-/* --- STYLE NÚT ICON COPY --- */
 .copy-code-button {
     position: absolute;
     top: 8px;
@@ -579,23 +567,21 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #30363d; /* Màu chuẩn dark theme của mày */
+    background-color: #30363d; 
     color: #c9d1d9;
     border: 1px solid #444c56;
     border-radius: 6px;
     cursor: pointer;
     z-index: 99;
-    opacity: 0; /* Di chuột vào mới hiện */
+    opacity: 0; 
     transition: all 0.2s ease;
 }
 
-/* Icon bên trong nút */
 .copy-code-button svg {
     width: 18px;
     height: 18px;
 }
 
-/* Hiện nút khi hover vào vùng code */
 .highlight:hover .copy-code-button {
     opacity: 1;
 }
@@ -606,7 +592,6 @@ a:hover {
     color: #fff;
 }
 
-/* Khi đã copy xong đổi sang màu xanh lá */
 .copy-code-button.copied {
     border-color: #1a2844 !important;
     background-color: #1a2844 !important;
@@ -614,7 +599,6 @@ a:hover {
     opacity: 1 !important;
 }
 
-/* Mobile: Luôn hiện cho người ta thấy mà bấm */
 @media screen and (max-width: 900px) {
     .copy-code-button {
         opacity: 1;
@@ -636,18 +620,16 @@ html, body {
     flex-direction: column;
 }
 
-/* 2. Ép phần nội dung chính (main) tự giãn ra để đẩy footer xuống */
 main {
-    flex: 1 0 auto; /* Nó sẽ tự lấp đầy khoảng trống còn lại */
+    flex: 1 0 auto; 
 }
 
-/* --- FOOTER STYLE --- */
 #footer {
     margin-top: 18px;
     padding: 20px 0;
     border-top: 1px solid var(--border-color);
     color: var(--text-color);
-    opacity: 0.6; /* Làm mờ nhẹ cho chuyên nghiệp */
+    opacity: 0.6; 
     text-align: center;
     font-size: 11px;
     line-height: 1;
@@ -668,10 +650,9 @@ main {
 
 .footer-container p {
     margin: 5px 0 !important;
-    text-align: center !important; /* Ghi đè cái justify trên mobile nãy giờ */
+    text-align: center !important; 
 }
 
-/* Fix mobile: Footer không được giãn đều (justify) */
 @media screen and (max-width: 900px) {
     #footer {
         padding: 15px 10px;
@@ -681,12 +662,9 @@ main {
         text-align: center !important;
     }
 }
-/* =================================================================
-   MOBILE RESPONSIVE FINAL (FIX WIDTH CỘT SỐ DÒNG NHỎ LẠI)
-   ================================================================= */
+
 @media screen and (max-width: 900px) {
 
-    /* --- 1. CƠ BẢN --- */
     html, body {
         width: 100% !important;
         overflow-x: hidden !important;
@@ -694,7 +672,6 @@ main {
         text-size-adjust: 100% !important;
     }
 
-    /* --- 2. SIDEBAR (GIỮ NGUYÊN) --- */
     #sidebar {
         position: relative !important; width: 100% !important;
         display: flex !important; flex-direction: column !important;
@@ -724,13 +701,11 @@ main {
 	nav {
         position: relative !important; height: auto !important; 
         display: flex !important; flex-wrap: wrap !important;
-        /* Căn giữa menu vì mất nút Home bên trái rồi */
         justify-content: center !important; 
         align-items: center !important;
         padding: 5px 15px !important; background: var(--bg-color, #1a1a1a); z-index: 99;
     }
 
-    /* 🔥 XÓA SỔ NÚT HOME HÌNH NGÔI NHÀ 🔥 */
     .home-btn, 
     .navbar-left, 
     nav > a:first-child,
@@ -742,10 +717,6 @@ main {
     nav ul { display: flex !important; gap: 10px !important; margin: 0 !important; padding: 0 !important; }
     nav ul li { list-style: none; display: inline-block; }
     nav ul li a { font-size: 13px !important; font-weight: bold; }
-    
-    /* Ẩn luôn link Home trong list nếu mày không thích, hoặc để lại text */
-    /* nav ul li a[href="/"] { display: none !important; } */
-
     #theme-toggle, .theme-switch { margin-left: auto !important; transform: scale(0.8); }
     #search-input, input[type="text"] { order: 99; width: 100% !important; margin-top: 5px !important; height: 32px !important; }
 
@@ -764,7 +735,6 @@ main {
     h1, h2, h3, h4, h5 { text-align: left !important; margin-top: 1.5em !important; }
     .post-title, h1:first-of-type { margin-top: 10px !important; text-align: center !important; }
 
-    /* --- 5. CODE BLOCK --- */
     .highlight {
         width: 100% !important; margin: 15px 0 !important; border-radius: 6px !important;
         background-color: #1a2844 !important; border: 1px solid #30363d !important;
@@ -778,27 +748,22 @@ main {
         -webkit-text-size-adjust: none !important;
     }
 
-    /* Flex layout */
     .highlight table, .highlight tbody { display: block !important; width: 100% !important; }
     .highlight tr { display: flex !important; width: 100% !important; }
 
-    /* 🔥 Cột SỐ DÒNG (Bên trái) - ĐÃ THU NHỎ 🔥 */
     .highlight td:first-child {
         display: block !important;
-        /* Giảm xuống 25px */
         flex: 0 0 10px !important; 
         width: 7px !important;
         
-        padding-right: 4px !important; /* Giảm padding lại chút cho đỡ lấn */
+        padding-right: 4px !important; 
         text-align: center !important;
         border-right: 1px solid #30363d !important;
         background-color: rgba(0,0,0,0.2) !important;
         
-        /* Font số dòng bé hơn tí cho lọt khung */
         font-size: 11px !important; 
     }
 
-    /* Cột CODE (Bên phải) - FIX SCROLL */
     .highlight td:last-child {
         display: block !important;
         flex: 1 !important;
@@ -815,7 +780,6 @@ main {
         word-wrap: normal !important;
     }
 
-    /* Scrollbar */
     .highlight td:last-child::-webkit-scrollbar { height: 6px !important; }
     .highlight td:last-child::-webkit-scrollbar-thumb { background: #58a6ff; border-radius: 3px; }
 
