@@ -628,7 +628,46 @@ a:hover {
         height: 16px;
     }
 }
+/* --- FOOTER STYLE --- */
+#footer {
+    margin-top: 50px;
+    padding: 30px 0;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color);
+    opacity: 0.6; /* Làm mờ nhẹ cho chuyên nghiệp */
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.8;
+}
 
+#footer a {
+    color: var(--text-color);
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+#footer a:hover {
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.footer-container p {
+    margin: 5px 0 !important;
+    text-align: center !important; /* Ghi đè cái justify trên mobile nãy giờ */
+}
+
+/* Fix mobile: Footer không được giãn đều (justify) */
+@media screen and (max-width: 900px) {
+    #footer {
+        padding: 20px 15px;
+        font-size: 12px;
+    }
+    #footer p {
+        text-align: center !important;
+    }
+}
 /* =================================================================
    MOBILE RESPONSIVE FINAL (FIX WIDTH CỘT SỐ DÒNG NHỎ LẠI)
    ================================================================= */

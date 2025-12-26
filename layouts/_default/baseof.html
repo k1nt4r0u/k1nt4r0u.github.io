@@ -63,5 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(addCopyButtons, 500);
 });
 </script>
+<footer id="footer">
+    <div class="footer-container">
+        <p>© {{ now.Format "2006" }} {{ .Site.Title }}. All rights reserved.</p>
+        <p>Powered by <a href="https://github.com/k1nt4r0u/k1nt4r0u.github.io" target="_blank">Hugo</a> & <a href="https://github.com/salatine/neopost" target="_blank">neopost</a></p>
+    </div>
+</footer>
 </body>
 </html>
