@@ -49,10 +49,7 @@ This blog serves as my digital notebook where I:
 
 ## Contact & Socials
 
-- **Age:** 18
-- **Pronouns:** he/him
 - **GitHub:** [@k1nt4r0u](https://github.com/k1nt4r0u)
-- **Email:** dunghoanganh1267@gmail.com
 
 ## Let's Connect!
 
