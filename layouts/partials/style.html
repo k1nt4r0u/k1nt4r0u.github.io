@@ -569,6 +569,66 @@ a:hover {
     background: #58a6ff;
 }
 
+/* --- STYLE NÚT ICON COPY --- */
+.copy-code-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #30363d; /* Màu chuẩn dark theme của mày */
+    color: #c9d1d9;
+    border: 1px solid #444c56;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 99;
+    opacity: 0; /* Di chuột vào mới hiện */
+    transition: all 0.2s ease;
+}
+
+/* Icon bên trong nút */
+.copy-code-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Hiện nút khi hover vào vùng code */
+.highlight:hover .copy-code-button {
+    opacity: 1;
+}
+
+.copy-code-button:hover {
+    background-color: #444c56;
+    border-color: #8b949e;
+    color: #fff;
+}
+
+/* Khi đã copy xong đổi sang màu xanh lá */
+.copy-code-button.copied {
+    border-color: #1a2844 !important;
+    background-color: #1a2844 !important;
+    color: white !important;
+    opacity: 1 !important;
+}
+
+/* Mobile: Luôn hiện cho người ta thấy mà bấm */
+@media screen and (max-width: 900px) {
+    .copy-code-button {
+        opacity: 1;
+        width: 28px;
+        height: 28px;
+        top: 5px;
+        right: 5px;
+    }
+    .copy-code-button svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 /* =================================================================
    MOBILE RESPONSIVE FINAL (FIX WIDTH CỘT SỐ DÒNG NHỎ LẠI)
    ================================================================= */

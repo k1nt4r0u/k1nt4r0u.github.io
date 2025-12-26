@@ -15,5 +15,53 @@
 <main>
     {{ block "main" . }}{{ end }}
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const addCopyButtons = () => {
+        document.querySelectorAll('.highlight').forEach((box) => {
+            if (box.querySelector('.copy-code-button')) return;
+
+            // Tạo button và chèn icon SVG (2 ô vuông đè lên nhau)
+            const button = document.createElement('button');
+            button.className = 'copy-code-button';
+            button.type = 'button';
+            button.innerHTML = `
+                <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            `;
+
+            box.style.position = 'relative';
+            box.appendChild(button);
+
+            button.addEventListener('click', () => {
+                const codeElement = box.querySelector('td:last-child pre code') || 
+                                    box.querySelector('td:last-child pre') || 
+                                    box.querySelector('code');
+                
+                const textToCopy = codeElement.innerText;
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Hiện icon Check, ẩn icon Copy
+                    const iconCopy = button.querySelector('.icon-copy');
+                    const iconCheck = button.querySelector('.icon-check');
+                    
+                    iconCopy.style.display = 'none';
+                    iconCheck.style.display = 'block';
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        iconCopy.style.display = 'block';
+                        iconCheck.style.display = 'none';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    };
+
+    addCopyButtons();
+    setTimeout(addCopyButtons, 500);
+});
+</script>
 </body>
 </html>
