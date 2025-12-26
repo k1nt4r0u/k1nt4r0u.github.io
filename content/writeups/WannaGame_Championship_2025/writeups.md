@@ -2,11 +2,9 @@
 title: "WannaGame Championship 2025 - Reversing Writeup"
 date: 2025-12-25T21:37:47+07:00
 draft: false
-tags: ["ctf", "re"]
 categories: ["WannaGame Championship 2025"]
 contest: "WannaGame Championship 2025"
 author: "k1nt4r0u"
-description: "Description: "
 ---
 
 ## Buzzing
@@ -192,6 +190,9 @@ int __fastcall main(int argc, const char **argv, const char **envp)
 
 xem qua file flag_checker.exe lấy được từ option 1 thì mình vẫn không hiểu lắm vì có nhiều thuật toán lạ nên mình nhờ AI thì biết được chương trình sử dụng các thuật toán encrypt như `ChaCha20`, `RC4`, `lcg` và `xor` để check flag nên mình dùng `xref` để tìm nơi tạo key và tìm được các key, còn seed cho `lcg` thì mình chạy debug rồi break ngay sau khi chương trình gọi hàm `sub_140002370` rồi xem giá trị `rax` chính là seed cho decrypt `lcg`, thứ tự giải sẽ là `chacha` -> `lcg` -> `rc4` -> `xor skibidi`
 
+![image](/images/WGC2025/WGC2025_1.png)
+
+![image](/images/WGC2025/WGC2025_2.png)
 
 ```python 
 from Crypto.Cipher import ChaCha20, ARC4
@@ -335,6 +336,7 @@ public final class MainActivity extends l2 {
 }
 ```
 
+![image](/images/WGC2025/WGC2025_3.png)
 
 có vẻ như app này lấy device id từ đâu đó rồi nếu unauthorized thì terminate luôn và lấy từ thời điểm hiện tại + 180000 mili giây nữa mới cho mở lại app
 
@@ -383,6 +385,7 @@ if-nez v4, :cond_c
 
 ```
 
+!image](/images/WGC2025/WGC2025_4.png)
 
 sau đó mình build lại file apk sau khi đã patch rồi chạy lại xem nhưng lại không chạy được 
 

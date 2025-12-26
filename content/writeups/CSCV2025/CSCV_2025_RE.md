@@ -12,9 +12,9 @@ description: "Description: "
 ### ReezS
 When I take the very first look at this program i was just thinking this must be a basic `flag_checker` program
 
-![image](https://hackmd.io/_uploads/By1d4v8Rle.png)
+![image](/images/CSCV/CSCV_1.png)
 
-![image](https://hackmd.io/_uploads/B1IjD_LAle.png)
+![image](/images/CSCV/CSCV_2.png)
 
 so I basically just wrote a script in order to get the flag but all I got is `sorry_this_is_fake_flag!!!!!!!!!`
 
@@ -22,15 +22,15 @@ I took me more than 4 hours finding sussy stuff in this program. Fortunately, I 
 
 After the contest, thanks to an anti-debug challenge, I came up with the idea to check the import page which shows all function are imported into the program 
 
-![image](https://hackmd.io/_uploads/BJP_8DUCeg.png)
+![image](/images/CSCV/CSCV_3.png)
 
 Here we can see that `IsDebuggerPresent` is imported
 
 As I thought, `IsDebuggerPresent` is called when starting the program to check if it is being run by a debugger or not
 
-![image](https://hackmd.io/_uploads/rJlZPv8Cel.png)
+![image](/images/CSCV/CSCV_4.png)
 
-![Screenshot from 2025-10-22 21-24-10](https://hackmd.io/_uploads/rkLEC1DCex.png)
+![image](/images/CSCV/CSCV_5.png)
 
 Thus, the actual encoded flag are used to check our input when we use debugger so we just replace it in script and get the real flag hehe 
 This is my script:
@@ -55,11 +55,11 @@ if __name__ == '__main__':
 ### Chatbot
 In this challenge, I used IDA to disassemble the program and then I see some useful information
 
-![image](https://hackmd.io/_uploads/BJ7TqPLAlg.png)
+![image](/images/CSCV/CSCV_6.png)
 
 which means this is a pyinstaller generated executable file. Knowing that, I used `pyinstxtractor.py` to extract the file.
 
-![image](https://hackmd.io/_uploads/ryXtivIAel.png)
+![image](/images/CSCV/CSCV_7.png)
 While inspecting file `main.pyc`, since I cannot install `decompyle3` (skill issues), I used a decompiler online and got `main.py`
 
 ```python
@@ -219,15 +219,15 @@ try:
 
 Looking at the flag-decrypting part after verifying token, There's a function `decrypt_flag_file` which decrypt the encoded flag file from its path. Also, return to the top of this code, this function is imported from `libnative.so` (or `libnative.dll`) and here i got `libnative.so` so I used `IDA` to inspect the file to see what it do to decrypt the flag
 
-![image](https://hackmd.io/_uploads/S1TdpwL0gl.png)
+![image](/images/CSCV/CSCV_8.png)
 
 `decrypt_flag_file` function calls `recover_key`
 
-![image](https://hackmd.io/_uploads/SJRg0PLAlx.png)
+![image](/images/CSCV/CSCV_9.png)
 
 `recover_key` just deobfuscate the `OBF_KEY` with `MASK` through bunch of `XOR` operation to get the original `key`
 
-![image](https://hackmd.io/_uploads/HkTJkuLCgl.png)
+![image](/images/CSCV/CSCV_10.png)
 
 back to `decrypt_flag_file`, this program reads the first 16 bytes from flag.enc file as `iv` and the rest as `ciphertext`. It also compare the length of key with `0x1F`  in order to decide which decryption to use for each case
 
