@@ -697,28 +697,64 @@ main {
         gap: 5px !important; padding: 0 !important;
     }
     #sidebar > :nth-child(3) li { display: inline-block !important; margin: 0 !important; }
-
-	nav {
-        position: relative !important; height: auto !important; 
-        display: flex !important; flex-wrap: wrap !important;
-        justify-content: center !important; 
+    
+    nav {
+        position: relative !important; 
+        height: auto !important; 
+        display: flex !important; 
+        flex-wrap: wrap !important; 
+        justify-content: space-between !important;
         align-items: center !important;
-        padding: 5px 15px !important; background: var(--bg-color, #1a1a1a); z-index: 99;
+        gap: 10px !important;
+        padding: 10px 15px !important; 
+        z-index: 99;
     }
 
-    .home-btn, 
-    .navbar-left, 
-    nav > a:first-child,
-    nav a[href="/"] svg { 
+    .home-btn, .navbar-left, nav > a:first-child, nav a[href="/"] svg { 
         display: none !important; 
     }
 
-    nav svg { width: 20px; height: 20px; }
-    nav ul { display: flex !important; gap: 10px !important; margin: 0 !important; padding: 0 !important; }
-    nav ul li { list-style: none; display: inline-block; }
+    nav ul { 
+        display: flex !important; 
+        flex: 0 1 auto !important; 
+        gap: 12px !important; 
+        margin: 0 !important; 
+        padding: 0 !important; 
+        list-style: none !important;
+    }
     nav ul li a { font-size: 13px !important; font-weight: bold; }
-    #theme-toggle, .theme-switch { margin-left: auto !important; transform: scale(0.8); }
-    #search-input, input[type="text"] { order: 99; width: 100% !important; margin-top: 5px !important; height: 32px !important; }
+
+    .nav-controls {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        flex: 1 1 auto !important; 
+        justify-content: flex-end !important;
+    }
+
+    #search-input, input[type="text"] { 
+        display: block !important;
+        flex: 1 1 100px !important; 
+        max-width: 150px !important;
+        height: 32px !important; 
+        margin: 0 !important;
+        padding: 0 8px !important;
+        font-size: 13px !important;
+        border-radius: 4px !important;
+        box-sizing: border-box !important;
+    }
+
+    #theme-toggle, .theme-switch, select { 
+        display: block !important;
+        height: 32px !important;
+        width: 70px !important;
+        padding: 0 5px !important;
+        margin: 0 !important;
+        font-size: 12px !important;
+        border-radius: 4px !important;
+        transform: none !important; 
+        box-sizing: border-box !important;
+    }
 
 	main {
         position: relative !important; width: 100% !important; max-width: 100% !important;
