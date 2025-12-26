@@ -385,7 +385,7 @@ if-nez v4, :cond_c
 
 ```
 
-!image](/images/WGC2025/WGC2025_4.png)
+!p[image](/images/WGC2025/WGC2025_4.png)
 
 sau đó mình build lại file apk sau khi đã patch rồi chạy lại xem nhưng lại không chạy được 
 
