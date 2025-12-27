@@ -66,6 +66,8 @@ body {
     z-index: 1000;
 }
 
+
+/* Enhanced hover animations for navigation bar buttons */
 .navbar-left .home-btn {
     font-size: 24px;
     text-decoration: none;
@@ -77,6 +79,8 @@ body {
 .navbar-left .home-btn:hover {
     transform: translateY(-2px) scale(1.1) rotate(-5deg);
     color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+    filter: drop-shadow(0 0 5px var(--accent-color));
 }
 
 .navbar-center {
@@ -92,30 +96,16 @@ body {
     border-radius: 6px;
     position: relative;
     z-index: 1;
-    transition: color 0.3s ease;
-}
-
-.navbar-center .nav-link::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--select-color);
-    border-radius: 6px;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.3s ease-out;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .navbar-center .nav-link:hover {
     color: var(--accent-color);
-}
-
-.navbar-center .nav-link:hover::before {
-    transform: scaleY(1);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-color), 0 0 5px var(--accent-color) inset;
+    text-shadow: 0 0 10px var(--accent-color);
+    transform: translateY(-2px) scale(1.05);
 }
 
 .navbar-right {
@@ -133,7 +123,8 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#search-box:focus, #theme-switcher:focus {
+#search-box:focus, #theme-switcher:focus,
+#search-box:hover, #theme-switcher:hover {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 5px var(--accent-color);
@@ -278,7 +269,7 @@ main {
     padding: 0 3em;
 }
 
-.writeups-page h1, .search-page h1, .archive-page h1 {
+.writeups-page h1, .search-page h1, .archive-page h1, .tag-page h1 {
     font-size: 3em;
     color: var(--special-text-color);
     margin-bottom: 1em;
@@ -329,7 +320,7 @@ main {
 }
 
 .archive-section {
-    padding: 1.5em;
+    padding: 0.5em 2em; /* Further adjusted top/bottom padding */
     margin-bottom: 2.5em;
 }
 
@@ -365,6 +356,15 @@ main {
 .archive-list li {
     padding: 0.8em 0;
     border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.archive-list li:hover {
+    border-bottom: 1px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-color);
+    transform: scale(1.02);
+    padding: 0.8em 0.8em;
 }
 
 .archive-list li {
@@ -384,8 +384,16 @@ main {
     text-align: left !important;
     margin-right: auto !important; 
     padding-right: 15px !important; 
+    padding-left: 15px !important; /* Added space before the name */
     font-weight: bold !important;
-    flex: 1 !important; 
+    flex: 1 !important;
+    transition: all 0.3s ease;
+}
+
+.archive-list li a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+    transform: translateX(5px);
 }
 
 .archive-list li > :not(a):not(h1):not(h2):not(h3), 
@@ -399,18 +407,20 @@ main {
     color: var(--text-color);
     opacity: 0.7;
     min-width: fit-content !important;
+    padding-right: 15px !important; /* Added space after the date */
 }
 
 @media screen and (max-width: 600px) {
     .archive-list li { flex-wrap: wrap !important; }
-    .archive-list li > :not(a):not(h1):not(h2):not(h3) {
-        order: 3 !important; 
-        width: 100% !important;
-        text-align: left !important;
-        margin-top: 5px !important;
-        font-size: 12px !important;
-    }
-}
+        .archive-list li > :not(a):not(h1):not(h2):not(h3) {
+            order: 3 !important;
+            width: 100% !important;
+            text-align: left !important;
+            margin-top: 5px !important;
+            font-size: 12px !important;
+            padding-left: 15px !important; /* Added for alignment with title */
+            padding-right: 15px !important; /* Added for consistency */
+        }}
 
 .single-post {
     max-width: 1000px;
@@ -523,21 +533,22 @@ code:not(.highlight code) {
 
 .archive-subsection {
     margin-bottom: 2em;
-    padding-left: 1em;
+    padding-left: 0;
 }
 
 .archive-subsection h3 {
     color: var(--accent-color);
     font-size: 1.3em;
     margin-bottom: 0.8em;
-    padding-left: 0.5em;
-    border-left: 3px solid var(--accent-color);
+    padding-left: 0; /* Remove padding as border is removed */
+    border-left: none; /* Remove the line */
 }
 
 .no-content {
     color: var(--text-color);
     opacity: 0.6;
     font-style: italic;
+    padding: 1em; /* Added padding */
 }
 
 .about-page {
@@ -1025,7 +1036,7 @@ main, #sidebar {
 }
 
 .home-btn .feather-home {
-    transition: filter 0.3s ease-in-out;
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .home-btn .feather-home .home-icon-outline,
@@ -1052,7 +1063,8 @@ main, #sidebar {
 }
 
 .home-btn:hover .feather-home {
-    filter: drop-shadow(0 0 4px var(--accent-color)) drop-shadow(0 0 10px var(--accent-color));
+    filter: drop-shadow(0 0 6px var(--accent-color)) drop-shadow(0 0 12px var(--accent-color));
+    transform: scale(1.1) rotate(5deg);
 }
 
 .home-btn:hover .feather-home .home-icon-outline {
@@ -1061,6 +1073,53 @@ main, #sidebar {
 
 .home-btn:hover .feather-home .home-icon-details {
     animation: draw-details 0.5s ease-out forwards 0.2s; /* Staggered */
+}
+
+@media screen and (max-width: 600px) {
+    .writeups-list {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+    }
+
+    .writeups-page h1, .search-page h1, .archive-page h1, .tag-page h1 {
+        font-size: 2.5em; /* Decreased for mobile */
+    }
+
+    .contest-name {
+        font-size: 1.5em; /* Further decreased for mobile */
+    }
+
+    .writeup-card {
+        padding: 0.5em 1.5em; /* Further adjusted padding */
+    }
+
+    .writeup-card h3 {
+        font-size: 1.2em; /* Decreased for mobile */
+        margin-bottom: 1em;
+        word-break: break-word; /* Added for long titles */
+    }
+
+    .writeup-card h3 a {
+        display: inline-block;
+        padding: 0.2em 0.5em;
+    }
+
+    .writeup-card .writeup-meta {
+        margin-bottom: 1em;
+    }
+
+    .writeup-card .writeup-meta .date {
+        display: inline-block;
+        padding: 0.2em 0.5em;
+    }
+
+    .writeup-card .tags-inline .tag {
+        padding: 4px 10px;
+    }
+
+    .writeup-card .writeup-desc {
+        padding: 0.5em; /* Added side padding */
+    }
 }
 
 

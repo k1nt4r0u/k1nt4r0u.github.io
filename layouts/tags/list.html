@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div id="content-full">
+    <main class="tag-page">
+        <h1>Tag: {{ .Title }}</h1>
+
+        <section class="archive-section">
+            <ul class="archive-list">
+            {{ range .Pages }}
+                <li>
+                    <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </li>
+            {{ else }}
+                <li class="no-content">No content for this tag yet.</li>
+            {{ end }}
+            </ul>
+        </section>
+    </main>
+</div>
+{{ end }}
