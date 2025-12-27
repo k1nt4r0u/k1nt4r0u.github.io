@@ -1144,4 +1144,134 @@ main, #sidebar {
 }
 
 
+
+.writeups-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+}
+
+.writeup-card {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    padding: 2em;
+}
+
+.writeup-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
+    border-color: var(--accent-color);
+}
+
+.writeup-card h3 {
+    font-size: 1.5em;
+    margin: 0 0 0.8em 0;
+}
+
+.writeup-meta {
+    margin-bottom: 1em;
+}
+
+.writeup-desc {
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: 900px) {
+    .writeups-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Styling for the dedicated tag page */
+/* This section styles the dedicated tag page, including the header, post list, and specific styles for the 'RE' tag. */
+.tag-page-container {
+    max-width: 1200px;
+    margin: 2em auto;
+    padding: 0 2em;
+}
+
+.tag-page-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.tag-page-icon {
+    font-size: 4em;
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 10px var(--accent-color));
+}
+
+.tag-page-title {
+    font-size: 3.5em;
+    color: var(--special-text-color);
+    margin: 0;
+}
+
+/* Specific styling for the 'RE' tag page */
+.tag-page-re .tag-page-icon {
+    /* Replace with a more specific icon if available, e.g., a gear or a chip */
+    content: '⚙️'; 
+}
+
+.tag-page-re .tag-page-title {
+    color: #ff5722; /* A distinct, energetic color for RE */
+}
+
+/* list of posts under a tag */
+.tag-post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tag-post-item {
+    background-color: var(--bg-color2);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5em 2em;
+    margin-bottom: 1.5em;
+    box-shadow: var(--post-shadow-color) 5px 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.tag-post-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25), 0 0 25px color-mix(in srgb, var(--accent-color), transparent 40%);
+    border-color: var(--accent-color);
+}
+
+.tag-post-title {
+    font-size: 1.8em;
+    margin: 0 0 0.5em 0;
+}
+
+.tag-post-title a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.tag-post-title a:hover {
+    color: var(--accent-color);
+}
+
+.tag-post-meta {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+.tag-post-excerpt {
+    line-height: 1.7;
+}
 </style>
