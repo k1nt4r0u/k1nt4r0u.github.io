@@ -561,14 +561,17 @@ code:not(.highlight code) {
     border: 2px solid var(--border-color);
     border-radius: 20px; /* Changed from 0.5em */
     overflow: hidden; /* Added */
-    padding: 2em 3em;
+    padding: 2.5em 3.5em; /* Increased padding */
     box-shadow: var(--post-shadow-color) 5px 5px;
     line-height: 1.8;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+.about-page article p {
+    width: auto !important;
+}
+
 .about-page article:hover {
-    transform: translateY(-8px) scale(1.01);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
     border-color: var(--accent-color);
 }
@@ -701,7 +704,6 @@ a:hover {
 }
 
 .highlight:hover {
-    transform: translateY(-8px) scale(1.01);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
     border-color: var(--accent-color);
 }
@@ -804,10 +806,12 @@ main {
 
 @media screen and (max-width: 900px) {
     #footer {
-        padding: 15px 10px;
-        font-size: 6px;
+        padding: 5px 2px;
+        font-size: 3px;
+        line-height: 0.8;
     }
     #footer p {
+        margin: 0 !important;
         text-align: center !important;
     }
 }
@@ -824,28 +828,36 @@ main {
     #sidebar {
         position: relative !important; width: 100% !important;
         display: flex !important; flex-direction: column !important;
-        align-items: center !important; padding: 15px 10px !important;
+        align-items: flex-start !important;
+        padding: 15px 10px !important;
+        margin-left: -10px !important; /* Shift to the left */
         border-bottom: 1px solid #333; background: var(--bg-color, #1a1a1a);
         z-index: 100;
     }
     #sidebar > * { display: none !important; }
 
-    #sidebar > :nth-child(4) { 
-        display: block !important; order: 1 !important; width: 100% !important; 
-        text-align: center !important; margin-bottom: 5px !important; border: none !important;
+    #sidebar > :nth-child(1) {
+        display: block !important;
+        order: 1 !important;
+        width: 100% !important;
+        padding-right: 0.5em !important;
     }
-    #sidebar > :nth-child(4) h1 { font-size: 20px !important; margin: 0 !important; color: #fff; }
-    #sidebar > :nth-child(4) p { font-size: 13px !important; color: #aaa; margin: 0 !important; }
+
+    #sidebar > :nth-child(2) {
+        display: block !important;
+        order: 2 !important;
+        width: 100% !important;
+        padding-top: 0.5em !important;
+        padding-right: 0.5em !important;
+    }
 
     #sidebar > :nth-child(3) {
-        display: block !important; order: 2 !important; width: 100% !important; 
-        margin-top: 5px !important; border: none !important; background: transparent !important;
+        display: block !important;
+        order: 3 !important;
+        width: 100% !important;
+        padding-top: 0.5em !important;
+        padding-right: 0.5em !important;
     }
-    #sidebar > :nth-child(3) ul {
-        display: flex !important; flex-wrap: wrap !important; justify-content: center !important;
-        gap: 5px !important; padding: 0 !important;
-    }
-    #sidebar > :nth-child(3) li { display: inline-block !important; margin: 0 !important; }
     
     nav {
         position: relative !important; 
@@ -914,10 +926,19 @@ main {
         width: 100% !important; padding: 0 !important; margin: 0 !important;
     }
     p:not(.highlight), li:not(.highlight), span:not(.highlight *) {
-        width: 100% !important; font-size: 16px !important; line-height: 1.6 !important;
+        font-size: 16px !important; line-height: 1.6 !important;
         text-align: justify !important; word-wrap: break-word !important;
     }
+
+    .about-page article {
+        padding: 1em 1.5em !important;
+    }
+
     h1, h2, h3, h4, h5 { text-align: left !important; margin-top: 1.5em !important; }
+
+    .about-page h1 { /* Specific mobile title size */
+        font-size: 2em !important;
+    }
     .post-title, h1:first-of-type { margin-top: 10px !important; text-align: center !important; }
 
     .highlight {
