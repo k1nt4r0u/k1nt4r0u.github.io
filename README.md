@@ -4,7 +4,7 @@ Personal blog focused on reverse engineering, binary exploitation, and CTF write
 
 ## About
 
-- **Author:** Hoang Anh Dung (k1nt4r0u)
+- **Author:** k1nt4r0u
 - **Theme:** [neopost](https://github.com/salatine/neopost)
 - **Built with:** Hugo
 
@@ -19,7 +19,7 @@ git clone --recursive [your-repo-url]
 cd my-blog
 
 # Run local server
-hugo serve
+hugo server -D
 
 # Build site
 hugo
