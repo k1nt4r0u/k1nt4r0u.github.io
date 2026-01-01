@@ -6,13 +6,17 @@
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             if (prefersDark) {
                 setDarkTheme(root);
+                root.setAttribute('data-theme', 'midnight-blue-fancy');
             } else {
                 setLightTheme(root);
+                root.setAttribute('data-theme', 'azure-elegance');
             }
         } else if (theme === 'dark') {
             setDarkTheme(root);
+            root.setAttribute('data-theme', 'midnight-blue-fancy');
         } else {
             setLightTheme(root);
+            root.setAttribute('data-theme', 'azure-elegance');
         }
     }
     
