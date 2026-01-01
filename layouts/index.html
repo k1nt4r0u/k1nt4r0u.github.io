@@ -26,9 +26,10 @@
             <li><a href="{{ relLangURL "/malware-analysis" }}">Malware Analysis</a></li>
         </ul>
     </div>
-    
+</aside>
+<main>
     {{ with .Site.GetPage "section" "/welcome-header/_index.md" }}
-    <div class="sidebar-box intro-box">
+    <article id="top" class="clearfix">
         <section>
         <div class="img-right">
             <img src="{{ .Params.image }}">
@@ -48,10 +49,8 @@
             {{ end }}
             </ul>
         </section>
-    </div>
+    </article>
     {{ end }}
-</aside>
-<main>
 </main>
 </div>
 {{ end }}
