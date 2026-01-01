@@ -7,7 +7,7 @@ intro:
 list:
   name: "interests:"
   items: 
-    - "binary exploitation"
     - "reverse engineering"
+    - "binary exploitation"
     - "CTF competitions"
 ---

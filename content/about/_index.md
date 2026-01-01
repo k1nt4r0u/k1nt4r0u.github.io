@@ -31,9 +31,9 @@ I started my cybersecurity journey with a curiosity about how software works und
 - Reverse engineering
 
 **Tools I Use:**
-- IDA Pro / Ghidra (reverse engineering)
-- GDB / PEDA (debugging)
-- pwntools (exploit development)
+- IDA Pro / Ghidra 
+- GDB / PEDA 
+- pwntools 
 - Various Linux command-line tools
 
 ## Why This Blog?
@@ -48,6 +48,8 @@ This blog serves as my digital notebook where I:
 ## Contact & Socials
 
 - **GitHub:** [@k1nt4r0u](https://github.com/k1nt4r0u)
+- **CTFTime:** [k1n74r0u](https://ctftime.org/user/209586)
+- **HackMD:** [k1nt4r0u](https://hackmd.io/@k1nt4r0u)
 
 ## Let's Connect!
 
