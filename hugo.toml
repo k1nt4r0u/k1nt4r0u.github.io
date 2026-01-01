@@ -12,6 +12,12 @@ keywords = ["reverse engineering", "binary exploitation", "CTF", "infosec", "cyb
 [params.social]
 github = "k1nt4r0u"
 
+[params.giscus]
+repo = "k1nt4r0u/k1nt4r0u.github.io"
+repoId = "R_kgDOQuy82Q"
+category = "Announcements"
+categoryId = "DIC_kwDOQuy82c4C0c15"
+
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 

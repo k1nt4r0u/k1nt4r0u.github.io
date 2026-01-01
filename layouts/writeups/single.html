@@ -4,10 +4,51 @@
     <main class="single-post">
         <article>
             <h1>{{ .Title }}</h1>
+            
             <div class="post-content">
                 {{ .Content }}
             </div>
         </article>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <!-- View Counter and Date -->
+            <div class="post-meta">
+                <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+                <span class="separator">•</span>
+                <span class="view-count">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv">...</span> views
+                    </span>
+                </span>
+            </div>
+            
+            <h2>Comments</h2>
+            <script src="https://giscus.app/client.js"
+                    data-repo="{{ .Site.Params.giscus.repo }}"
+                    data-repo-id="{{ .Site.Params.giscus.repoId }}"
+                    data-category="{{ .Site.Params.giscus.category }}"
+                    data-category-id="{{ .Site.Params.giscus.categoryId }}"
+                    data-mapping="pathname"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="transparent_dark"
+                    data-lang="en"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        </div>
     </main>
 </div>
+
+<!-- View Counter Script -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 {{ end }}

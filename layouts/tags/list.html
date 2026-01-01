@@ -1,20 +1,31 @@
 {{ define "main" }}
 <div id="content-full">
-    <main class="tag-page">
-        <h1>Tag: {{ .Title }}</h1>
+    <main class="tag-page-container">
+        <div class="tag-page-header">
+            <span class="tag-page-icon">🏷️</span>
+            <h1 class="tag-page-title">{{ .Title }}</h1>
+        </div>
 
-        <section class="archive-section">
-            <ul class="archive-list">
-            {{ range .Pages }}
-                <li>
-                    <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+        <ul class="tag-post-list">
+        {{ range .Pages }}
+            <li class="tag-post-item">
+                <h2 class="tag-post-title">
                     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </li>
-            {{ else }}
-                <li class="no-content">No content for this tag yet.</li>
-            {{ end }}
-            </ul>
-        </section>
+                </h2>
+                <div class="tag-post-meta">
+                    <time>{{ .Date.Format "January 2, 2006" }}</time>
+                    {{ with .Params.categories }}
+                    <span> • {{ delimit . ", " }}</span>
+                    {{ end }}
+                </div>
+                {{ with .Summary }}
+                <div class="tag-post-excerpt">{{ . }}</div>
+                {{ end }}
+            </li>
+        {{ else }}
+            <li class="no-content">No content for this tag yet.</li>
+        {{ end }}
+        </ul>
     </main>
 </div>
 {{ end }}
