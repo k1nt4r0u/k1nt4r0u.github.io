@@ -4,7 +4,7 @@ date: {{ .Date }}
 draft: false
 tags: ["ctf", "re"]
 categories: ["CTF Name"]
-contest: "{{ replace .Name "-" " " | title }}""
+contest: "{{ replace .Name "-" " " | title }}"
 author: "k1nt4r0u"
 description: "Description: "
 ---
