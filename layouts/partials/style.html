@@ -74,55 +74,6 @@
     align-items: center;
 }
 
-/* Lightbox Zoom Controls */
-.lightbox-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 6px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 6px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--accent-color);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    align-items: center;
-}
-
-.zoom-btn {
-    background-color: transparent;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 4px 10px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-width: 30px;
-}
-
-.zoom-btn.zoom-reset {
-    font-size: 18px;
-    padding: 4px 8px;
-}
-
-.zoom-btn:hover {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    color: white;
-    box-shadow: 0 0 8px var(--accent-color);
-}
-
-.zoom-level {
-    color: var(--accent-color);
-    font-weight: bold;
-    font-size: 13px;
-    min-width: 40px;
-    text-align: center;
-}
-
 @keyframes zoomIn {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
@@ -157,28 +108,6 @@
     .lightbox-content {
         max-width: 95%;
         max-height: 95%;
-    }
-    
-    .lightbox-controls {
-        bottom: 10px;
-        padding: 5px 10px;
-        gap: 5px;
-    }
-    
-    .zoom-btn {
-        padding: 3px 8px;
-        font-size: 14px;
-        min-width: 28px;
-    }
-    
-    .zoom-btn.zoom-reset {
-        font-size: 16px;
-        padding: 3px 6px;
-    }
-    
-    .zoom-level {
-        font-size: 12px;
-        min-width: 35px;
     }
 }
 

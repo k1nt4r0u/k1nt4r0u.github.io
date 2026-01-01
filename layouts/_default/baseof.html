@@ -86,12 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="lightbox-image-container">
             <img class="lightbox-content" id="lightbox-img">
         </div>
-        <div class="lightbox-controls">
-            <button class="zoom-btn" id="zoom-out">−</button>
-            <span class="zoom-level">100%</span>
-            <button class="zoom-btn" id="zoom-in">+</button>
-            <button class="zoom-btn zoom-reset" id="zoom-reset">⟲</button>
-        </div>
     `;
     document.body.appendChild(lightbox);
 
@@ -100,13 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let startX, startY, translateX = 0, translateY = 0;
     const lightboxImg = document.getElementById('lightbox-img');
     const imageContainer = lightbox.querySelector('.lightbox-image-container');
-    const zoomLevel = lightbox.querySelector('.zoom-level');
 
     const updateZoom = (scale) => {
-        currentZoom = Math.max(0.5, Math.min(3, scale));
-        lightboxImg.style.transition = 'none';
+        currentZoom = Math.max(0.5, Math.min(5, scale));
+        lightboxImg.style.transition = 'transform 0.2s ease-out';
         lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
-        zoomLevel.textContent = Math.round(currentZoom * 100) + '%';
         lightboxImg.style.cursor = currentZoom > 1 ? 'grab' : 'default';
     };
 
@@ -118,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startX = e.clientX - translateX;
             startY = e.clientY - translateY;
             lightboxImg.style.cursor = 'grabbing';
+            lightboxImg.style.transition = 'none';
         }
     });
 
@@ -134,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isDragging) {
             isDragging = false;
             lightboxImg.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+            lightboxImg.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         }
     });
 
@@ -143,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentZoom > 1) {
             touchStartX = e.touches[0].clientX - translateX;
             touchStartY = e.touches[0].clientY - translateY;
+            lightboxImg.style.transition = 'none';
         }
     });
 
@@ -152,6 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
             translateX = e.touches[0].clientX - touchStartX;
             translateY = e.touches[0].clientY - touchStartY;
             lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+        }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchend', () => {
+        if (currentZoom > 1) {
+            lightboxImg.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        }
+    });
+
+    // Mouse wheel zoom
+    lightbox.addEventListener('wheel', (e) => {
+        if (lightbox.style.display === 'flex') {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            updateZoom(currentZoom + delta);
         }
     }, { passive: false });
 
@@ -168,15 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateZoom(1);
             document.body.style.overflow = 'hidden';
         });
-    });
-
-    // Zoom controls
-    document.getElementById('zoom-in').addEventListener('click', () => updateZoom(currentZoom + 0.25));
-    document.getElementById('zoom-out').addEventListener('click', () => updateZoom(currentZoom - 0.25));
-    document.getElementById('zoom-reset').addEventListener('click', () => {
-        translateX = 0;
-        translateY = 0;
-        updateZoom(1);
     });
 
     // Close lightbox
