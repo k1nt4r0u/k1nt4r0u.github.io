@@ -1143,6 +1143,10 @@ main {
 
 @media screen and (max-width: 900px) {
 
+    * {
+        max-width: 100% !important;
+    }
+
     html, body {
         width: 100% !important;
         overflow-x: hidden !important;
@@ -1158,8 +1162,10 @@ main {
 
     #content {
         max-width: 100% !important;
+        width: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
+        overflow-x: hidden !important;
     }
 
     .about-page {
@@ -1167,45 +1173,67 @@ main {
         margin: 0 !important;
     }
 
-    #sidebar {
-        position: relative !important; width: 100% !important;
-        display: flex !important; flex-direction: column !important;
-        align-items: flex-start !important;
-        padding: 15px 5px !important;
+    .sidebar-box {
+        padding: 1.5em !important;
         margin-left: 0 !important;
-        border-bottom: 1px solid #333; background: var(--bg-color, #1a1a1a);
-        z-index: 100;
+        margin-right: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
-    #sidebar > * { display: none !important; }
+
+    #avatar-box {
+        padding: 0 5px 5px 5px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    #sidebar {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; 
+        padding: 15px 2px !important; 
+        margin: 0 !important;
+        background: var(--bg-color, #1a1a1a);
+        border-bottom: 1px solid #333;
+        z-index: 100;
+        gap: 1em !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    #sidebar > * { 
+        display: block !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
 
     #sidebar > :nth-child(1) {
-        display: block !important;
         order: 1 !important;
-        width: 100% !important;
-        padding-right: 0 !important;
     }
     
     #sidebar > :nth-child(1) .flower {
-        width: 142% !important; /* Increased from 135% to 142% */
-        margin: 8px 0 3px -2px !important; /* Move down 8px, bottom 3px, left 2px (more right) */
+        width: 100% !important;
+        margin: 7px 0.1px 1px 0.2px !important; 
     }
 
     #sidebar > :nth-child(2) {
-        display: block !important;
         order: 2 !important;
-        width: 100% !important;
-        padding-top: 0.5em !important;
-        padding-right: 0 !important;
     }
 
     #sidebar > :nth-child(3) {
-        display: block !important;
         order: 3 !important;
-        width: 100% !important;
-        padding-top: 0.5em !important;
-        padding-right: 0 !important;
     }
     
+    #sidebar > :nth-child(4) {
+        order: 4 !important;
+    }
+    
+
+
     nav {
         position: relative !important; 
         height: auto !important; 
