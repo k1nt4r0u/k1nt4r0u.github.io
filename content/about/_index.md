@@ -8,7 +8,7 @@ Hi there! 👋 I'm **k1nt4r0u** - an **Information Security** freshman at **Ho C
 
 ## What I Do
 
-🚩 **CTF Player** - Proud member of **Sky1nNorth** CTF team  
+🚩 **CTF Player** - Member of **Sky1nNorth** CTF team  
 🔍 **Reverse Engineering** - I love taking things apart to understand how they work  
 💻 **Binary Exploitation** - Finding and exploiting vulnerabilities in software  
 🐧 **Linux Enthusiast** - Arch Linux is my daily driver  
