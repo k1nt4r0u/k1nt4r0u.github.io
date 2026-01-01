@@ -13,6 +13,8 @@
     <script src="/js/theme-switcher.js"></script>
 </head>
 <body>
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress-bar"></div>
 {{ partial "navbar.html" . }}
 <main>
     {{ block "main" . }}{{ end }}
@@ -63,6 +65,139 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addCopyButtons();
     setTimeout(addCopyButtons, 500);
+});
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scroll-progress-bar');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    scrollProgress.style.width = scrollPercent + '%';
+});
+
+// Image Lightbox
+document.addEventListener('DOMContentLoaded', () => {
+    // Create lightbox elements
+    const lightbox = document.createElement('div');
+    lightbox.id = 'image-lightbox';
+    lightbox.innerHTML = `
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-image-container">
+            <img class="lightbox-content" id="lightbox-img">
+        </div>
+        <div class="lightbox-controls">
+            <button class="zoom-btn" id="zoom-out">−</button>
+            <span class="zoom-level">100%</span>
+            <button class="zoom-btn" id="zoom-in">+</button>
+            <button class="zoom-btn zoom-reset" id="zoom-reset">⟲</button>
+        </div>
+    `;
+    document.body.appendChild(lightbox);
+
+    let currentZoom = 1;
+    let isDragging = false;
+    let startX, startY, translateX = 0, translateY = 0;
+    const lightboxImg = document.getElementById('lightbox-img');
+    const imageContainer = lightbox.querySelector('.lightbox-image-container');
+    const zoomLevel = lightbox.querySelector('.zoom-level');
+
+    const updateZoom = (scale) => {
+        currentZoom = Math.max(0.5, Math.min(3, scale));
+        lightboxImg.style.transition = 'none';
+        lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+        zoomLevel.textContent = Math.round(currentZoom * 100) + '%';
+        lightboxImg.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+    };
+
+    // Pan functionality
+    lightboxImg.addEventListener('mousedown', (e) => {
+        if (currentZoom > 1) {
+            e.preventDefault();
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            lightboxImg.style.cursor = 'grabbing';
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            lightboxImg.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+        }
+    });
+
+    // Touch support for mobile
+    let touchStartX, touchStartY;
+    lightboxImg.addEventListener('touchstart', (e) => {
+        if (currentZoom > 1) {
+            touchStartX = e.touches[0].clientX - translateX;
+            touchStartY = e.touches[0].clientY - translateY;
+        }
+    });
+
+    lightboxImg.addEventListener('touchmove', (e) => {
+        if (currentZoom > 1) {
+            e.preventDefault();
+            translateX = e.touches[0].clientX - touchStartX;
+            translateY = e.touches[0].clientY - touchStartY;
+            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+        }
+    }, { passive: false });
+
+    // Add click event to all images in post-content
+    const postImages = document.querySelectorAll('.post-content img');
+    postImages.forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+            lightbox.style.display = 'flex';
+            lightboxImg.src = img.src;
+            currentZoom = 1;
+            translateX = 0;
+            translateY = 0;
+            updateZoom(1);
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Zoom controls
+    document.getElementById('zoom-in').addEventListener('click', () => updateZoom(currentZoom + 0.25));
+    document.getElementById('zoom-out').addEventListener('click', () => updateZoom(currentZoom - 0.25));
+    document.getElementById('zoom-reset').addEventListener('click', () => {
+        translateX = 0;
+        translateY = 0;
+        updateZoom(1);
+    });
+
+    // Close lightbox
+    const closeLightbox = () => {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        translateX = 0;
+        translateY = 0;
+        updateZoom(1);
+    };
+
+    lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === imageContainer) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+            closeLightbox();
+        }
+    });
 });
 </script>
 <footer id="footer">

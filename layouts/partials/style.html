@@ -22,6 +22,166 @@
 
 * { box-sizing: border-box; font-family: Verdana, Geneva, Tahoma, sans-serif; }
 
+/* Scroll Progress Bar */
+#scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--accent-color);
+    z-index: 9999;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+}
+
+/* Image Lightbox */
+#image-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.lightbox-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Lightbox Zoom Controls */
+.lightbox-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    align-items: center;
+}
+
+.zoom-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 30px;
+}
+
+.zoom-btn.zoom-reset {
+    font-size: 18px;
+    padding: 4px 8px;
+}
+
+.zoom-btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+.zoom-level {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 13px;
+    min-width: 40px;
+    text-align: center;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+    text-shadow: 0 0 20px var(--accent-color);
+}
+
+@media screen and (max-width: 900px) {
+    .lightbox-close {
+        top: 15px;
+        right: 20px;
+        font-size: 40px;
+    }
+    
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    
+    .lightbox-controls {
+        bottom: 10px;
+        padding: 5px 10px;
+        gap: 5px;
+    }
+    
+    .zoom-btn {
+        padding: 3px 8px;
+        font-size: 14px;
+        min-width: 28px;
+    }
+    
+    .zoom-btn.zoom-reset {
+        font-size: 16px;
+        padding: 3px 6px;
+    }
+    
+    .zoom-level {
+        font-size: 12px;
+        min-width: 35px;
+    }
+}
+
 @font-face {
     font-family: 'JetBrains Mono';
     src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
