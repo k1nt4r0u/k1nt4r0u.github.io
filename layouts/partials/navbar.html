@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        scrollToTopBtn.addEventListener('touchstart', (e) => {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
         scrollToTopBtn.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({top: 0, behavior: 'smooth'});

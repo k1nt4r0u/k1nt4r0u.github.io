@@ -49,7 +49,7 @@ This blog serves as my digital notebook where I:
 
 - **GitHub:** [@k1nt4r0u](https://github.com/k1nt4r0u)
 - **CTFTime:** [k1n74r0u](https://ctftime.org/user/209586)
-- **HackMD:** [k1nt4r0u](https://hackmd.io/@k1nt4r0u)
+- **HackMD:** [kintarou](https://hackmd.io/@kintarou)
 
 ## Let's Connect!
 

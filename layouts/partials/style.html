@@ -1188,8 +1188,12 @@ main {
         z-index: 99;
     }
 
-    .home-btn, .navbar-left, nav > a:first-child, nav a[href="/"] svg { 
+    .home-btn, .navbar-left, nav > a.home-btn, nav a[href="/"] svg { 
         display: none !important; 
+    }
+    
+    nav #scrollToTopBtn {
+        display: flex !important;
     }
 
     nav ul { 
@@ -1314,6 +1318,23 @@ main {
 
     p code, li code { font-size: 13px !important; padding: 2px 4px !important; word-break: break-all !important; }
     img { max-width: 100% !important; height: auto !important; margin: 15px auto !important; display: block; border-radius: 5px; }
+    
+    #scrollToTopBtn {
+        display: flex !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 50px !important;
+        height: 50px !important;
+        z-index: 9999 !important;
+        position: fixed !important;
+    }
+    
+    #scrollToTopBtn.show {
+        opacity: 1 !important;
+        transform: translateY(0) scale(1) !important;
+        pointer-events: auto !important;
+        display: flex !important;
+    }
 }
 
 @keyframes contentFadeIn {
@@ -1352,6 +1373,8 @@ main, #sidebar {
     opacity: 0;
     transform: translateY(30px) scale(0.9);
     pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 #scrollToTopBtn svg {
@@ -1708,6 +1731,43 @@ main, #sidebar {
 /* GenericStrong */ .chroma .gs { font-weight:bold }
 /* GenericSubheading */ .chroma .gu { color:#66d9ef;font-weight:bold }
 /* GenericTraceback */ .chroma .gt { color:#ff6b6b;font-weight:bold }
+/* NameVariable */ .chroma .nv { color:#ffffff;font-weight:normal }
+/* NameVariableClass */ .chroma .vc { color:#ffffff;font-weight:normal }
+/* NameVariableGlobal */ .chroma .vg { color:#ffffff;font-weight:normal }
+/* NameVariableInstance */ .chroma .vi { color:#ffffff;font-weight:normal }
+/* NameOther */ .chroma .nx { color:#88c0ff }
+
+/* Enhanced function call highlighting - both definition and usage */
+.chroma .nf { color:#ffa657;font-weight:bold }
+.chroma .fm { color:#ffa657;font-weight:bold }
+.chroma .nx { color:#ffa657;font-weight:bold }
+
+/* Default: variables and parameters are white */
+.chroma .n { color:#ffffff;font-weight:normal }
+
+/* Function calls: orange when immediately followed by opening parenthesis */
+.chroma .n:has(+ .p) { color:#ffa657;font-weight:normal }
+
+/* Bash/Shell syntax highlighting */
+/* Commands */ .chroma .nb { color:#ffa657;font-weight:bold }
+/* Variables */ .chroma .nv { color:#ffffff;font-weight:normal }
+/* Shell builtins */ .chroma .nb { color:#ffa657;font-weight:bold }
+
+/* Enhanced operator highlighting */
+.chroma .o { color:#81a1c1;font-weight:normal }
+.chroma .ow { color:#81a1c1;font-weight:bold }
+
+/* Enhanced punctuation */
+.chroma .p { color:#d8dee9;opacity:0.8 }
+
+/* Type annotations (Python, Rust, TypeScript) */
+.chroma .kt { color:#8fbcbb;font-weight:bold }
+
+/* Macro (Rust, C++) */
+.chroma .nd { color:#ebcb8b;font-weight:bold }
+
+/* Self/this keyword */
+.chroma .bp { color:#ff9999;font-weight:bold }
 
 /* Light Theme Syntax Highlighting Override */
 [data-theme="aesthetic-blue"] .chroma,
