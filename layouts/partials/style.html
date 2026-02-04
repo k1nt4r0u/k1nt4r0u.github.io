@@ -20,7 +20,7 @@
     --special-text-color: {{ index $theme "special-text-color" }};
 }
 
-* { box-sizing: border-box; font-family: Verdana, Geneva, Tahoma, sans-serif; }
+* { box-sizing: border-box; font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace; }
 
 /* Scroll Progress Bar */
 #scroll-progress-bar {
@@ -146,13 +146,20 @@ body {
     right: 0;
     height: 60px;
     background-color: var(--bg-color2);
-    border-bottom: 2px solid var(--border-color);
-    box-shadow: 0 2px 10px var(--post-shadow-color);
+    border-bottom: 1px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color), 0 2px 10px var(--post-shadow-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2em;
     z-index: 1000;
+}
+
+/* Terminal prompt prefix for nav links */
+.navbar-center .nav-link::before {
+    content: "$ ";
+    color: var(--accent-color);
+    opacity: 0.7;
 }
 
 
@@ -166,7 +173,6 @@ body {
 }
 
 .navbar-left .home-btn:hover {
-    transform: translateY(-2px) scale(1.1) rotate(-5deg);
     color: var(--accent-color);
     text-shadow: 0 0 10px var(--accent-color);
     filter: drop-shadow(0 0 5px var(--accent-color));
@@ -194,7 +200,6 @@ body {
     border: 2px solid var(--accent-color);
     box-shadow: 0 0 15px var(--accent-color), 0 0 5px var(--accent-color) inset;
     text-shadow: 0 0 10px var(--accent-color);
-    transform: translateY(-2px) scale(1.05);
 }
 
 .navbar-right {
@@ -204,19 +209,26 @@ body {
 
 #search-box, #theme-switcher {
     padding: 8px 12px;
-    border: 2px solid var(--border-color);
-    border-radius: 6px;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-size: 14px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#search-box::placeholder {
+    color: var(--accent-color);
+    opacity: 0.6;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
 }
 
 #search-box:focus, #theme-switcher:focus,
 #search-box:hover, #theme-switcher:hover {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 5px var(--accent-color);
+    box-shadow: 0 0 10px var(--accent-color);
 }
 
 #sidebar {
@@ -232,16 +244,31 @@ body {
 
 .sidebar-box {
     background-color: var(--bg-color2);
-    border: 2px solid var(--border-color);
-    border-radius: 20px; /* Changed from 0.5em */
-    overflow: hidden; /* Added */
-    box-shadow: var(--post-shadow-color) 5px 5px;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 15px var(--post-shadow-color), inset 0 0 30px rgba(0, 255, 136, 0.03);
     padding: 1.5em;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Terminal window header for sidebar boxes */
+.sidebar-box::before {
+    content: "┌──────────────────────────────────────┐";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 10px;
+    color: var(--accent-color);
+    opacity: 0.3;
+    text-align: center;
+    pointer-events: none;
 }
 
 .sidebar-box:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
+    box-shadow: 0 0 25px var(--accent-color), inset 0 0 40px rgba(0, 255, 136, 0.05);
     border-color: var(--accent-color);
 }
 
@@ -269,8 +296,14 @@ body {
     margin: 0 0 1em 0;
     color: var(--special-text-color);
     font-size: 1.1em;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--accent-color);
     padding-bottom: 0.5em;
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+#tags-box h3::before, #categories-box h3::before {
+    content: "# ";
+    color: var(--accent-color);
 }
 
 .tag-list {
@@ -282,19 +315,32 @@ body {
 .tag-badge {
     display: inline-block;
     padding: 6px 14px;
-    background-color: var(--border-color);
-    color: white;
-    border-radius: 20px;
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+.tag-badge::before {
+    content: "<";
+    opacity: 0.6;
+}
+
+.tag-badge::after {
+    content: "/>";
+    opacity: 0.6;
 }
 
 .tag-badge:hover {
-    transform: translateY(-3px) rotate(2deg) scale(1.05);
     background-color: var(--accent-color);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    color: #0a0e0a;
+    box-shadow: 0 0 15px var(--accent-color);
+    text-shadow: none;
 }
 
 .category-list {
@@ -335,17 +381,30 @@ main {
 
 #top section {
     background-color: var(--bg-color2);
-    border: 2px solid var(--border-color);
-    border-radius: 20px; /* Changed from 0.5em */
-    overflow: hidden; /* Added */
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    overflow: hidden;
     margin-bottom: 23px;
     padding: 1em 1.5em;
-    box-shadow: var(--post-shadow-color) 5px 5px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 0 15px var(--post-shadow-color), inset 0 0 30px rgba(0, 255, 136, 0.03);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Terminal-style header for posts */
+#top section::before {
+    content: "[ root@blog ~/posts ]$ cat article.md";
+    display: block;
+    font-size: 11px;
+    color: var(--accent-color);
+    opacity: 0.6;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--accent-color);
 }
 
 #top section:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
+    box-shadow: 0 0 25px var(--accent-color), inset 0 0 40px rgba(0, 255, 136, 0.05);
     border-color: var(--accent-color);
 }
 
@@ -359,8 +418,14 @@ main {
     font-size: 3em;
     color: var(--special-text-color);
     margin-bottom: 1em;
-    border-bottom: 3px solid var(--border-color);
+    border-bottom: 1px solid var(--accent-color);
     padding-bottom: 0.5em;
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+.writeups-page h1::before, .search-page h1::before, .archive-page h1::before, .tag-page h1::before {
+    content: "> ";
+    color: var(--accent-color);
 }
 
 .contest-name {
@@ -373,7 +438,7 @@ main {
 
 .writeups-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2em;
 }
 
@@ -439,7 +504,11 @@ main {
 }
 
 .archive-list li {
-    padding: 0.8em 0;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important; 
+    padding: 10px 0 !important;
     border-bottom: 1px solid var(--border-color);
     transition: all 0.3s ease;
     border-radius: 10px;
@@ -450,15 +519,6 @@ main {
     box-shadow: 0 0 15px var(--accent-color);
     transform: scale(1.02);
     padding: 0.8em 0.8em;
-}
-
-.archive-list li {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important; 
-    padding: 10px 0 !important;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .archive-list li a, 
@@ -720,60 +780,35 @@ code:not(.highlight code) {
     border-radius: 4px;
     font-family:'JetBrains Mono' ,'Consolas', 'Monaco', monospace;
     font-size: 0.9em;
+    border: 1px solid var(--accent-color);
+    text-shadow: 0 0 3px var(--accent-color);
 }
 
 .highlight {
-    background-color: var(--bg-color2);
-    border: 2px solid var(--border-color);
+    background-color: #0a1628;
+    border: 1px solid #3a7bd5;
     border-radius: 8px;
     margin: 1.5rem 0;
-    overflow: hidden; 
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(58, 123, 213, 0.15), inset 0 0 60px rgba(58, 123, 213, 0.03);
+    position: relative;
 }
 
-.highlight table {
-    width: 100%;
-    border-collapse: collapse; 
-    border: none;
-    margin: 0;
+/* Terminal header for code blocks */
+.highlight::before {
+    content: "┌─[ terminal ]─────────────────────────────────────────────────────────────────┐";
+    display: block;
+    font-size: 10px;
+    color: #5a9bf5;
+    opacity: 0.5;
+    padding: 5px 10px 0 10px;
+    letter-spacing: -0.5px;
 }
 
-.highlight td {
-    padding: 10px 15px;
-    border: none;
-    vertical-align: top;
-}
-
-.highlight td:first-child {
-    width: 45px;
-    text-align: center; 
-    padding-right: 10px;
-    border-right: 2px solid var(--border-color);
-    background-color: rgba(0,0,0,0.1); 
-    color: var(--text-color); 
-    opacity: 0.7;
-    user-select: none; 
-}
-
-.highlight td:last-child {
-    width: auto;
-    overflow-x: auto; 
-}
-
-.highlight pre {
-    background: transparent !important;
-    border: none;
-    margin: 0;
-    padding: 0;
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 15px;
-    line-height: 1.5;
-}
-
-.highlight code {
-    background-color: transparent !important; 
-    color: unset !important; 
-    padding: 0;
-    font-family: 'Consolas', 'Monaco', monospace;
+.highlight:hover {
+    box-shadow: 0 0 30px rgba(58, 123, 213, 0.3), inset 0 0 80px rgba(58, 123, 213, 0.05);
+    border-color: #5a9bf5;
 }
 
 .highlight span {
@@ -887,6 +922,12 @@ a:hover {
 
 .highlight pre {
     background-color: transparent !important;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 .highlight table {
@@ -894,6 +935,7 @@ a:hover {
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 0 !important;
+    border: none;
 }
 
 .highlight td, 
@@ -946,16 +988,6 @@ a:hover {
 }
 .highlight pre::-webkit-scrollbar-thumb:hover {
     background: #58a6ff;
-}
-
-.highlight {
-    transition: all 0.3s ease;
-    border: 2px solid var(--border-color);
-}
-
-.highlight:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
-    border-color: var(--accent-color);
 }
 
 .copy-code-button {
@@ -1357,18 +1389,18 @@ main, #sidebar {
     bottom: 30px;
     right: 30px;
     z-index: 100;
-    border: none;
+    border: 1px solid var(--accent-color);
     outline: none;
-    background-color: var(--accent-color);
-    color: white;
+    background-color: #0a0e0a;
+    color: var(--accent-color);
     cursor: pointer;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px var(--post-shadow-color);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
     transform: translateY(30px) scale(0.9);
@@ -1379,6 +1411,7 @@ main, #sidebar {
 
 #scrollToTopBtn svg {
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 0 3px var(--accent-color));
 }
 
 #scrollToTopBtn.show {
@@ -1388,18 +1421,19 @@ main, #sidebar {
 }
 
 #scrollToTopBtn:hover {
-    background-color: color-mix(in srgb, var(--accent-color), #000 20%);
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background-color: var(--accent-color);
+    color: #0a0e0a;
+    box-shadow: 0 0 30px var(--accent-color);
 }
 
 #scrollToTopBtn:hover svg {
     transform: translateY(-4px);
+    filter: none;
 }
 
 #scrollToTopBtn:active {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px var(--accent-color);
 }
 
 .home-btn .feather-home {
@@ -1490,47 +1524,6 @@ main, #sidebar {
 }
 
 
-
-.writeups-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2em;
-}
-
-.writeup-card {
-    background-color: var(--bg-color2);
-    border: 2px solid var(--border-color);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--post-shadow-color) 5px 5px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    padding: 2em;
-}
-
-.writeup-card:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px color-mix(in srgb, var(--accent-color), transparent 50%);
-    border-color: var(--accent-color);
-}
-
-.writeup-card h3 {
-    font-size: 1.5em;
-    margin: 0 0 0.8em 0;
-}
-
-.writeup-meta {
-    margin-bottom: 1em;
-}
-
-.writeup-desc {
-    font-size: 1em;
-    line-height: 1.6;
-}
-
-@media screen and (max-width: 900px) {
-    .writeups-list {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* Styling for the dedicated tag page */
 /* This section styles the dedicated tag page, including the header, post list, and specific styles for the 'RE' tag. */
@@ -1659,282 +1652,385 @@ main, #sidebar {
     margin-bottom: 1.5em;
 }
 
-/* Syntax Highlighting - Generated using: hugo gen chromastyles --style=nord */
-/* Background */ .bg { color:#d8dee9; }
-/* PreWrapper */ .chroma { color:#d8dee9; }
-/* Error */ .chroma .err { color:#ff6b6b; font-weight:bold; }
+/* Syntax Highlighting - Blue Terminal Theme */
+/* Background */ .bg { color:#a8d4ff; }
+/* PreWrapper */ .chroma { color:#c8e0ff; }
+/* Error */ .chroma .err { color:#ff6b6b; font-weight:bold; text-shadow: 0 0 5px #ff6b6b; }
 /* LineLink */ .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
 /* LineTableTD */ .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
 /* LineTable */ .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
-/* LineHighlight */ .chroma .hl { background-color:#424853 }
-/* LineNumbersTable */ .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em; }
-/* LineNumbers */ .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em; }
+/* LineHighlight */ .chroma .hl { background-color:#1a3a5a }
+/* LineNumbersTable */ .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#4a7aaa; }
+/* LineNumbers */ .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#4a7aaa; }
 /* Line */ .chroma .line { display:flex; }
-/* Keyword */ .chroma .k { color:#5eb7ff;font-weight:bold }
-/* KeywordConstant */ .chroma .kc { color:#5eb7ff;font-weight:bold }
-/* KeywordDeclaration */ .chroma .kd { color:#5eb7ff;font-weight:bold }
-/* KeywordNamespace */ .chroma .kn { color:#5eb7ff;font-weight:bold }
-/* KeywordPseudo */ .chroma .kp { color:#5eb7ff;font-weight:bold }
-/* KeywordReserved */ .chroma .kr { color:#5eb7ff;font-weight:bold }
-/* KeywordType */ .chroma .kt { color:#5eb7ff;font-weight:bold }
-/* NameAttribute */ .chroma .na { color:#4fd6be;font-weight:bold }
-/* NameClass */ .chroma .nc { color:#4fd6be;font-weight:bold }
-/* NameConstant */ .chroma .no { color:#4fd6be;font-weight:bold }
-/* NameDecorator */ .chroma .nd { color:#ff9966;font-weight:bold }
-/* NameEntity */ .chroma .ni { color:#ff9966;font-weight:bold }
-/* NameException */ .chroma .ne { color:#ff6b6b;font-weight:bold }
-/* NameLabel */ .chroma .nl { color:#4fd6be;font-weight:bold }
-/* NameNamespace */ .chroma .nn { color:#4fd6be;font-weight:bold }
-/* NameProperty */ .chroma .py { color:#4fd6be;font-weight:bold }
-/* NameTag */ .chroma .nt { color:#5eb7ff;font-weight:bold }
-/* NameBuiltin */ .chroma .nb { color:#5eb7ff;font-weight:bold }
-/* NameBuiltinPseudo */ .chroma .bp { color:#5eb7ff;font-weight:bold }
-/* NameFunction */ .chroma .nf { color:#66d9ef;font-weight:bold }
-/* NameFunctionMagic */ .chroma .fm { color:#66d9ef;font-weight:bold }
-/* LiteralString */ .chroma .s { color:#a8e6a1;font-weight:bold }
-/* LiteralStringAffix */ .chroma .sa { color:#a8e6a1;font-weight:bold }
-/* LiteralStringBacktick */ .chroma .sb { color:#a8e6a1;font-weight:bold }
-/* LiteralStringChar */ .chroma .sc { color:#a8e6a1;font-weight:bold }
-/* LiteralStringDelimiter */ .chroma .dl { color:#a8e6a1;font-weight:bold }
-/* LiteralStringDoc */ .chroma .sd { color:#7d91a8;font-weight:bold }
-/* LiteralStringDouble */ .chroma .s2 { color:#a8e6a1;font-weight:bold }
-/* LiteralStringEscape */ .chroma .se { color:#ffd966;font-weight:bold }
-/* LiteralStringHeredoc */ .chroma .sh { color:#a8e6a1;font-weight:bold }
-/* LiteralStringInterpol */ .chroma .si { color:#a8e6a1;font-weight:bold }
-/* LiteralStringOther */ .chroma .sx { color:#a8e6a1;font-weight:bold }
-/* LiteralStringRegex */ .chroma .sr { color:#ffd966;font-weight:bold }
-/* LiteralStringSingle */ .chroma .s1 { color:#a8e6a1;font-weight:bold }
-/* LiteralStringSymbol */ .chroma .ss { color:#a8e6a1;font-weight:bold }
-/* LiteralNumber */ .chroma .m { color:#d8a4ff;font-weight:bold }
-/* LiteralNumberBin */ .chroma .mb { color:#d8a4ff;font-weight:bold }
-/* LiteralNumberFloat */ .chroma .mf { color:#d8a4ff;font-weight:bold }
-/* LiteralNumberHex */ .chroma .mh { color:#d8a4ff;font-weight:bold }
-/* LiteralNumberInteger */ .chroma .mi { color:#d8a4ff;font-weight:bold }
-/* LiteralNumberIntegerLong */ .chroma .il { color:#d8a4ff;font-weight:bold }
-/* LiteralNumberOct */ .chroma .mo { color:#d8a4ff;font-weight:bold }
-/* Operator */ .chroma .o { color:#5eb7ff;font-weight:bold }
-/* OperatorWord */ .chroma .ow { color:#5eb7ff;font-weight:bold }
-/* Punctuation */ .chroma .p { color:#eceff4 }
-/* Comment */ .chroma .c { color:#7d91a8;font-style:italic }
-/* CommentHashbang */ .chroma .ch { color:#7d91a8;font-style:italic }
-/* CommentMultiline */ .chroma .cm { color:#7d91a8;font-style:italic }
-/* CommentSingle */ .chroma .c1 { color:#7d91a8;font-style:italic }
-/* CommentSpecial */ .chroma .cs { color:#7d91a8;font-style:italic }
-/* CommentPreproc */ .chroma .cp { color:#6e9bd8;font-style:italic;font-weight:bold }
-/* CommentPreprocFile */ .chroma .cpf { color:#6e9bd8;font-style:italic;font-weight:bold }
-/* GenericDeleted */ .chroma .gd { color:#ff6b6b;font-weight:bold }
+/* Keyword */ .chroma .k { color:#6cb6ff;font-weight:bold;text-shadow:0 0 3px #6cb6ff80; }
+/* KeywordConstant */ .chroma .kc { color:#6cb6ff;font-weight:bold }
+/* KeywordDeclaration */ .chroma .kd { color:#6cb6ff;font-weight:bold }
+/* KeywordNamespace */ .chroma .kn { color:#6cb6ff;font-weight:bold }
+/* KeywordPseudo */ .chroma .kp { color:#6cb6ff;font-weight:bold }
+/* KeywordReserved */ .chroma .kr { color:#6cb6ff;font-weight:bold }
+/* KeywordType */ .chroma .kt { color:#79c0ff;font-weight:bold }
+/* NameAttribute */ .chroma .na { color:#7ee787;font-weight:bold }
+/* NameClass */ .chroma .nc { color:#a5d6ff;font-weight:bold;text-shadow:0 0 5px #a5d6ff60; }
+/* NameConstant */ .chroma .no { color:#79c0ff;font-weight:bold }
+/* NameDecorator / Macro */ .chroma .nd { color:#d2a8ff;font-weight:bold }
+/* NameEntity */ .chroma .ni { color:#a5d6ff;font-weight:bold }
+/* NameException */ .chroma .ne { color:#ff7b72;font-weight:bold }
+/* NameLabel */ .chroma .nl { color:#79c0ff;font-weight:bold }
+/* NameNamespace */ .chroma .nn { color:#a5d6ff;font-weight:bold }
+/* NameProperty */ .chroma .py { color:#79c0ff;font-weight:bold }
+/* NameTag */ .chroma .nt { color:#7ee787;font-weight:bold }
+/* NameBuiltin / Shell builtins */ .chroma .nb { color:#79c0ff;font-weight:bold }
+/* NameBuiltinPseudo / Self/this */ .chroma .bp { color:#ffa657;font-weight:bold }
+/* NameFunction */ .chroma .nf { color:#d2a8ff;font-weight:bold;text-shadow:0 0 3px #d2a8ff60; }
+/* NameFunctionMagic */ .chroma .fm { color:#d2a8ff;font-weight:bold }
+/* LiteralString */ .chroma .s { color:#a5d6ff;font-weight:normal }
+/* LiteralStringAffix */ .chroma .sa { color:#a5d6ff;font-weight:normal }
+/* LiteralStringBacktick */ .chroma .sb { color:#a5d6ff;font-weight:normal }
+/* LiteralStringChar */ .chroma .sc { color:#a5d6ff;font-weight:normal }
+/* LiteralStringDelimiter */ .chroma .dl { color:#a5d6ff;font-weight:normal }
+/* LiteralStringDoc */ .chroma .sd { color:#8b949e;font-style:italic }
+/* LiteralStringDouble */ .chroma .s2 { color:#a5d6ff;font-weight:normal }
+/* LiteralStringEscape */ .chroma .se { color:#79c0ff;font-weight:bold }
+/* LiteralStringHeredoc */ .chroma .sh { color:#a5d6ff;font-weight:normal }
+/* LiteralStringInterpol */ .chroma .si { color:#a5d6ff;font-weight:normal }
+/* LiteralStringOther */ .chroma .sx { color:#a5d6ff;font-weight:normal }
+/* LiteralStringRegex */ .chroma .sr { color:#7ee787;font-weight:bold }
+/* LiteralStringSingle */ .chroma .s1 { color:#a5d6ff;font-weight:normal }
+/* LiteralStringSymbol */ .chroma .ss { color:#a5d6ff;font-weight:normal }
+/* LiteralNumber */ .chroma .m { color:#ffa657;font-weight:bold }
+/* LiteralNumberBin */ .chroma .mb { color:#ffa657;font-weight:bold }
+/* LiteralNumberFloat */ .chroma .mf { color:#ffa657;font-weight:bold }
+/* LiteralNumberHex */ .chroma .mh { color:#ffa657;font-weight:bold }
+/* LiteralNumberInteger */ .chroma .mi { color:#ffa657;font-weight:bold }
+/* LiteralNumberIntegerLong */ .chroma .il { color:#ffa657;font-weight:bold }
+/* LiteralNumberOct */ .chroma .mo { color:#ffa657;font-weight:bold }
+/* Operator */ .chroma .o { color:#6cb6ff;font-weight:normal }
+/* OperatorWord */ .chroma .ow { color:#6cb6ff;font-weight:bold }
+/* Punctuation */ .chroma .p { color:#8b9eb0;opacity:0.9 }
+/* Comment */ .chroma .c { color:#6a8099;font-style:italic }
+/* CommentHashbang */ .chroma .ch { color:#6a8099;font-style:italic }
+/* CommentMultiline */ .chroma .cm { color:#6a8099;font-style:italic }
+/* CommentSingle */ .chroma .c1 { color:#6a8099;font-style:italic }
+/* CommentSpecial */ .chroma .cs { color:#6a8099;font-style:italic }
+/* CommentPreproc */ .chroma .cp { color:#79c0ff;font-style:italic;font-weight:bold }
+/* CommentPreprocFile */ .chroma .cpf { color:#79c0ff;font-style:italic;font-weight:bold }
+/* GenericDeleted */ .chroma .gd { color:#ffa198;font-weight:bold;background-color:#2a1a1a; }
 /* GenericEmph */ .chroma .ge { font-style:italic }
-/* GenericError */ .chroma .gr { color:#ff6b6b;font-weight:bold }
-/* GenericHeading */ .chroma .gh { color:#66d9ef;font-weight:bold }
-/* GenericInserted */ .chroma .gi { color:#a8e6a1;font-weight:bold }
-/* GenericPrompt */ .chroma .gp { color:#6e7c8c;font-weight:bold }
+/* GenericError */ .chroma .gr { color:#ffa198;font-weight:bold }
+/* GenericHeading */ .chroma .gh { color:#79c0ff;font-weight:bold }
+/* GenericInserted */ .chroma .gi { color:#7ee787;font-weight:bold;background-color:#1a2a1a; }
+/* GenericPrompt */ .chroma .gp { color:#6cb6ff;font-weight:bold }
 /* GenericStrong */ .chroma .gs { font-weight:bold }
-/* GenericSubheading */ .chroma .gu { color:#66d9ef;font-weight:bold }
-/* GenericTraceback */ .chroma .gt { color:#ff6b6b;font-weight:bold }
-/* NameVariable */ .chroma .nv { color:#ffffff;font-weight:normal }
-/* NameVariableClass */ .chroma .vc { color:#ffffff;font-weight:normal }
-/* NameVariableGlobal */ .chroma .vg { color:#ffffff;font-weight:normal }
-/* NameVariableInstance */ .chroma .vi { color:#ffffff;font-weight:normal }
-/* NameOther */ .chroma .nx { color:#88c0ff }
+/* GenericSubheading */ .chroma .gu { color:#79c0ff;font-weight:bold }
+/* GenericTraceback */ .chroma .gt { color:#ffa198;font-weight:bold }
+/* NameVariable */ .chroma .nv { color:#c8e0ff;font-weight:normal }
+/* NameVariableClass */ .chroma .vc { color:#c8e0ff;font-weight:normal }
+/* NameVariableGlobal */ .chroma .vg { color:#c8e0ff;font-weight:normal }
+/* NameVariableInstance */ .chroma .vi { color:#c8e0ff;font-weight:normal }
+/* NameOther */ .chroma .nx { color:#d2a8ff;font-weight:bold }
 
-/* Enhanced function call highlighting - both definition and usage */
-.chroma .nf { color:#ffa657;font-weight:bold }
-.chroma .fm { color:#ffa657;font-weight:bold }
-.chroma .nx { color:#ffa657;font-weight:bold }
+/* Default: variables and parameters */
+.chroma .n { color:#c8e0ff;font-weight:normal }
 
-/* Default: variables and parameters are white */
-.chroma .n { color:#ffffff;font-weight:normal }
-
-/* Function calls: orange when immediately followed by opening parenthesis */
-.chroma .n:has(+ .p) { color:#ffa657;font-weight:normal }
-
-/* Bash/Shell syntax highlighting */
-/* Commands */ .chroma .nb { color:#ffa657;font-weight:bold }
-/* Variables */ .chroma .nv { color:#ffffff;font-weight:normal }
-/* Shell builtins */ .chroma .nb { color:#ffa657;font-weight:bold }
-
-/* Enhanced operator highlighting */
-.chroma .o { color:#81a1c1;font-weight:normal }
-.chroma .ow { color:#81a1c1;font-weight:bold }
-
-/* Enhanced punctuation */
-.chroma .p { color:#d8dee9;opacity:0.8 }
-
-/* Type annotations (Python, Rust, TypeScript) */
-.chroma .kt { color:#8fbcbb;font-weight:bold }
-
-/* Macro (Rust, C++) */
-.chroma .nd { color:#ebcb8b;font-weight:bold }
-
-/* Self/this keyword */
-.chroma .bp { color:#ff9999;font-weight:bold }
+/* Function calls: purple when immediately followed by opening parenthesis */
+.chroma .n:has(+ .p) { color:#d2a8ff;font-weight:normal }
 
 /* Light Theme Syntax Highlighting Override */
+[data-theme="aesthetic-blue"] .highlight,
+[data-theme="pastel-blue-dream"] .highlight,
+[data-theme="ocean-breeze"] .highlight,
+[data-theme="azure-elegance"] .highlight,
+[data-theme="hacker-light"] .highlight {
+    background-color: #f6f8fa;
+    border: 1px solid #0066cc60;
+    box-shadow: 0 2px 10px rgba(0, 102, 204, 0.1);
+}
+
+[data-theme="hacker-light"] .highlight {
+    border-color: #00885560;
+    box-shadow: 0 2px 10px rgba(0, 136, 85, 0.1);
+}
+
+[data-theme="aesthetic-blue"] .highlight::before,
+[data-theme="pastel-blue-dream"] .highlight::before,
+[data-theme="ocean-breeze"] .highlight::before,
+[data-theme="azure-elegance"] .highlight::before {
+    color: #0066cc;
+}
+
+[data-theme="hacker-light"] .highlight::before {
+    color: #008855;
+}
+
 [data-theme="aesthetic-blue"] .chroma,
 [data-theme="pastel-blue-dream"] .chroma,
 [data-theme="ocean-breeze"] .chroma,
-[data-theme="azure-elegance"] .chroma {
-    color: #24292e;
-}
+[data-theme="azure-elegance"] .chroma,
+[data-theme="hacker-light"] .chroma { color: #24292e; }
+
+/* Line numbers - light theme */
+[data-theme="aesthetic-blue"] .chroma .lnt,
+[data-theme="aesthetic-blue"] .chroma .ln,
+[data-theme="pastel-blue-dream"] .chroma .lnt,
+[data-theme="pastel-blue-dream"] .chroma .ln,
+[data-theme="ocean-breeze"] .chroma .lnt,
+[data-theme="ocean-breeze"] .chroma .ln,
+[data-theme="azure-elegance"] .chroma .lnt,
+[data-theme="azure-elegance"] .chroma .ln,
+[data-theme="hacker-light"] .chroma .lnt,
+[data-theme="hacker-light"] .chroma .ln { color: #8a9199; }
+
+/* Keywords - blue */
 [data-theme="aesthetic-blue"] .chroma .k,
-[data-theme="pastel-blue-dream"] .chroma .k,
-[data-theme="ocean-breeze"] .chroma .k,
-[data-theme="azure-elegance"] .chroma .k,
 [data-theme="aesthetic-blue"] .chroma .kc,
-[data-theme="pastel-blue-dream"] .chroma .kc,
-[data-theme="ocean-breeze"] .chroma .kc,
-[data-theme="azure-elegance"] .chroma .kc,
 [data-theme="aesthetic-blue"] .chroma .kd,
-[data-theme="pastel-blue-dream"] .chroma .kd,
-[data-theme="ocean-breeze"] .chroma .kd,
-[data-theme="azure-elegance"] .chroma .kd,
 [data-theme="aesthetic-blue"] .chroma .kn,
-[data-theme="pastel-blue-dream"] .chroma .kn,
-[data-theme="ocean-breeze"] .chroma .kn,
-[data-theme="azure-elegance"] .chroma .kn,
 [data-theme="aesthetic-blue"] .chroma .kp,
-[data-theme="pastel-blue-dream"] .chroma .kp,
-[data-theme="ocean-breeze"] .chroma .kp,
-[data-theme="azure-elegance"] .chroma .kp,
 [data-theme="aesthetic-blue"] .chroma .kr,
-[data-theme="pastel-blue-dream"] .chroma .kr,
-[data-theme="ocean-breeze"] .chroma .kr,
-[data-theme="azure-elegance"] .chroma .kr,
 [data-theme="aesthetic-blue"] .chroma .kt,
+[data-theme="pastel-blue-dream"] .chroma .k,
+[data-theme="pastel-blue-dream"] .chroma .kc,
+[data-theme="pastel-blue-dream"] .chroma .kd,
+[data-theme="pastel-blue-dream"] .chroma .kn,
+[data-theme="pastel-blue-dream"] .chroma .kp,
+[data-theme="pastel-blue-dream"] .chroma .kr,
 [data-theme="pastel-blue-dream"] .chroma .kt,
+[data-theme="ocean-breeze"] .chroma .k,
+[data-theme="ocean-breeze"] .chroma .kc,
+[data-theme="ocean-breeze"] .chroma .kd,
+[data-theme="ocean-breeze"] .chroma .kn,
+[data-theme="ocean-breeze"] .chroma .kp,
+[data-theme="ocean-breeze"] .chroma .kr,
 [data-theme="ocean-breeze"] .chroma .kt,
-[data-theme="azure-elegance"] .chroma .kt { color: #d73a49; font-weight: bold; }
-[data-theme="aesthetic-blue"] .chroma .na,
-[data-theme="pastel-blue-dream"] .chroma .na,
-[data-theme="ocean-breeze"] .chroma .na,
-[data-theme="azure-elegance"] .chroma .na,
-[data-theme="aesthetic-blue"] .chroma .nc,
-[data-theme="pastel-blue-dream"] .chroma .nc,
-[data-theme="ocean-breeze"] .chroma .nc,
-[data-theme="azure-elegance"] .chroma .nc,
-[data-theme="aesthetic-blue"] .chroma .no,
-[data-theme="pastel-blue-dream"] .chroma .no,
-[data-theme="ocean-breeze"] .chroma .no,
-[data-theme="azure-elegance"] .chroma .no { color: #005cc5; font-weight: bold; }
-[data-theme="aesthetic-blue"] .chroma .nd,
-[data-theme="pastel-blue-dream"] .chroma .nd,
-[data-theme="ocean-breeze"] .chroma .nd,
-[data-theme="azure-elegance"] .chroma .nd { color: #6f42c1; font-weight: bold; }
+[data-theme="azure-elegance"] .chroma .k,
+[data-theme="azure-elegance"] .chroma .kc,
+[data-theme="azure-elegance"] .chroma .kd,
+[data-theme="azure-elegance"] .chroma .kn,
+[data-theme="azure-elegance"] .chroma .kp,
+[data-theme="azure-elegance"] .chroma .kr,
+[data-theme="azure-elegance"] .chroma .kt { color: #0550ae; font-weight: bold; }
+
+/* Keywords - green for hacker-light */
+[data-theme="hacker-light"] .chroma .k,
+[data-theme="hacker-light"] .chroma .kc,
+[data-theme="hacker-light"] .chroma .kd,
+[data-theme="hacker-light"] .chroma .kn,
+[data-theme="hacker-light"] .chroma .kp,
+[data-theme="hacker-light"] .chroma .kr,
+[data-theme="hacker-light"] .chroma .kt { color: #116622; font-weight: bold; }
+
+/* Functions - purple */
 [data-theme="aesthetic-blue"] .chroma .nf,
-[data-theme="pastel-blue-dream"] .chroma .nf,
-[data-theme="ocean-breeze"] .chroma .nf,
-[data-theme="azure-elegance"] .chroma .nf,
 [data-theme="aesthetic-blue"] .chroma .fm,
+[data-theme="aesthetic-blue"] .chroma .nx,
+[data-theme="pastel-blue-dream"] .chroma .nf,
 [data-theme="pastel-blue-dream"] .chroma .fm,
+[data-theme="pastel-blue-dream"] .chroma .nx,
+[data-theme="ocean-breeze"] .chroma .nf,
 [data-theme="ocean-breeze"] .chroma .fm,
-[data-theme="azure-elegance"] .chroma .fm { color: #6f42c1; font-weight: bold; }
+[data-theme="ocean-breeze"] .chroma .nx,
+[data-theme="azure-elegance"] .chroma .nf,
+[data-theme="azure-elegance"] .chroma .fm,
+[data-theme="azure-elegance"] .chroma .nx,
+[data-theme="hacker-light"] .chroma .nf,
+[data-theme="hacker-light"] .chroma .fm,
+[data-theme="hacker-light"] .chroma .nx { color: #8250df; font-weight: bold; }
+
+/* Strings - dark teal/green */
 [data-theme="aesthetic-blue"] .chroma .s,
-[data-theme="pastel-blue-dream"] .chroma .s,
-[data-theme="ocean-breeze"] .chroma .s,
-[data-theme="azure-elegance"] .chroma .s,
 [data-theme="aesthetic-blue"] .chroma .sa,
-[data-theme="pastel-blue-dream"] .chroma .sa,
-[data-theme="ocean-breeze"] .chroma .sa,
-[data-theme="azure-elegance"] .chroma .sa,
 [data-theme="aesthetic-blue"] .chroma .sb,
-[data-theme="pastel-blue-dream"] .chroma .sb,
-[data-theme="ocean-breeze"] .chroma .sb,
-[data-theme="azure-elegance"] .chroma .sb,
 [data-theme="aesthetic-blue"] .chroma .sc,
-[data-theme="pastel-blue-dream"] .chroma .sc,
-[data-theme="ocean-breeze"] .chroma .sc,
-[data-theme="azure-elegance"] .chroma .sc,
 [data-theme="aesthetic-blue"] .chroma .dl,
-[data-theme="pastel-blue-dream"] .chroma .dl,
-[data-theme="ocean-breeze"] .chroma .dl,
-[data-theme="azure-elegance"] .chroma .dl,
 [data-theme="aesthetic-blue"] .chroma .s2,
-[data-theme="pastel-blue-dream"] .chroma .s2,
-[data-theme="ocean-breeze"] .chroma .s2,
-[data-theme="azure-elegance"] .chroma .s2,
 [data-theme="aesthetic-blue"] .chroma .sh,
-[data-theme="pastel-blue-dream"] .chroma .sh,
-[data-theme="ocean-breeze"] .chroma .sh,
-[data-theme="azure-elegance"] .chroma .sh,
 [data-theme="aesthetic-blue"] .chroma .si,
-[data-theme="pastel-blue-dream"] .chroma .si,
-[data-theme="ocean-breeze"] .chroma .si,
-[data-theme="azure-elegance"] .chroma .si,
 [data-theme="aesthetic-blue"] .chroma .sx,
-[data-theme="pastel-blue-dream"] .chroma .sx,
-[data-theme="ocean-breeze"] .chroma .sx,
-[data-theme="azure-elegance"] .chroma .sx,
 [data-theme="aesthetic-blue"] .chroma .s1,
-[data-theme="pastel-blue-dream"] .chroma .s1,
-[data-theme="ocean-breeze"] .chroma .s1,
-[data-theme="azure-elegance"] .chroma .s1,
 [data-theme="aesthetic-blue"] .chroma .ss,
+[data-theme="pastel-blue-dream"] .chroma .s,
+[data-theme="pastel-blue-dream"] .chroma .sa,
+[data-theme="pastel-blue-dream"] .chroma .sb,
+[data-theme="pastel-blue-dream"] .chroma .sc,
+[data-theme="pastel-blue-dream"] .chroma .dl,
+[data-theme="pastel-blue-dream"] .chroma .s2,
+[data-theme="pastel-blue-dream"] .chroma .sh,
+[data-theme="pastel-blue-dream"] .chroma .si,
+[data-theme="pastel-blue-dream"] .chroma .sx,
+[data-theme="pastel-blue-dream"] .chroma .s1,
 [data-theme="pastel-blue-dream"] .chroma .ss,
+[data-theme="ocean-breeze"] .chroma .s,
+[data-theme="ocean-breeze"] .chroma .sa,
+[data-theme="ocean-breeze"] .chroma .sb,
+[data-theme="ocean-breeze"] .chroma .sc,
+[data-theme="ocean-breeze"] .chroma .dl,
+[data-theme="ocean-breeze"] .chroma .s2,
+[data-theme="ocean-breeze"] .chroma .sh,
+[data-theme="ocean-breeze"] .chroma .si,
+[data-theme="ocean-breeze"] .chroma .sx,
+[data-theme="ocean-breeze"] .chroma .s1,
 [data-theme="ocean-breeze"] .chroma .ss,
-[data-theme="azure-elegance"] .chroma .ss { color: #22863a; font-weight: bold; }
+[data-theme="azure-elegance"] .chroma .s,
+[data-theme="azure-elegance"] .chroma .sa,
+[data-theme="azure-elegance"] .chroma .sb,
+[data-theme="azure-elegance"] .chroma .sc,
+[data-theme="azure-elegance"] .chroma .dl,
+[data-theme="azure-elegance"] .chroma .s2,
+[data-theme="azure-elegance"] .chroma .sh,
+[data-theme="azure-elegance"] .chroma .si,
+[data-theme="azure-elegance"] .chroma .sx,
+[data-theme="azure-elegance"] .chroma .s1,
+[data-theme="azure-elegance"] .chroma .ss,
+[data-theme="hacker-light"] .chroma .s,
+[data-theme="hacker-light"] .chroma .sa,
+[data-theme="hacker-light"] .chroma .sb,
+[data-theme="hacker-light"] .chroma .sc,
+[data-theme="hacker-light"] .chroma .dl,
+[data-theme="hacker-light"] .chroma .s2,
+[data-theme="hacker-light"] .chroma .sh,
+[data-theme="hacker-light"] .chroma .si,
+[data-theme="hacker-light"] .chroma .sx,
+[data-theme="hacker-light"] .chroma .s1,
+[data-theme="hacker-light"] .chroma .ss { color: #0a6847; font-weight: normal; }
+
+/* Numbers - orange */
 [data-theme="aesthetic-blue"] .chroma .m,
-[data-theme="pastel-blue-dream"] .chroma .m,
-[data-theme="ocean-breeze"] .chroma .m,
-[data-theme="azure-elegance"] .chroma .m,
 [data-theme="aesthetic-blue"] .chroma .mb,
-[data-theme="pastel-blue-dream"] .chroma .mb,
-[data-theme="ocean-breeze"] .chroma .mb,
-[data-theme="azure-elegance"] .chroma .mb,
 [data-theme="aesthetic-blue"] .chroma .mf,
-[data-theme="pastel-blue-dream"] .chroma .mf,
-[data-theme="ocean-breeze"] .chroma .mf,
-[data-theme="azure-elegance"] .chroma .mf,
 [data-theme="aesthetic-blue"] .chroma .mh,
-[data-theme="pastel-blue-dream"] .chroma .mh,
-[data-theme="ocean-breeze"] .chroma .mh,
-[data-theme="azure-elegance"] .chroma .mh,
 [data-theme="aesthetic-blue"] .chroma .mi,
-[data-theme="pastel-blue-dream"] .chroma .mi,
-[data-theme="ocean-breeze"] .chroma .mi,
-[data-theme="azure-elegance"] .chroma .mi,
 [data-theme="aesthetic-blue"] .chroma .il,
-[data-theme="pastel-blue-dream"] .chroma .il,
-[data-theme="ocean-breeze"] .chroma .il,
-[data-theme="azure-elegance"] .chroma .il,
 [data-theme="aesthetic-blue"] .chroma .mo,
+[data-theme="pastel-blue-dream"] .chroma .m,
+[data-theme="pastel-blue-dream"] .chroma .mb,
+[data-theme="pastel-blue-dream"] .chroma .mf,
+[data-theme="pastel-blue-dream"] .chroma .mh,
+[data-theme="pastel-blue-dream"] .chroma .mi,
+[data-theme="pastel-blue-dream"] .chroma .il,
 [data-theme="pastel-blue-dream"] .chroma .mo,
+[data-theme="ocean-breeze"] .chroma .m,
+[data-theme="ocean-breeze"] .chroma .mb,
+[data-theme="ocean-breeze"] .chroma .mf,
+[data-theme="ocean-breeze"] .chroma .mh,
+[data-theme="ocean-breeze"] .chroma .mi,
+[data-theme="ocean-breeze"] .chroma .il,
 [data-theme="ocean-breeze"] .chroma .mo,
-[data-theme="azure-elegance"] .chroma .mo { color: #005cc5; font-weight: bold; }
+[data-theme="azure-elegance"] .chroma .m,
+[data-theme="azure-elegance"] .chroma .mb,
+[data-theme="azure-elegance"] .chroma .mf,
+[data-theme="azure-elegance"] .chroma .mh,
+[data-theme="azure-elegance"] .chroma .mi,
+[data-theme="azure-elegance"] .chroma .il,
+[data-theme="azure-elegance"] .chroma .mo,
+[data-theme="hacker-light"] .chroma .m,
+[data-theme="hacker-light"] .chroma .mb,
+[data-theme="hacker-light"] .chroma .mf,
+[data-theme="hacker-light"] .chroma .mh,
+[data-theme="hacker-light"] .chroma .mi,
+[data-theme="hacker-light"] .chroma .il,
+[data-theme="hacker-light"] .chroma .mo { color: #cf6600; font-weight: bold; }
+
+/* Comments - gray */
+[data-theme="aesthetic-blue"] .chroma .c,
+[data-theme="aesthetic-blue"] .chroma .ch,
+[data-theme="aesthetic-blue"] .chroma .cm,
+[data-theme="aesthetic-blue"] .chroma .c1,
+[data-theme="aesthetic-blue"] .chroma .cs,
+[data-theme="pastel-blue-dream"] .chroma .c,
+[data-theme="pastel-blue-dream"] .chroma .ch,
+[data-theme="pastel-blue-dream"] .chroma .cm,
+[data-theme="pastel-blue-dream"] .chroma .c1,
+[data-theme="pastel-blue-dream"] .chroma .cs,
+[data-theme="ocean-breeze"] .chroma .c,
+[data-theme="ocean-breeze"] .chroma .ch,
+[data-theme="ocean-breeze"] .chroma .cm,
+[data-theme="ocean-breeze"] .chroma .c1,
+[data-theme="ocean-breeze"] .chroma .cs,
+[data-theme="azure-elegance"] .chroma .c,
+[data-theme="azure-elegance"] .chroma .ch,
+[data-theme="azure-elegance"] .chroma .cm,
+[data-theme="azure-elegance"] .chroma .c1,
+[data-theme="azure-elegance"] .chroma .cs,
+[data-theme="hacker-light"] .chroma .c,
+[data-theme="hacker-light"] .chroma .ch,
+[data-theme="hacker-light"] .chroma .cm,
+[data-theme="hacker-light"] .chroma .c1,
+[data-theme="hacker-light"] .chroma .cs { color: #6e7781; font-style: italic; }
+
+/* Classes, attributes - blue */
+[data-theme="aesthetic-blue"] .chroma .nc,
+[data-theme="aesthetic-blue"] .chroma .na,
+[data-theme="aesthetic-blue"] .chroma .nn,
+[data-theme="aesthetic-blue"] .chroma .no,
+[data-theme="pastel-blue-dream"] .chroma .nc,
+[data-theme="pastel-blue-dream"] .chroma .na,
+[data-theme="pastel-blue-dream"] .chroma .nn,
+[data-theme="pastel-blue-dream"] .chroma .no,
+[data-theme="ocean-breeze"] .chroma .nc,
+[data-theme="ocean-breeze"] .chroma .na,
+[data-theme="ocean-breeze"] .chroma .nn,
+[data-theme="ocean-breeze"] .chroma .no,
+[data-theme="azure-elegance"] .chroma .nc,
+[data-theme="azure-elegance"] .chroma .na,
+[data-theme="azure-elegance"] .chroma .nn,
+[data-theme="azure-elegance"] .chroma .no,
+[data-theme="hacker-light"] .chroma .nc,
+[data-theme="hacker-light"] .chroma .na,
+[data-theme="hacker-light"] .chroma .nn,
+[data-theme="hacker-light"] .chroma .no { color: #0550ae; font-weight: bold; }
+
+/* Operators */
 [data-theme="aesthetic-blue"] .chroma .o,
-[data-theme="pastel-blue-dream"] .chroma .o,
-[data-theme="ocean-breeze"] .chroma .o,
-[data-theme="azure-elegance"] .chroma .o,
 [data-theme="aesthetic-blue"] .chroma .ow,
+[data-theme="pastel-blue-dream"] .chroma .o,
 [data-theme="pastel-blue-dream"] .chroma .ow,
+[data-theme="ocean-breeze"] .chroma .o,
 [data-theme="ocean-breeze"] .chroma .ow,
-[data-theme="azure-elegance"] .chroma .ow { color: #d73a49; font-weight: bold; }
+[data-theme="azure-elegance"] .chroma .o,
+[data-theme="azure-elegance"] .chroma .ow,
+[data-theme="hacker-light"] .chroma .o,
+[data-theme="hacker-light"] .chroma .ow { color: #0550ae; font-weight: normal; }
+
+/* Punctuation */
 [data-theme="aesthetic-blue"] .chroma .p,
 [data-theme="pastel-blue-dream"] .chroma .p,
 [data-theme="ocean-breeze"] .chroma .p,
-[data-theme="azure-elegance"] .chroma .p { color: #24292e; }
-[data-theme="aesthetic-blue"] .chroma .c,
-[data-theme="pastel-blue-dream"] .chroma .c,
-[data-theme="ocean-breeze"] .chroma .c,
-[data-theme="azure-elegance"] .chroma .c,
-[data-theme="aesthetic-blue"] .chroma .ch,
-[data-theme="pastel-blue-dream"] .chroma .ch,
-[data-theme="ocean-breeze"] .chroma .ch,
-[data-theme="azure-elegance"] .chroma .ch,
-[data-theme="aesthetic-blue"] .chroma .cm,
-[data-theme="pastel-blue-dream"] .chroma .cm,
-[data-theme="ocean-breeze"] .chroma .cm,
-[data-theme="azure-elegance"] .chroma .cm,
-[data-theme="aesthetic-blue"] .chroma .c1,
-[data-theme="pastel-blue-dream"] .chroma .c1,
-[data-theme="ocean-breeze"] .chroma .c1,
-[data-theme="azure-elegance"] .chroma .c1,
-[data-theme="aesthetic-blue"] .chroma .cs,
-[data-theme="pastel-blue-dream"] .chroma .cs,
-[data-theme="ocean-breeze"] .chroma .cs,
-[data-theme="azure-elegance"] .chroma .cs { color: #6a737d; font-style: italic; }
+[data-theme="azure-elegance"] .chroma .p,
+[data-theme="hacker-light"] .chroma .p { color: #24292e; opacity: 0.8; }
+
+/* Variables */
+[data-theme="aesthetic-blue"] .chroma .n,
+[data-theme="aesthetic-blue"] .chroma .nv,
+[data-theme="aesthetic-blue"] .chroma .vc,
+[data-theme="aesthetic-blue"] .chroma .vg,
+[data-theme="aesthetic-blue"] .chroma .vi,
+[data-theme="pastel-blue-dream"] .chroma .n,
+[data-theme="pastel-blue-dream"] .chroma .nv,
+[data-theme="pastel-blue-dream"] .chroma .vc,
+[data-theme="pastel-blue-dream"] .chroma .vg,
+[data-theme="pastel-blue-dream"] .chroma .vi,
+[data-theme="ocean-breeze"] .chroma .n,
+[data-theme="ocean-breeze"] .chroma .nv,
+[data-theme="ocean-breeze"] .chroma .vc,
+[data-theme="ocean-breeze"] .chroma .vg,
+[data-theme="ocean-breeze"] .chroma .vi,
+[data-theme="azure-elegance"] .chroma .n,
+[data-theme="azure-elegance"] .chroma .nv,
+[data-theme="azure-elegance"] .chroma .vc,
+[data-theme="azure-elegance"] .chroma .vg,
+[data-theme="azure-elegance"] .chroma .vi,
+[data-theme="hacker-light"] .chroma .n,
+[data-theme="hacker-light"] .chroma .nv,
+[data-theme="hacker-light"] .chroma .vc,
+[data-theme="hacker-light"] .chroma .vg,
+[data-theme="hacker-light"] .chroma .vi { color: #24292e; font-weight: normal; }
+
+/* Line highlight */
 [data-theme="aesthetic-blue"] .chroma .hl,
 [data-theme="pastel-blue-dream"] .chroma .hl,
 [data-theme="ocean-breeze"] .chroma .hl,
-[data-theme="azure-elegance"] .chroma .hl { background-color: #fffbdd; }
+[data-theme="azure-elegance"] .chroma .hl,
+[data-theme="hacker-light"] .chroma .hl { background-color: #ddf4ff; }
 
 </style>

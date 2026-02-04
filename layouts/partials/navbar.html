@@ -14,7 +14,7 @@
     </div>
     
     <div class="navbar-right">
-        <input type="text" id="search-box" placeholder="Search..." onkeypress="if(event.key==='Enter'){window.location.href='/search?q='+encodeURIComponent(this.value)}" />
+        <input type="text" id="search-box" placeholder="" onkeypress="if(event.key==='Enter'){window.location.href='/search?q='+encodeURIComponent(this.value)}" />
         <select id="theme-switcher">
             <option value="light">Light</option>
             <option value="dark">Dark</option>
@@ -51,6 +51,50 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
+    }
+
+    // Typing effect for search box placeholder
+    const searchBox = document.getElementById('search-box');
+    if (searchBox) {
+        const phrases = [
+            "$ grep -r 'search'",
+            "$ find . -name '*'",
+            "$ cat /posts/*",
+            "$ ls -la /blog",
+            "$ awk '/pattern/'",
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                searchBox.placeholder = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                searchBox.placeholder = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typingSpeed = 2000; // Pause before deleting
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typingSpeed = 500; // Pause before typing next
+            }
+
+            setTimeout(typeEffect, typingSpeed);
+        }
+
+        // Start typing effect
+        setTimeout(typeEffect, 1000);
     }
 });
 </script>
