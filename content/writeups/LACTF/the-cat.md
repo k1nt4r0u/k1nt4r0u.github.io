@@ -1,12 +1,12 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
-draft: false
+title: "The Cat"
+date: 2026-02-07T22:19:42+07:00
+draft: true
 tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
 categories: ["CTF Name"]
-contest: "{{ replace .Name "-" " " | title }}"
+contest: "LACTF 2026"
 author: "k1nt4r0u"
-description: "A detailed writeup for {{ replace .Name "-" " " | title }} challenge"
+description: "A detailed writeup for The Cat challenge"
 difficulty: "Easy/Medium/Hard"
 ---
 
@@ -16,7 +16,7 @@ difficulty: "Easy/Medium/Hard"
 
 ## Challenge Info
 
-* **Name:** {{ replace .Name "-" " " | title }}
+* **Name:** The Cat
 * **Category:** 
 * **Points:** 
 * **Difficulty:** 
