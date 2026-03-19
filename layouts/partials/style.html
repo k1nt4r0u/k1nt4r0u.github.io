@@ -742,6 +742,29 @@ main {
     font-size: 16px;
 }
 
+.post-content table:not(.lntable),
+#full-content table:not(.lntable) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    border: 1px solid #3a7bd5;
+    background-color: rgba(58, 123, 213, 0.05);
+}
+
+.post-content table:not(.lntable) th,
+.post-content table:not(.lntable) td,
+#full-content table:not(.lntable) th,
+#full-content table:not(.lntable) td {
+    border: 1px solid #3a7bd5;
+    padding: 0.55em 0.75em;
+    text-align: left;
+}
+
+.post-content table:not(.lntable) thead th,
+#full-content table:not(.lntable) thead th {
+    background-color: rgba(58, 123, 213, 0.18);
+}
+
 .post-content a {
     color: var(--link-color);
     font-weight: bold;
@@ -782,6 +805,12 @@ code:not(.highlight code) {
     font-size: 0.9em;
     border: 1px solid var(--accent-color);
     text-shadow: 0 0 3px var(--accent-color);
+    display: inline-block;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+    max-width: 100%;
+    vertical-align: middle;
 }
 
 .highlight {
@@ -1297,7 +1326,11 @@ main {
     }
     p:not(.highlight), li:not(.highlight), span:not(.highlight *) {
         font-size: 16px !important; line-height: 1.6 !important;
-        text-align: justify !important; word-wrap: break-word !important;
+        text-align: left !important;
+        overflow-wrap: normal !important;
+        word-wrap: normal !important;
+        word-break: normal !important;
+        hyphens: none !important;
     }
 
     .about-page article {
@@ -1365,7 +1398,14 @@ main {
     .highlight td:last-child::-webkit-scrollbar { height: 6px !important; }
     .highlight td:last-child::-webkit-scrollbar-thumb { background: transparent; border-radius: 3px; }
 
-    p code, li code { font-size: 13px !important; padding: 2px 4px !important; word-break: break-all !important; }
+    p code, li code {
+        font-size: 13px !important;
+        padding: 2px 4px !important;
+        display: inline-block !important;
+        white-space: nowrap !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+    }
     img { max-width: 100% !important; height: auto !important; margin: 15px auto !important; display: block; border-radius: 5px; }
     
     #scrollToTopBtn {
@@ -1555,7 +1595,8 @@ main, #sidebar {
     .writeup-card h3 {
         font-size: 1.2em; /* Decreased for mobile */
         margin-bottom: 1em;
-        word-break: break-word; /* Added for long titles */
+        overflow-wrap: normal;
+        word-break: normal;
     }
 
     .writeup-card h3 a {
