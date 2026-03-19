@@ -2,8 +2,8 @@
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: false
-tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
-categories: ["CTF Name"]
+tags: ["ctf", "reversing"]
+categories: ["RE"]
 contest: "{{ replace .Name "-" " " | title }}"
 author: "k1nt4r0u"
 description: "A detailed writeup for {{ replace .Name "-" " " | title }} challenge"
