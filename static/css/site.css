@@ -1,5 +1,9 @@
 * { box-sizing: border-box; font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace; }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Scroll Progress Bar */
 #scroll-progress-bar {
     position: fixed;
@@ -2149,3 +2153,9 @@ main, #sidebar {
 [data-theme="ocean-breeze"] .chroma .hl,
 [data-theme="azure-elegance"] .chroma .hl,
 [data-theme="hacker-light"] .chroma .hl { background-color: #ddf4ff; }
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
