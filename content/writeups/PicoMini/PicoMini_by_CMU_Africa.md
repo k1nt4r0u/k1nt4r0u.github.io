@@ -6,84 +6,86 @@ tags: ["ctf", "re"]
 categories: ["CTF Name"]
 contest: "PicoMini_by_CMU_Africa"
 author: "k1nt4r0u"
-description: "Description: "
+description: "Two Android reversing solves from PicoMini by following the actual app artifacts instead of the obvious screens"
 ---
+
+# PicoMini by CMU Africa
+
+This set had two Android reversing challenges. Both of them became much easier once I stopped staring at the default UI and followed the data that the APK already exposed.
 
 ## M1n10n'5_53cr37
 
-Sau khi decompile file `minions.apk` bằng jadx-gui ta được các source files, kiểm tra file `MainActivity` nhưng có vẻ file không có gì hữu ích trong việc tìm flag
+### First pass
 
-Từ hint 2 : `Any interesting source files?` -> `Navigation` -> `Text search` -> tìm với từ khóa `"interesting"`
+I started by opening `minions.apk` in `jadx-gui` and checking `MainActivity`, which is usually the first useful place in beginner Android reversing.
 
-```
+In this case it was mostly noise. Nothing there explained where the flag was hidden.
+
+The first real clue came from the hint:
+
+> Any interesting source files?
+
+That pushed me toward text search instead of static browsing. Searching for `interesting` turned up this string:
+
+```xml
 android:text="Look into me my Banana Value is interesting"
 ```
 
-Vậy nhiệm vụ tiếp theo là tìm xem `Banana Value` là gì bằng cách tiếp tục sử dụng text search để tìm bằng các từ khóa như `Banana`, `Banana Value`, `Value`, `bananavalue`,...
+So the next question became simple: where is `Banana Value` stored?
 
-```
+### Pivot
+
+A second text search for `Banana` found the string resource:
+
+```xml
 <string name="Banana">OBUWG32DKRDHWMLUL53TI43OG5PWQNDSMRPXK3TSGR3DG3BRNY4V65DIGNPW2MDCGFWDGX3DGBSDG7I=</string>
 ```
 
-Sau khi search thì ta có thể thấy `Banana Value` là 1 đoạn text được mã hóa dưới dạng `base32` -> sử dụng tool online để giải mã
+That blob looked like Base32 immediately. Decoding it gave the flag directly:
 
-`picoCTF{1t_w4sn7_h4rd_unr4v3l1n9_th3_m0b1l3_c0d3}`
+```text
+picoCTF{1t_w4sn7_h4rd_unr4v3l1n9_th3_m0b1l3_c0d3}
+```
+
+### Takeaway
+
+The only thing that mattered here was not trusting the activity layout as the whole challenge. The flag was never hidden behind complex code. It was just sitting in resources with a hint pointing at it.
 
 ## Pico Bank
 
-Sử dụng jadx-gui để decompile file `pico-bank.apk`, kiểm tra file `MainActivity`
+### First clue
+
+For `pico-bank.apk`, I again started in `MainActivity`, and this time the transaction list stood out right away:
+
 ```java
-TextView welcomeMessage = (TextView) findViewById(R.id.welcomeMessage);
-        welcomeMessage.setText("Welcome, Johnson");
-        TextView myBalanceAmount = (TextView) findViewById(R.id.myBalanceAmount);
-        myBalanceAmount.setText("$ 50,000,000");
-        this.transactionsRecyclerView = (RecyclerView) findViewById(R.id.transactionsRecyclerView);
-        this.transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        this.transactionList = new ArrayList();
-        this.transactionList.add(new Transaction("Grocery Shopping", "2023-07-21", "$ 1110000", false));
-        this.transactionList.add(new Transaction("Electricity Bill", "2023-07-20", "$ 1101001", false));
-        this.transactionList.add(new Transaction("Salary", "2023-07-18", "$ 1100011", true));
-        this.transactionList.add(new Transaction("Internet Bill", "2023-07-17", "$ 1101111", false));
-        this.transactionList.add(new Transaction("Freelance Payment", "2023-07-16", "$ 1000011", true));
-        this.transactionList.add(new Transaction("Dining Out", "2023-07-15", "$ 1010100", false));
-        this.transactionList.add(new Transaction("Gym Membership", "2023-07-14", "$ 1000110", false));
-        this.transactionList.add(new Transaction("Stocks Dividend", "2023-07-13", "$ 1111011", true));
-        this.transactionList.add(new Transaction("Car Maintenance", "2023-07-12", "$ 110001", false));
-        this.transactionList.add(new Transaction("Gift Received", "2023-07-11", "$ 1011111", true));
-        this.transactionList.add(new Transaction("Rent", "2023-07-10", "$ 1101100", false));
-        this.transactionList.add(new Transaction("Water Bill", "2023-07-09", "$ 110001", false));
-        this.transactionList.add(new Transaction("Interest Earned", "2023-07-08", "$ 110011", true));
-        this.transactionList.add(new Transaction("Medical Expenses", "2023-07-07", "$ 1100100", false));
-        this.transactionList.add(new Transaction("Transport", "2023-07-06", "$ 1011111", false));
-        this.transactionList.add(new Transaction("Bonus", "2023-07-05", "$ 110100", true));
-        this.transactionList.add(new Transaction("Subscription Service", "2023-07-04", "$ 1100010", false));
-        this.transactionList.add(new Transaction("Freelance Payment", "2023-07-03", "$ 110000", true));
-        this.transactionList.add(new Transaction("Entertainment", "2023-07-02", "$ 1110101", false));
-        this.transactionList.add(new Transaction("Groceries", "2023-07-01", "$ 1110100", false));
-        this.transactionList.add(new Transaction("Insurance Premium", "2023-06-28", "$ 1011111", false));
-        this.transactionList.add(new Transaction("Charity Donation", "2023-06-26", "$ 1100010", true));
-        this.transactionList.add(new Transaction("Vacation Expense", "2023-06-26", "$ 110011", false));
-        this.transactionList.add(new Transaction("Home Repairs", "2023-06-24", "$ 110001", false));
-        this.transactionList.add(new Transaction("Pet Care", "2023-06-22", "$ 1101110", false));
-        this.transactionList.add(new Transaction("Personal Loan", "2023-06-18", "$ 1100111", true));
-        this.transactionList.add(new Transaction("Childcare", "2023-06-15", "$ 1011111", false));
-        this.transactionAdapter = new TransactionAdapter(this.transactionList);
-        this.transactionsRecyclerView.setAdapter(this.transactionAdapter);
+this.transactionList.add(new Transaction("Grocery Shopping", "2023-07-21", "$ 1110000", false));
+this.transactionList.add(new Transaction("Electricity Bill", "2023-07-20", "$ 1101001", false));
+this.transactionList.add(new Transaction("Salary", "2023-07-18", "$ 1100011", true));
+...
 ```
 
-Có thể thấy đây là lịch sử thanh toán của ông Johnson và số tiền trong những lần thanh toán của ông chính là mã nhị phân
+Those amounts were clearly not normal balances. They looked like binary.
 
-Dịch ra text thì ta được nửa đầu của flag `picoCTF{1_l13d_4b0ut_b31ng_` 
+Converting the values to ASCII recovered the first half of the flag:
 
-Tiếp tục sử dụng `Text search` -> tìm `"OTP"`
+```text
+picoCTF{1_l13d_4b0ut_b31ng_
 ```
+
+That established the pattern, but the flag was incomplete, so the rest had to be somewhere else in the app.
+
+### Second clue
+
+The challenge hint mentioned the OTP flow, so I searched for `OTP` in the decompiled sources and resources.
+
+That led to:
+
+```xml
 <string name="otp_value">9673</string>
 ```
-Vậy `OTP` là `9673`
 
-Trong file `MainActivity` có thêm hint: `Have you analyzed the server's response when handling OTP requests?`
+and to the `verifyOtp` logic:
 
-Tiếp tục sử dụng `Text search` tìm `OTP` thì ta thấy 1 đoạn code có vẻ như là kiểm tra otp nhập vào 
 ```java
 public void verifyOtp(String otp) throws JSONException {
         String endpoint = "your server url/verify-otp";
@@ -95,49 +97,44 @@ public void verifyOtp(String otp) throws JSONException {
             Toast.makeText(this, "Invalid OTP", 0).show();
         }
         JSONObject postData = new JSONObject();
-        try {
-            postData.put("otp", otp);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(1, endpoint, postData, new Response.Listener<JSONObject>() { // from class: com.example.picobank.OTP.2
-            @Override // com.android.volley.Response.Listener
-            public void onResponse(JSONObject response) throws JSONException {
-                try {
-                    boolean success = response.getBoolean("success");
-                    if (success) {
-                        String flag = response.getString("flag");
-                        String hint = response.getString("hint");
-                        Intent intent2 = new Intent(OTP.this, (Class<?>) MainActivity.class);
-                        intent2.putExtra("flag", flag);
-                        intent2.putExtra("hint", hint);
-                        OTP.this.startActivity(intent2);
-                        OTP.this.finish();
-                    } else {
-                        Toast.makeText(OTP.this, "Invalid OTP", 0).show();
-                    }
-                } catch (JSONException e2) {
-                    e2.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() { // from class: com.example.picobank.OTP.3
-            @Override // com.android.volley.Response.ErrorListener
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
+        postData.put("otp", otp);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(1, endpoint, postData, ...);
         this.requestQueue.add(jsonObjectRequest);
-    }
+}
 ```
-Đọc code ta thấy khi `POST` lên server với endpoint là `your server url/verify-otp`  và data là `OTP`, server sẽ check xem `OTP` nhập vào đúng hay sai, nếu đúng nó sẽ cho `response` là flag vậy nên ta chỉ cần `POST` với data là `OTP` tìm thấy ở trên ta sẽ có được phần còn lại của flag cần tìm
+
+The important detail here was that the app still POSTed the OTP to the backend, and the backend response included the missing flag chunk. At that point the local OTP value was all I needed.
+
+### Getting the second half
+
+I sent the discovered OTP to the endpoint directly:
+
 ```python
 import requests
-import json
+
 payload = {"otp": 9673}
-r = requests.post('http://saffron-estate.picoctf.net:56247/verify-otp', data = payload)
+r = requests.post("http://saffron-estate.picoctf.net:56247/verify-otp", data=payload)
 print(r.text)
 ```
-Chạy script thì response trả về là phần còn lại của flag
-```
+
+The server responded with:
+
+```json
 {"success":true,"message":"OTP verified successfully","flag":"s3cur3d_m0b1l3_l0g1n_c0085c75}","hint":"The other part of the flag is hidden in the app"}
 ```
-`picoCTF{1_l13d_4b0ut_b31ng_s3cur3d_m0b1l3_l0g1n_c0085c75}`
+
+Combining both parts produced the full flag:
+
+```text
+picoCTF{1_l13d_4b0ut_b31ng_s3cur3d_m0b1l3_l0g1n_c0085c75}
+```
+
+## Final takeaway
+
+Both APKs rewarded the same habit:
+
+- search the app resources instead of only reading the main activity
+- treat weird constants as data first, not as UI decoration
+- follow the client/server boundary when the app hints at network validation
+
+Once those pivots were clear, neither challenge needed anything more complicated than text search, decoding, and one short request script.

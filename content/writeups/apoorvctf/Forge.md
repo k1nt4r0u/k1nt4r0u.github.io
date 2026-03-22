@@ -6,142 +6,80 @@ tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
 categories: ["CTF Name"]
 contest: "apoorvctf 2026"
 author: "k1nt4r0u"
-description: "A detailed writeup for Forge challenge"
-difficulty: "Easy/Medium/Hard"
+description: "Cutting through anti-debug noise and solving Forge as linear algebra over a custom byte field"
+difficulty: "Medium"
 ---
 
-# Forge Writeup
+# apoorvctf 2026 — Forge
 
-## Summary
+## First impression
 
-This challenge is a stripped 64-bit ELF binary named `forge`.
-Although it includes anti-debugging and a misleading runtime path, the flag can be recovered statically from constants embedded in the binary.
+`forge` looked much worse than it really was.
 
-## Final Flag
+The binary is stripped, PIE, and imports a mix of `ptrace`, `fork`, `prctl`, `mmap`, `RAND_bytes`, `EVP_sha256`, and `EVP_aes_256_gcm`. That is exactly the kind of import table that tries to make you expect anti-debugging, runtime decryption, and maybe a second stage.
 
-`APOORVCTF{Y0u_4ctually_brOught_Y0ur_owN_Firmw4re????!!!}`
+I did chase that direction for a bit. One decoded string in `.rodata` even hinted at `payload>bin`, which made it look like something external might be missing.
 
-## Solve script
+The good news is that none of that turned out to matter.
 
-A standalone solver is included as `solve.py` in the same folder.
+## The real pivot
 
-Run it with:
+The turning point was simply watching what the main loop actually did instead of what the imports suggested.
 
-- `python3 solve.py`
+Once I looked at the repeated operations, the pattern was hard to miss:
 
-It reads the local `forge` binary, extracts the matrix and multiplication table from `.rodata`, performs the same elimination as the binary, and prints the recovered flag.
+- pick a pivot
+- find an inverse
+- normalize a row
+- eliminate that column from every other row
 
-## Step-by-step solve
+That is Gaussian elimination, not cryptography.
 
-### 1. Identify the binary
+The binary was solving a fixed linear system over bytes. The multiplication was not normal integer multiplication, though. Every product came from a `256 x 256` lookup table stored in `.rodata`, so the arithmetic was happening in a custom GF(256)-style field.
 
-First, I checked the file type and basic properties:
+That changed the whole challenge. I no longer cared about the anti-debug path or the missing payload hint. I only needed the constants.
 
-- It is a stripped PIE ELF executable.
-- It links against OpenSSL.
-- It imports functions like `ptrace`, `fork`, `prctl`, `mmap`, `RAND_bytes`, `EVP_sha256`, and `EVP_aes_256_gcm`.
+## Rebuilding the system
 
-That combination strongly suggests:
+The relevant data was all embedded in the main binary:
 
-- anti-debugging / anti-analysis logic,
-- some cryptographic helper routines,
-- and likely a staged or obfuscated verification flow.
+- a `56 x 56` coefficient matrix
+- a 56-byte right-hand side
+- a 65536-byte multiplication table
 
-### 2. Check strings, but do not trust them too much
+Together they form a `56 x 57` augmented matrix.
 
-Running `strings` gave mostly noise plus OpenSSL symbols.
-That indicated the binary was not going to reveal the flag directly through printable strings.
+So I wrote a small Python solver that:
 
-One useful clue was an XOR-obfuscated string in `.rodata` that decodes to:
+1. reads the binary bytes,
+2. extracts the matrix and multiplication table from `.rodata`,
+3. performs the same row-reduction logic as the binary,
+4. finds multiplicative inverses by scanning for `mul(a, x) == 1`,
+5. and finally reads the last column once the matrix is reduced.
 
-- `payload>bin`
+That is enough because the verifier is deterministic. The flag is already baked into the embedded system.
 
-This suggests the program expects or references another stage, but that stage was not present in the workspace.
+## Why the static route works
 
-### 3. Disassemble the main logic
+This is the part I liked most about the challenge: it is mostly misdirection.
 
-I used `objdump` to inspect the main function and found:
+The program wants you to spend time on the surrounding noise:
 
-- an early `ptrace` anti-debug check,
-- memory mappings with `mmap`,
-- a large table copied from `.rodata`,
-- and a long loop that performs row operations on fixed-size blocks.
+- anti-debugging
+- OpenSSL calls
+- process tricks
+- a suspicious payload path
 
-The important observation was that the program repeatedly:
+But the actual answer is sitting in plain sight as a solvable algebra problem. Once I committed to that interpretation, the challenge became much smaller.
 
-- selects a pivot,
-- finds a multiplicative inverse,
-- normalizes a row,
-- and XORs scaled rows into the others.
+## Result
 
-That is the shape of Gaussian elimination.
+The reduced matrix decoded cleanly as ASCII:
 
-### 4. Recognize the arithmetic domain
+```text
+APOORVCTF{Y0u_4ctually_brOught_Y0ur_owN_Firmw4re????!!!}
+```
 
-The verifier does not use normal integer multiplication.
-Instead, it indexes a `256 x 256` lookup table stored in `.rodata` and uses the result as multiplication.
+## Takeaway
 
-So the solver is performing linear algebra over a custom GF(256)-style byte field.
-
-The relevant embedded data is:
-
-- a 56x56 coefficient matrix,
-- a 56-byte right-hand-side vector,
-- and the 65536-byte multiplication table.
-
-Together they form a 56x57 augmented matrix.
-
-### 5. Rebuild the matrix statically
-
-From the `.rodata` layout, I extracted:
-
-- each row of 56 coefficients from the large constant block,
-- one extra byte per row from a smaller nearby constant block,
-- then assembled them into the augmented system.
-
-At that point, the challenge reduced to emulating the binary's elimination logic exactly.
-
-### 6. Emulate the binary's elimination
-
-I wrote a short Python script to:
-
-- load the binary bytes,
-- extract the matrix and multiplication table,
-- perform pivot search and row swapping,
-- compute multiplicative inverses by scanning for `mul(a, x) == 1`,
-- normalize pivot rows,
-- eliminate all other rows,
-- and finally read the last column of the reduced matrix.
-
-After reduction, the left side becomes the identity matrix and the final column is the solution.
-
-### 7. Decode the result
-
-The recovered 56-byte solution decoded cleanly as ASCII:
-
-`APOORVCTF{Y0u_4ctually_brOught_Y0ur_owN_Firmw4re????!!!}`
-
-## Why static analysis was enough
-
-Even though the binary contains runtime behavior involving:
-
-- random data generation,
-- SHA-256,
-- AES-256-GCM,
-- and a child process / second-stage path,
-
-none of that was necessary to recover the flag.
-
-The actual printable success data is already determined by the embedded linear system in the main binary.
-So the missing external stage does not block the solve.
-
-## Key takeaway
-
-The main trick of the challenge is misdirection:
-
-- anti-debugging makes dynamic analysis annoying,
-- crypto calls make it look like the flag is hidden behind encryption,
-- but the core solve is actually linear algebra over a byte field.
-
-Once the row-reduction logic is recognized, the flag falls out directly.
-
+`Forge` is a good reminder that "lots of crypto imports" is not the same thing as "the solve is cryptography." The real signal was the row-reduction pattern. After that, the rest of the binary was just decoration.

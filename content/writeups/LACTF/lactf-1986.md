@@ -6,149 +6,85 @@ tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
 categories: ["CTF Name"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
-description: "A detailed writeup for Lactf 1986 challenge"
-difficulty: "Easy/Medium/Hard"
+description: "Bruteforcing a 20-bit self-seeded stream cipher in a retro DOS flag checker"
+difficulty: "Medium"
 ---
-# LACTF '86 Flag Checker — Writeup
+# LACTF 2026 — 1986
 
-## Challenge Overview
+## First look
 
-We're given two files:
-- **CHALL.EXE** — A 16-bit MS-DOS executable (9.8 KB)
-- **CHALL.IMG** — A 1.44 MB FAT12 floppy disk image containing the same `CHALL.EXE`
+This one came with a very on-theme setup: a tiny `CHALL.EXE` DOS program and a floppy image containing the same executable. A quick `strings` pass already told me it was a flag checker:
 
-Running `strings` on the binary reveals it's a flag checker:
-
-```
+```text
 UCLA NetSec presents: LACTF '86 Flag Checker
-Check your Flag: 
+Check your Flag:
 Sorry, the flag must begin with "lactf{..."
 Sorry, that's not the flag.
 Indeed, that's the flag!
 ```
 
-## Reversing the Binary
+So the question was not what the binary did, but whether it hid the flag in a way that was annoying enough to matter.
 
-### MZ Header Analysis
+## What the checker really does
 
-The executable is a standard MZ DOS binary compiled with what appears to be Turbo C:
+Loading the program in `radare2` as 16-bit x86 made the structure fairly clear.
 
-| Field              | Value          |
-|--------------------|----------------|
-| Header size        | 48 bytes (0x30)|
-| Entry point (CS:IP)| 0000:02C2     |
-| Code segment       | 0x0000–0x238F (file offset 0x30) |
-| Data segment       | 0x2390–0x26D5 (file offset 0x23C0) |
+The first part is just a prefix check. The binary rejects anything that does not begin with `lactf{`, so there is nothing interesting there.
 
-### Main Function (`fcn.000000b0`)
-
-Using radare2 (`r2 -a x86 -b 16`), the main logic was disassembled. It performs three steps:
-
-#### Step 1 — Prefix Validation
-
-The checker reads user input and verifies the first 5 characters match `lactf{`:
-
-```asm
-cmp byte [bp - 0x16], 0x6c   ; 'l'
-cmp byte [bp - 0x15], 0x61   ; 'a'
-cmp byte [bp - 0x14], 0x63   ; 'c'
-cmp byte [bp - 0x13], 0x74   ; 't'
-cmp byte [bp - 0x12], 0x66   ; 'f'
-cmp byte [bp - 0x11], 0x7b   ; '{'
-```
-
-If any mismatch, it prints `"Sorry, the flag must begin with "lactf{...""` and exits.
-
-#### Step 2 — Hash the Input (Seed the PRNG)
-
-The function at `fcn.00000010` computes a 20-bit hash of the entire input string. Tracing the assembly:
-
-```asm
-; For each character c in input:
-;   left-shift state by 6 bits  → state * 64
-;   left-shift state by 1 bit   → state * 2
-;   add: state*64 + state*2 + state = state * 67
-;   add character value
-;   mask to 20 bits (AND si, 0xF keeps upper 4 bits)
-```
-
-In Python:
+The second part is where the actual trick lives. The checker hashes the entire input into a 20-bit state:
 
 ```python
-def hash_string(s):
+def hash_string(data):
     state = 0
-    for c in s:
-        state = (67 * state + c) % (1 << 20)
+    for byte in data:
+        state = (67 * state + byte) % (1 << 20)
     return state
 ```
 
-This produces a 20-bit seed value in `DX:AX`.
-
-#### Step 3 — LFSR XOR Stream Cipher
-
-The function at `fcn.0000007b` implements a 20-bit Linear Feedback Shift Register (LFSR). Each step:
-
-1. Compute feedback bit = `bit0 XOR bit3`
-2. Right-shift the 20-bit state by 1
-3. Insert feedback bit at position 19 (MSB)
+That 20-bit value becomes the seed for a small LFSR:
 
 ```python
 def lfsr_step(state):
     feedback = (state & 1) ^ ((state >> 3) & 1)
-    state = (state >> 1) | (feedback << 19)
-    return state & 0xFFFFF
+    return ((state >> 1) | (feedback << 19)) & 0xFFFFF
 ```
 
-The main loop iterates over each character of the input (up to 0x49 = 73 characters):
+The checker advances the LFSR once per character, takes the low byte, XORs it with the candidate flag byte, and compares the result against a 73-byte constant stored in the data segment.
 
-```asm
-loop:
-    call lfsr_step              ; advance PRNG
-    mov al, [state_low]         ; get low byte of state
-    xor al, input[i]            ; XOR with input character
-    cmp al, expected[i]         ; compare with expected ciphertext
-    je  continue                ; if match, continue
-    ; else print "Sorry, that's not the flag." and exit
+So the validation logic is:
+
+```text
+expected[i] == input[i] XOR keystream[i]
 ```
 
-### Expected Ciphertext
+At first glance that looks circular, because the input determines the seed and the seed determines the keystream that decrypts the input.
 
-The 73-byte expected ciphertext is stored in the data segment at `DS:0x146` (file offset `0x2506`):
+## The weakness
 
-```
-b6 8c 95 8f 9b 85 4c 5e  ec b6 b8 c0 97 93 0b 58
-77 50 b0 2c 7e 28 7a f1  b6 04 ef be 5c 44 78 e8
-99 81 04 8f 03 40 a7 3f  fa b7 08 01 63 52 e3 ad
-d1 85 9f 94 21 d5 2a 5c  20 d4 31 12 ce aa 16 c7
-ad df 29 5d 72 fc 24 90  2c
-```
+The circular dependency looks clever, but the state is only 20 bits wide. That is just `2^20` possibilities, which is completely brute-forceable.
 
-## Solution Strategy
+So instead of trying to solve the algebra directly, I treated the embedded bytes as ciphertext and tested every possible seed:
 
-The cipher is: `ciphertext[i] = input[i] XOR lfsr_keystream[i]`
+1. Generate the LFSR keystream for a candidate seed.
+2. XOR it with the stored bytes to recover a plaintext candidate.
+3. Keep only printable candidates that look like `lactf{...}`.
+4. Re-hash that plaintext and check whether it reproduces the same seed.
 
-The LFSR keystream is fully determined by the 20-bit seed, which is the hash of the input. This creates a circular dependency — the seed depends on the plaintext, and the plaintext depends on the seed.
+That last check is what resolves the circular dependency cleanly.
 
-However, the seed is only **20 bits** (1,048,576 possible values). We can brute-force all seeds:
+## Solving it
 
-1. For each candidate seed (0 to 2²⁰ − 1):
-   - Generate the LFSR keystream
-   - Decrypt: `plaintext[i] = ciphertext[i] XOR keystream_low_byte[i]`
-   - Check if result starts with `lactf{` and ends with `}`
-   - Verify: `hash(plaintext) == seed`
-
-## Solve Script
+The full brute-force script is short:
 
 ```python
 def lfsr_step(state):
     feedback = (state & 1) ^ ((state >> 3) & 1)
-    state = (state >> 1) | (feedback << 19)
-    return state & 0xFFFFF
+    return ((state >> 1) | (feedback << 19)) & 0xFFFFF
 
-def hash_string(s):
+def hash_string(data):
     state = 0
-    for c in s:
-        state = (67 * state + c) % (1 << 20)
+    for byte in data:
+        state = (67 * state + byte) % (1 << 20)
     return state
 
 expected = bytes([
@@ -166,37 +102,27 @@ expected = bytes([
 
 for seed in range(1 << 20):
     state = seed
-    plaintext = bytearray()
-    for i in range(len(expected)):
+    plain = bytearray()
+    for byte in expected:
         state = lfsr_step(state)
-        plaintext.append(expected[i] ^ (state & 0xFF))
+        plain.append(byte ^ (state & 0xFF))
     try:
-        text = plaintext.decode('ascii')
-    except:
+        text = plain.decode("ascii")
+    except UnicodeDecodeError:
         continue
-    if text.startswith('lactf{') and text.endswith('}'):
-        if hash_string(plaintext) == seed:
-            print(f"Flag: {text}")
-            break
+    if text.startswith("lactf{") and text.endswith("}") and hash_string(plain) == seed:
+        print(hex(seed), text)
+        break
 ```
 
-The brute-force completes in under a minute and finds seed `0xf3fb5`.
+The correct seed turned out to be `0xf3fb5`, and the recovered plaintext was the flag.
 
 ## Flag
 
-```
+```text
 lactf{3asy_3nough_7o_8rute_f0rce_bu7_n0t_ea5y_en0ugh_jus7_t0_brut3_forc3}
 ```
 
-## Summary
+## Takeaway
 
-| Component       | Detail                                    |
-|-----------------|-------------------------------------------|
-| Architecture    | 16-bit x86 (MS-DOS MZ executable)         |
-| Cipher          | LFSR-based XOR stream cipher              |
-| LFSR width      | 20 bits                                   |
-| Feedback taps   | bit 0 ⊕ bit 3                             |
-| Seed derivation | Polynomial hash: `s = 67·s + c (mod 2²⁰)`|
-| Key weakness    | 20-bit keyspace → brute-forceable (~1M)   |
-| Flag length     | 73 characters                             |
-
+The interesting part here was not the DOS binary itself. It was noticing that the fancy self-seeded stream cipher still collapsed to a tiny brute-force space. Once I stopped treating the seed dependency as a blocker, the solve became a straightforward offline search.
