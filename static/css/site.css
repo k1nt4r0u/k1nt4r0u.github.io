@@ -549,6 +549,8 @@ main {
 .single-post {
     max-width: 1000px;
     margin: 0 auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     position: relative;
 }
 
@@ -778,10 +780,11 @@ main {
 code:not(.highlight code) {
     background-color: var(--select-color);
     color: var(--accent-color); 
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 4px;
     font-family:'JetBrains Mono' ,'Consolas', 'Monaco', monospace;
     font-size: 0.9em;
+    line-height: 1.15;
     border: 1px solid var(--accent-color);
     text-shadow: 0 0 3px var(--accent-color);
     display: inline-block;
@@ -1414,7 +1417,8 @@ main {
 
     p code, li code {
         font-size: 11px !important;
-        padding: 2px 4px !important;
+        padding: 1px 4px !important;
+        line-height: 1.15 !important;
         display: inline-block !important;
         white-space: nowrap !important;
         word-break: normal !important;
