@@ -25,22 +25,26 @@ hugo server -D
 hugo
 ```
 
-## Content Structure
+## Project Structure
 
-- `content/posts/` - Blog posts and CTF writeups
-- `content/sidebar/` - Sidebar bio and info
-- `content/welcome-header/` - Main page header
-- `static/` - Images and static files
+- `content/` - Writeups and section content
+- `layouts/` - Site-specific Hugo layout overrides
+- `static/css/` - Extracted site stylesheet
+- `static/js/` - Client-side behavior for theme switching, search, math rendering, and UI helpers
+- `static/images/` - Post images and other assets
+- `themes/neopost/` - Upstream theme source kept separate from site overrides
 
 ## Adding Content
 
-### New Blog Post
+### New Post
 ```bash
-hugo new content/posts/my-post.md
+hugo new writeups/my-post.md
 ```
 
 ### New CTF Writeup
-Use the template at `content/posts/ctf-template.md`
+```bash
+hugo new writeups/my-new-writeup.md
+```
 
 ## Deployment
 
