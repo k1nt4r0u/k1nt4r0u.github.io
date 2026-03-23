@@ -2,7 +2,7 @@
 title: "The Cat"
 date: 2026-02-07T22:19:42+07:00
 draft: true
-tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
+tags: ["ctf", "re"]
 categories: ["CTF Name"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"

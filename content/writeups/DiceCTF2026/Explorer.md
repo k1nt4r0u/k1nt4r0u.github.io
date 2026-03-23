@@ -2,7 +2,7 @@
 title: "Explorer"
 date: 2026-03-19T08:44:36+07:00
 draft: false
-tags: ["ctf", "reversing"]
+tags: ["ctf", "re"]
 categories: ["RE"]
 contest: "DiceCTF 2026"
 author: "k1nt4r0u"

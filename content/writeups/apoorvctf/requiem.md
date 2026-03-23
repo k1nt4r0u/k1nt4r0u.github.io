@@ -2,7 +2,7 @@
 title: "Requiem"
 date: 2026-03-07T00:05:34+07:00
 draft: false
-tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
+tags: ["ctf", "re"]
 categories: ["CTF Name"]
 contest: "apoorvctf 2026"
 author: "k1nt4r0u"

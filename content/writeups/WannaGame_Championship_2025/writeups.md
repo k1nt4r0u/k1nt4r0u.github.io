@@ -2,7 +2,7 @@
 title: "WannaGame Championship 2025 - Reversing Writeup"
 date: 2025-12-25T21:37:47+07:00
 draft: false
-categories: ["WannaGame Championship 2025"]
+categories: ["ctf", "re"]
 contest: "WannaGame Championship 2025"
 author: "k1nt4r0u"
 description: "Cleaned-up event notes for three WannaGame reversing challenges, kept honest where the original solve artifacts are incomplete"

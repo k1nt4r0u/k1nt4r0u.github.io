@@ -2,7 +2,7 @@
 title: "Lactf 1986"
 date: 2026-02-07T23:04:22+07:00
 draft: false
-tags: ["ctf", "reversing", "pwn", "crypto", "web", "forensics", "misc"]
+tags: ["ctf", "re"]
 categories: ["CTF Name"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
