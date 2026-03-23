@@ -1,0 +1,58 @@
+.article-content .anchor,
+.prose .anchor {
+  scroll-margin-top: 9rem;
+}
+
+.article-content :not(pre) > code,
+.prose :not(pre) > code,
+.article-content a code,
+.prose a code {
+  color: #0b6fa4;
+}
+
+html.dark .article-content :not(pre) > code,
+html.dark .prose :not(pre) > code,
+html.dark .article-content a code,
+html.dark .prose a code {
+  color: #8fd3ff;
+}
+
+.toc a {
+  display: block;
+  margin: 0.125rem 0.35rem 0.125rem -0.65rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+  transition:
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.toc a:hover {
+  background: rgba(var(--color-primary-200), 0.16);
+  color: rgb(var(--color-primary-700));
+  text-decoration: none !important;
+}
+
+html.dark .toc a:hover {
+  background: rgba(var(--color-primary-400), 0.12);
+  color: rgb(var(--color-primary-200));
+}
+
+.toc li.toc-active-item > a,
+.toc a.toc-active {
+  background: rgba(var(--color-primary-300), 0.18);
+  color: rgb(var(--color-primary-700));
+  box-shadow: inset 0 0 0 1px rgba(var(--color-primary-400), 0.32);
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+html.dark .toc li.toc-active-item > a,
+html.dark .toc a.toc-active {
+  background: rgba(var(--color-primary-400), 0.14);
+  color: rgb(var(--color-primary-100));
+  box-shadow: inset 0 0 0 1px rgba(var(--color-primary-300), 0.26);
+}

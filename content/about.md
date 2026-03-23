@@ -11,14 +11,14 @@ showTableOfContents: true
 
 ## Who I Am
 
-I am Hoang Anh Dung, usually writing online as **k1nt4r0u**. I am an information security student at Ho Chi Minh City University of Information Technology and spend most of my time around reverse engineering, binary exploitation, and CTFs.
+I am **k1nt4r0u** - an information security student at Ho Chi Minh City University of Information Technology and spend most of my time around reverse engineering, binary exploitation, and CTFs.
 
 ## What I Do
 
-- Play CTFs with **Sky1nNorth**
-- Reverse native binaries to understand how they work
-- Practice binary exploitation and debugging
-- Use Linux as the default environment for almost everything
+- Play CTFs for **Sky1nNorth**
+- Reversing binaries to understand how they work
+- Exploiting binary for vuln and bugs
+- Arch Linux is my daly driver :>
 
 ## What This Blog Is For
 
