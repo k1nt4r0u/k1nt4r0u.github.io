@@ -10,7 +10,7 @@ title = "k1nt4r0u's blog"
   rtl = false
   dateFormat = "2 January 2006"
   description = "Reverse engineering, binary exploitation, and CTF writeups by k1nt4r0u."
-  copyright = "Copyright (c) Hoang Anh Dung"
+  copyright = "Copyright (c) k1nt4r0u"
 
 [params.author]
   name = "k1nt4r0u"

@@ -1,3 +1,4 @@
+{{ $giscusDarkTheme := "css/giscus-dark-blue.css" | absURL }}
 <div class="comments-section">
   <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral">Comments</h2>
   <div class="mt-6">
@@ -12,7 +13,7 @@
       data-reactions-enabled="1"
       data-emit-metadata="0"
       data-input-position="top"
-      data-theme="{{ if eq .Site.Params.defaultAppearance "dark" }}dark{{ else }}light{{ end }}"
+      data-theme="{{ if eq .Site.Params.defaultAppearance "dark" }}{{ $giscusDarkTheme }}{{ else }}light{{ end }}"
       data-lang="{{ .Site.Language.Lang | default "en" }}"
       data-loading="lazy"
       crossorigin="anonymous"
@@ -22,8 +23,9 @@
 
 <script>
   (() => {
+    const darkTheme = {{ $giscusDarkTheme | jsonify }};
     const giscusTheme = () =>
-      document.documentElement.classList.contains("dark") ? "dark" : "light";
+      document.documentElement.classList.contains("dark") ? darkTheme : "light";
 
     const syncGiscusTheme = () => {
       const frame = document.querySelector("iframe.giscus-frame");

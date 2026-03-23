@@ -26,6 +26,20 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('/fonts/VictorMono-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('/fonts/VictorMono-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
 .site-background,
 .site-background-pattern {
   position: fixed;
@@ -35,6 +49,8 @@
 
 :root {
   --site-bg-navy: #081b33;
+  --scroll-progress: 0%;
+  --scroll-progress-opacity: 0;
 }
 
 html,
@@ -44,6 +60,29 @@ body {
 
 body {
   background-color: var(--site-bg-navy);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--scroll-progress);
+  height: 3px;
+  opacity: var(--scroll-progress-opacity);
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(90deg, #7fd3ff 0%, #3aa8ff 55%, #9be7ff 100%);
+  box-shadow: 0 0 14px rgba(58, 168, 255, 0.45);
+  transition:
+    width 0.08s linear,
+    opacity 0.18s ease;
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
 }
 
 .site-background {
@@ -83,6 +122,20 @@ body {
 .highlight .ln,
 .highlight .line {
   font-family: 'Victor Mono', var(--font-mono), monospace !important;
+}
+
+@media (min-width: 769px) {
+  .highlight,
+  .highlight pre,
+  .highlight code,
+  .highlight .chroma,
+  .highlight .lnt,
+  .highlight .ln,
+  .highlight .line {
+    font-size: 0.96rem !important;
+    line-height: 1.52 !important;
+    font-weight: 600 !important;
+  }
 }
 
 .article-content .anchor,

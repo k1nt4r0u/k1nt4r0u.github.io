@@ -1,0 +1,111 @@
+main {
+  color-scheme: dark;
+  --color-prettylights-syntax-comment: #6f88a8;
+  --color-prettylights-syntax-constant: #7dcfff;
+  --color-prettylights-syntax-entity: #b9a4ff;
+  --color-prettylights-syntax-storage-modifier-import: #d4e7f5;
+  --color-prettylights-syntax-entity-tag: #7ee0b5;
+  --color-prettylights-syntax-keyword: #ff8ba7;
+  --color-prettylights-syntax-string: #9ad7ff;
+  --color-prettylights-syntax-variable: #ffbe7a;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff7b72;
+  --color-prettylights-syntax-invalid-illegal-text: #f3f8ff;
+  --color-prettylights-syntax-invalid-illegal-bg: #782b43;
+  --color-prettylights-syntax-carriage-return-text: #f3f8ff;
+  --color-prettylights-syntax-carriage-return-bg: #9b324d;
+  --color-prettylights-syntax-string-regexp: #8be9c8;
+  --color-prettylights-syntax-markup-list: #ffd479;
+  --color-prettylights-syntax-markup-heading: #5db8ff;
+  --color-prettylights-syntax-markup-italic: #d4e7f5;
+  --color-prettylights-syntax-markup-bold: #f3f8ff;
+  --color-prettylights-syntax-markup-deleted-text: #ffd5de;
+  --color-prettylights-syntax-markup-deleted-bg: #5b2335;
+  --color-prettylights-syntax-markup-inserted-text: #c4ffe7;
+  --color-prettylights-syntax-markup-inserted-bg: #123b34;
+  --color-prettylights-syntax-markup-changed-text: #ffe0b2;
+  --color-prettylights-syntax-markup-changed-bg: #5b3818;
+  --color-prettylights-syntax-markup-ignored-text: #d4e7f5;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-meta-diff-range: #cab8ff;
+  --color-prettylights-syntax-brackethighlighter-angle: #6f88a8;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #35597f;
+  --color-prettylights-syntax-constant-other-reference-link: #9ad7ff;
+  --color-btn-text: #d7ebff;
+  --color-btn-bg: #102642;
+  --color-btn-border: rgb(127 211 255 / 18%);
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: #143150;
+  --color-btn-hover-border: #4eaef3;
+  --color-btn-active-bg: #18395d;
+  --color-btn-active-border: #6bc5ff;
+  --color-btn-selected-bg: #0d2139;
+  --color-btn-primary-text: #03111f;
+  --color-btn-primary-bg: #7fd3ff;
+  --color-btn-primary-border: rgb(127 211 255 / 35%);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #9be1ff;
+  --color-btn-primary-hover-border: rgb(155 225 255 / 50%);
+  --color-btn-primary-selected-bg: #67c6ff;
+  --color-btn-primary-selected-shadow: 0 0 transparent;
+  --color-btn-primary-disabled-text: rgb(3 17 31 / 55%);
+  --color-btn-primary-disabled-bg: rgb(127 211 255 / 55%);
+  --color-btn-primary-disabled-border: rgb(127 211 255 / 20%);
+  --color-action-list-item-default-hover-bg: rgb(127 211 255 / 10%);
+  --color-segmented-control-bg: rgb(127 211 255 / 10%);
+  --color-segmented-control-button-bg: #081b33;
+  --color-segmented-control-button-selected-border: #3f8fcb;
+  --color-fg-default: #d7ebff;
+  --color-fg-muted: #8eb7da;
+  --color-fg-subtle: #6488a8;
+  --color-canvas-default: #081b33;
+  --color-canvas-overlay: #0d2340;
+  --color-canvas-inset: #06172a;
+  --color-canvas-subtle: #102642;
+  --color-border-default: #1f4267;
+  --color-border-muted: #15314d;
+  --color-neutral-muted: rgb(127 211 255 / 14%);
+  --color-accent-fg: #7fd3ff;
+  --color-accent-emphasis: #3aa8ff;
+  --color-accent-muted: rgb(58 168 255 / 28%);
+  --color-accent-subtle: rgb(58 168 255 / 12%);
+  --color-success-fg: #67d5ae;
+  --color-attention-fg: #ffd479;
+  --color-attention-muted: rgb(255 212 121 / 24%);
+  --color-attention-subtle: rgb(255 212 121 / 12%);
+  --color-danger-fg: #ff8ba7;
+  --color-danger-muted: rgb(255 139 167 / 28%);
+  --color-danger-subtle: rgb(255 139 167 / 12%);
+  --color-primer-shadow-inset: 0 0 transparent;
+  --color-scale-gray-7: #143150;
+  --color-scale-blue-8: #164675;
+  --color-social-reaction-bg-hover: rgb(127 211 255 / 16%);
+  --color-social-reaction-bg-reacted-hover: rgb(58 168 255 / 24%);
+}
+
+main {
+  background:
+    radial-gradient(circle at top, rgb(28 63 97 / 38%), transparent 48%),
+    linear-gradient(180deg, #0a1f39 0%, #081b33 100%);
+}
+
+main .gsc-comment-box,
+main .gsc-comment-box-tabs,
+main .gsc-comment-box-textarea,
+main .gsc-comment-box-write,
+main .gsc-comment-box-preview,
+main .gsc-reactions,
+main .gsc-comment,
+main .gsc-homepage-bg {
+  background-color: transparent;
+}
+
+main .gsc-comment-box-textarea,
+main .gsc-comment-box-preview {
+  border-radius: 12px;
+}
+
+main .gsc-loading-image {
+  background-image: url("https://github.githubassets.com/images/mona-loading-dimmed.gif");
+}
