@@ -157,11 +157,11 @@ code:not(.highlight code) {
 }
 
 .highlight td:first-child {
-    width: 55px !important;
-    min-width: 55px !important;
-    max-width: 55px !important;
-    text-align: center !important;
-    padding: 10px 0 10px 5px !important;
+    width: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+    text-align: right !important;
+    padding: 10px 8px 10px 4px !important;
     background-color: rgba(13, 21, 35, 0.96) !important;
     color: #6e7681 !important;
     border-right: 1px solid #30363d !important;
@@ -173,7 +173,7 @@ code:not(.highlight code) {
 
 .highlight td:last-child {
     width: auto !important;
-    padding: 10px !important;
+    padding: 10px 10px 10px 8px !important;
     overflow: visible !important;
 }
 

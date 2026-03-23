@@ -322,13 +322,13 @@
 
     .highlight td:first-child {
         display: block !important;
-        flex: 0 0 44px !important;
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
+        flex: 0 0 38px !important;
+        width: 38px !important;
+        min-width: 38px !important;
+        max-width: 38px !important;
         box-sizing: border-box !important;
         overflow: hidden !important;
-        padding: 10px 6px 10px 0 !important;
+        padding: 10px 5px 10px 0 !important;
         text-align: right !important;
         border-right: 1px solid var(--border-color) !important;
         background-color: rgba(13, 21, 35, 0.96) !important;
@@ -359,7 +359,7 @@
         width: auto !important;
         min-width: max-content !important;
         overflow: visible !important;
-        padding-left: 8px !important;
+        padding-left: 6px !important;
     }
 
     .highlight td:last-child,
