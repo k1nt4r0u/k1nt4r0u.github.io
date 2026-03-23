@@ -1,0 +1,28 @@
+{{ $enableMath := and .IsPage (eq .Section "writeups") }}
+{{ if isset .Params "math" }}
+  {{ $enableMath = .Params.math }}
+{{ end }}
+
+{{ if and $enableMath (not (.Page.HasShortcode "katex")) }}
+  {{ $katexCSS := resources.Get "lib/katex/katex.min.css" | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="{{ $katexCSS.RelPermalink }}"
+    integrity="{{ $katexCSS.Data.Integrity }}">
+
+  {{ $katexLib := resources.Get "lib/katex/katex.min.js" }}
+  {{ $katexRenderLib := resources.Get "lib/katex/auto-render.min.js" }}
+  {{ $katexJS := slice $katexLib $katexRenderLib | resources.Concat "js/katex.bundle.js" | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+  <script
+    defer
+    type="text/javascript"
+    src="{{ $katexJS.RelPermalink }}"
+    integrity="{{ $katexJS.Data.Integrity }}"
+    id="katex-render"></script>
+
+  {{ $katexFonts := resources.Match "lib/katex/fonts/*" }}
+  {{ range $katexFonts }}
+    <!-- {{ .RelPermalink }} -->
+  {{ end }}
+{{ end }}
