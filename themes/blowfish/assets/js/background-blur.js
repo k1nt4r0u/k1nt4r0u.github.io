@@ -17,16 +17,24 @@ function setBackgroundBlur(targetId, scrollDivisor = 300, disableBlur = false, i
     blurElement.style.display = "";
     blurElement.removeAttribute("aria-hidden");
   }
+  let ticking = false;
   const updateBlur = () => {
     if (!disableBlur || isMenuBlur) {
       const scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      blurElement.style.opacity = scroll / scrollDivisor;
+      blurElement.style.opacity = Math.min(scroll / scrollDivisor, 1);
     }
+    ticking = false;
+  };
+  const requestBlurUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateBlur);
   };
   blurElement.setAttribute("role", "presentation");
   blurElement.setAttribute("tabindex", "-1");
-  window.addEventListener("scroll", updateBlur);
-  updateBlur();
+  window.addEventListener("scroll", requestBlurUpdate, { passive: true });
+  window.addEventListener("resize", requestBlurUpdate);
+  requestBlurUpdate();
 }
 
 document.querySelectorAll("script[data-blur-id]").forEach((script) => {

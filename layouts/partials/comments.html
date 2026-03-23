@@ -39,8 +39,8 @@
       );
     };
 
-    const observer = new MutationObserver(syncGiscusTheme);
-    observer.observe(document.documentElement, {
+    const themeObserver = new MutationObserver(syncGiscusTheme);
+    themeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });

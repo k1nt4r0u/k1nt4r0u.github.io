@@ -237,4 +237,17 @@ html.dark .toc a.toc-active {
     padding-left: 0;
     padding-right: 0;
   }
+
+  #single_header {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #single_header h1 {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
 }
