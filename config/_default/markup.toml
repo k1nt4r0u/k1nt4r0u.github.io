@@ -19,8 +19,8 @@
   codeFences = true
   guessSyntax = true
   lineNos = true
-  noClasses = false
-  style = "nord"
+  noClasses = true
+  style = "catppuccin-frappe"
 
 [tableOfContents]
   startLevel = 2
