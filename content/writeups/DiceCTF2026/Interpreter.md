@@ -2,8 +2,8 @@
 title: "Interpreter Required"
 date: 2026-03-19T08:47:50+07:00
 draft: false
-tags: ["ctf", "re"]
-categories: ["RE"]
+tags: ["ctf"]
+categories: ["DiceCTF 2026"]
 contest: "DiceCTF 2026"
 author: "k1nt4r0u"
 description: "Parsing the CJK lambda-calculus riddle into ordinary arithmetic instead of reducing it"

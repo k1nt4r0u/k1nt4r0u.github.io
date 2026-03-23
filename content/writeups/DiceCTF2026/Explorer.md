@@ -2,8 +2,8 @@
 title: "Explorer"
 date: 2026-03-19T08:44:36+07:00
 draft: false
-tags: ["ctf", "re"]
-categories: ["RE"]
+tags: ["ctf"]
+categories: ["DiceCTF 2026"]
 contest: "DiceCTF 2026"
 author: "k1nt4r0u"
 description: "Reversing a kernel maze device and solving the harder problem of getting a tiny helper into the VM"

@@ -3,7 +3,7 @@ title: "Lactf 1986"
 date: 2026-02-07T23:04:22+07:00
 draft: false
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["LACTF 2026"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
 description: "Bruteforcing a 20-bit self-seeded stream cipher in a retro DOS flag checker"

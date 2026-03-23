@@ -3,7 +3,7 @@ title: "The Fish"
 date: 2026-02-07T16:34:23+07:00
 draft: false
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["LACTF 2026"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
 description: "Reversing the Fish checker by undoing its Collatz-style encoding"

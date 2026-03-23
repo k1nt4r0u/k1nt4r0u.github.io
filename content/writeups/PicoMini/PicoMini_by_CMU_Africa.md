@@ -3,7 +3,7 @@ title: "PicoMini_by_CMU_Africa"
 date: 2025-12-25T22:30:47+07:00
 draft: false
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["PicoMini_by_CMU_Africa"]
 contest: "PicoMini_by_CMU_Africa"
 author: "k1nt4r0u"
 description: "Two Android reversing solves from PicoMini by following the actual app artifacts instead of the obvious screens"

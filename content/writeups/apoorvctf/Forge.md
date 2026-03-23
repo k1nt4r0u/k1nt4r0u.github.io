@@ -3,7 +3,7 @@ title: "Forge"
 date: 2026-03-07T00:04:27+07:00
 draft: false
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["apoorvctf 2026"]
 contest: "apoorvctf 2026"
 author: "k1nt4r0u"
 description: "Cutting through anti-debug noise and solving Forge as linear algebra over a custom byte field"

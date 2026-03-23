@@ -3,7 +3,7 @@ title: "Requiem"
 date: 2026-03-07T00:05:34+07:00
 draft: false
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["apoorvctf 2026"]
 contest: "apoorvctf 2026"
 author: "k1nt4r0u"
 description: "Recovering an embedded flag from a Rust binary by finding the XOR-then-wipe routine"

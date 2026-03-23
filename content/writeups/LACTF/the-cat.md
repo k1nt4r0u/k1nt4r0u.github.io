@@ -3,7 +3,7 @@ title: "The Cat"
 date: 2026-02-07T22:19:42+07:00
 draft: true
 tags: ["ctf", "re"]
-categories: ["CTF Name"]
+categories: ["LACTF 2026"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
 description: "Writeup placeholder kept honest because the original solve notes are missing"
