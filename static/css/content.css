@@ -1,9 +1,11 @@
-.post-content {
+.post-content,
+.article-content {
     line-height: 1.8;
     font-size: 14px;
 }
 
 .post-content table:not(.lntable),
+.article-content table:not(.lntable),
 #full-content table:not(.lntable) {
     width: 100%;
     border-collapse: collapse;
@@ -14,6 +16,8 @@
 
 .post-content table:not(.lntable) th,
 .post-content table:not(.lntable) td,
+.article-content table:not(.lntable) th,
+.article-content table:not(.lntable) td,
 #full-content table:not(.lntable) th,
 #full-content table:not(.lntable) td {
     border: 1px solid #3a7bd5;
@@ -22,11 +26,13 @@
 }
 
 .post-content table:not(.lntable) thead th,
+.article-content table:not(.lntable) thead th,
 #full-content table:not(.lntable) thead th {
     background-color: rgba(58, 123, 213, 0.18);
 }
 
-.post-content a {
+.post-content a,
+.article-content a {
     color: var(--link-color);
     font-weight: bold;
     position: relative;
@@ -35,7 +41,8 @@
     transition: color 0.3s ease;
 }
 
-.post-content a::after {
+.post-content a::after,
+.article-content a::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -48,11 +55,13 @@
     transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
 }
 
-.post-content a:hover {
+.post-content a:hover,
+.article-content a:hover {
     color: var(--accent-color);
 }
 
-.post-content a:hover::after {
+.post-content a:hover::after,
+.article-content a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
@@ -67,12 +76,12 @@ code:not(.highlight code) {
     line-height: 1.15;
     border: 1px solid var(--accent-color);
     text-shadow: 0 0 3px var(--accent-color);
-    display: inline-block;
-    white-space: nowrap;
-    word-break: normal;
-    overflow-wrap: normal;
+    display: inline;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
     max-width: 100%;
-    vertical-align: middle;
+    vertical-align: baseline;
 }
 
 .highlight {
