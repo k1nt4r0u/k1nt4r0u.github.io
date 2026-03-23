@@ -2,15 +2,12 @@
 title: "CSCV_2025_RE"
 date: 2025-12-25T22:33:30+07:00
 draft: false
-tags: ["ctf", "re"]
+tags: ["CTF", "RE"]
 categories: ["CSCV 2025"]
 contest: "CSCV_2025_RE"
 author: "k1nt4r0u"
 description: "Two CSCV reversing solves: an anti-debug fake flag checker and a PyInstaller chatbot with a native AES decryptor"
 ---
-
-# CSCV 2025 Reversing Notes
-
 ## ReezS
 
 ### First wrong turn

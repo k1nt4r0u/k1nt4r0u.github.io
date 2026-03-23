@@ -5,7 +5,7 @@ description: "Reverse engineering, binary exploitation, and CTF writeups by k1nt
 
 <div class="landing-copy">
 
-{{< lead >}}Reverse engineering, binary exploitation, and CTF solve notes from Ho Chi Minh City.{{< /lead >}}
+{{< lead >}}Reverse engineering, binary exploitation, and CTF solve notes of k1nt4r0u.{{< /lead >}}
 
 <p>I treat this blog like a field notebook: challenge writeups, debugging trails, and the tricks worth keeping after the competition ends.</p>
 

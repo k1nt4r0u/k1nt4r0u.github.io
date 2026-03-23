@@ -2,16 +2,13 @@
 title: "Interpreter Required"
 date: 2026-03-19T08:47:50+07:00
 draft: false
-tags: ["ctf"]
+tags: ["CTF", "RE"]
 categories: ["DiceCTF 2026"]
 contest: "DiceCTF 2026"
 author: "k1nt4r0u"
 description: "Parsing the CJK lambda-calculus riddle into ordinary arithmetic instead of reducing it"
 difficulty: "Medium"
 ---
-
-# DiceCTF 2026 — Interpreter Required
-
 ## First reaction
 
 The challenge description tells you, very politely, not to solve it the obvious way:

@@ -2,14 +2,12 @@
 title: "WannaGame Championship 2025 - Reversing Writeup"
 date: 2025-12-25T21:37:47+07:00
 draft: false
-categories: ["ctf", "WannaGame Championship 2025"]
+tags: ["CTF", "RE"]
+categories: ["WannaGame Championship 2025"]
 contest: "WannaGame Championship 2025"
 author: "k1nt4r0u"
-description: "Cleaned-up event notes for three WannaGame reversing challenges, kept honest where the original solve artifacts are incomplete"
+description: "Writeup for WGC 2025 reversing challenges: Buzzing, Checker, and Dutchman_app."
 ---
-
-# WannaGame Championship 2025 — Reversing Notes
-
 These are cleaned-up contest notes rather than polished full writeups. `Buzzing` has a complete solve path, but `Checker` and `Dutchman_app` are intentionally kept as partial notes because the missing final artifacts are not preserved in this repo. I would rather leave those gaps visible than pretend I remember more than I actually do.
 
 ## Buzzing

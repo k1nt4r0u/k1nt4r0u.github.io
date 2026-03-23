@@ -1,17 +1,14 @@
 ---
 title: "The Cat"
 date: 2026-02-07T22:19:42+07:00
-draft: true
-tags: ["ctf", "re"]
+draft: false
+tags: ["CTF", "RE"]
 categories: ["LACTF 2026"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
 description: "Writeup placeholder kept honest because the original solve notes are missing"
 difficulty: "Unknown"
 ---
-
-# LACTF 2026 — The Cat
-
 ## Status
 
 This page was originally just a template, and I do not have enough real solve artifacts in the repo to turn it into a proper writeup without inventing details.

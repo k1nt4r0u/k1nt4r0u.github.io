@@ -2,15 +2,12 @@
 title: "PicoMini_by_CMU_Africa"
 date: 2025-12-25T22:30:47+07:00
 draft: false
-tags: ["ctf", "re"]
+tags: ["CTF", "RE"]
 categories: ["PicoMini_by_CMU_Africa"]
 contest: "PicoMini_by_CMU_Africa"
 author: "k1nt4r0u"
 description: "Two Android reversing solves from PicoMini by following the actual app artifacts instead of the obvious screens"
 ---
-
-# PicoMini by CMU Africa
-
 This set had two Android reversing challenges. Both of them became much easier once I stopped staring at the default UI and followed the data that the APK already exposed.
 
 ## M1n10n'5_53cr37

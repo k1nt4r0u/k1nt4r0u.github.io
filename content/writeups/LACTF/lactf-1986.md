@@ -2,15 +2,13 @@
 title: "Lactf 1986"
 date: 2026-02-07T23:04:22+07:00
 draft: false
-tags: ["ctf", "re"]
+tags: ["CTF", "RE"]
 categories: ["LACTF 2026"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
 description: "Bruteforcing a 20-bit self-seeded stream cipher in a retro DOS flag checker"
 difficulty: "Medium"
 ---
-# LACTF 2026 — 1986
-
 ## First look
 
 This one came with a very on-theme setup: a tiny `CHALL.EXE` DOS program and a floppy image containing the same executable. A quick `strings` pass already told me it was a flag checker:

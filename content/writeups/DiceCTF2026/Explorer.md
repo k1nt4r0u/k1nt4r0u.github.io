@@ -2,16 +2,13 @@
 title: "Explorer"
 date: 2026-03-19T08:44:36+07:00
 draft: false
-tags: ["ctf"]
+tags: ["CTF", "RE"]
 categories: ["DiceCTF 2026"]
 contest: "DiceCTF 2026"
 author: "k1nt4r0u"
 description: "Reversing a kernel maze device and solving the harder problem of getting a tiny helper into the VM"
 difficulty: "Medium"
 ---
-
-# DiceCTF 2026 — Explorer
-
 ## First look
 
 This challenge shipped a `bzImage`, an `initramfs.cpio.gz`, and a remote VM that dropped into a BusyBox shell. That immediately made me think "driver challenge," so I unpacked the initramfs before spending time on the remote instance.

@@ -2,15 +2,12 @@
 title: "The Fish"
 date: 2026-02-07T16:34:23+07:00
 draft: false
-tags: ["ctf", "re"]
+tags: ["CTF", "RE"]
 categories: ["LACTF 2026"]
 contest: "LACTF 2026"
 author: "k1nt4r0u"
 description: "Reversing the Fish checker by undoing its Collatz-style encoding"
 ---
-
-# LACTF 2026 — The Fish
-
 ## Setup
 
 The challenge came with a Python-based `><>` (Fish) interpreter and a one-line Fish program that checked the input against one huge constant.
