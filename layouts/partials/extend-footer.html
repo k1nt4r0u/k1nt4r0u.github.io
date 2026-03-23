@@ -1,6 +1,7 @@
-{{ $scrollProgress := resources.Get "js/scroll-progress.js" | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+{{ $alg := .Site.Params.fingerprintAlgorithm | default "sha512" }}
+{{ $footerEnhancements := slice (resources.Get "js/scroll-progress.js") (resources.Get "js/site-enhancements.js") | resources.Concat "js/footer-enhancements.js" | resources.Minify | resources.Fingerprint $alg }}
 <script
   defer
   type="text/javascript"
-  src="{{ $scrollProgress.RelPermalink }}"
-  integrity="{{ $scrollProgress.Data.Integrity }}"></script>
+  src="{{ $footerEnhancements.RelPermalink }}"
+  integrity="{{ $footerEnhancements.Data.Integrity }}"></script>
