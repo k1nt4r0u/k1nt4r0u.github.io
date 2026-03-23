@@ -1,3 +1,90 @@
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('/fonts/VictorMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('/fonts/VictorMono-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('/fonts/VictorMono-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('/fonts/VictorMono-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+.site-background,
+.site-background-pattern {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+:root {
+  --site-bg-navy: #081b33;
+}
+
+html,
+body {
+  background-color: var(--site-bg-navy);
+}
+
+body {
+  background-color: var(--site-bg-navy);
+}
+
+.site-background {
+  z-index: -40;
+  background-color: var(--site-bg-navy);
+}
+
+.site-background-pattern {
+  z-index: -39;
+  background-color: rgba(8, 27, 51, 0.96);
+}
+
+#menu-blur,
+#background-blur {
+  background: rgba(8, 27, 51, 0.86) !important;
+}
+
+/* Darker fenced code block surface */
+.highlight,
+.highlight .bg,
+.highlight .chroma,
+.highlight pre,
+.highlight .lntable,
+.highlight .lntd {
+  background-color: #041224 !important;
+}
+
+.highlight .chroma .hl,
+.highlight .lntd .hl {
+  background-color: #0a2240 !important;
+}
+
+.highlight pre,
+.highlight code,
+.highlight .chroma,
+.highlight .lnt,
+.highlight .ln,
+.highlight .line {
+  font-family: 'Victor Mono', var(--font-mono), monospace !important;
+}
+
 .article-content .anchor,
 .prose .anchor {
   scroll-margin-top: 9rem;
