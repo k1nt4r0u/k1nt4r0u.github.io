@@ -6,36 +6,54 @@
 
 html {
   font-size: 15px;
-  background:
-    radial-gradient(circle at top, rgba(var(--color-primary-500), 0.14), transparent 32%),
-    radial-gradient(circle at 85% 12%, rgba(var(--color-secondary-400), 0.1), transparent 24%),
-    linear-gradient(180deg, rgba(246, 249, 255, 1) 0%, rgba(236, 242, 250, 1) 100%);
-}
-
-html.dark {
-  background:
-    radial-gradient(circle at top, rgba(var(--color-primary-400), 0.2), transparent 32%),
-    radial-gradient(circle at 85% 12%, rgba(var(--color-secondary-400), 0.12), transparent 24%),
-    linear-gradient(180deg, rgba(4, 9, 18, 1) 0%, rgba(var(--color-neutral-900), 1) 52%, rgba(3, 8, 16, 1) 100%);
+  background: rgb(240, 245, 252);
 }
 
 body.bf-scrollbar {
+  position: relative;
+  isolation: isolate;
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
 }
 
-html.dark body.bf-scrollbar {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
-body::before {
-  content: "";
+.site-background,
+.site-background-pattern {
   position: fixed;
   inset: 0;
   pointer-events: none;
+}
+
+.site-background {
+  z-index: -2;
+  background-image:
+    linear-gradient(180deg, rgba(235, 242, 250, 0.78) 0%, rgba(232, 239, 248, 0.9) 55%, rgba(228, 236, 246, 0.96) 100%),
+    radial-gradient(circle at 20% 0%, rgba(var(--color-primary-300), 0.18), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(var(--color-secondary-300), 0.16), transparent 28%),
+    url("/images/home-background.jpg");
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, center, 50% 35%;
+  background-repeat: no-repeat;
+  background-attachment: scroll, scroll, scroll, fixed;
+  transform: scale(1.02);
+  filter: saturate(1.08) contrast(1.02);
+}
+
+html.dark {
+  background: rgb(4, 9, 18);
+}
+
+html.dark .site-background {
+  background-image:
+    linear-gradient(180deg, rgba(4, 9, 18, 0.36) 0%, rgba(4, 9, 18, 0.72) 50%, rgba(4, 9, 18, 0.9) 100%),
+    radial-gradient(circle at 20% 0%, rgba(var(--color-primary-300), 0.16), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(var(--color-secondary-300), 0.14), transparent 28%),
+    url("/images/home-background.jpg");
+  filter: saturate(1.15) contrast(1.05) brightness(0.72);
+}
+
+.site-background-pattern {
+  z-index: -1;
   background-image:
     linear-gradient(rgba(var(--color-neutral-900), 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--color-neutral-900), 0.035) 1px, transparent 1px);
@@ -43,7 +61,7 @@ body::before {
   opacity: 0.08;
 }
 
-html.dark body::before {
+html.dark .site-background-pattern {
   background-image:
     linear-gradient(rgba(var(--color-primary-100), 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--color-primary-100), 0.05) 1px, transparent 1px);
@@ -69,13 +87,39 @@ footer a,
   box-shadow: 0 20px 45px -30px rgba(3, 8, 18, 0.9);
 }
 
+body.page-home .site-background,
+body.page-home .site-background-pattern {
+  opacity: 0;
+}
+
+body.page-interior .site-shell {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(var(--color-primary-300), 0.14);
+  border-radius: 1.5rem;
+  background: rgba(249, 252, 255, 0.7);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 28px 60px -36px rgba(8, 15, 28, 0.42);
+}
+
+html.dark body.page-interior .site-shell {
+  background: linear-gradient(180deg, rgba(8, 17, 30, 0.58), rgba(8, 17, 30, 0.78));
+  border-color: rgba(var(--color-primary-300), 0.16);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.88);
+}
+
+body.page-interior #main-content {
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+
 #background-image {
-  filter: saturate(1.15) contrast(1.05) brightness(0.7);
+  filter: saturate(1.12) contrast(1.04) brightness(0.74);
   transform: scale(1.03);
 }
 
 html:not(.dark) #background-image {
-  filter: saturate(1.1) contrast(1.04) brightness(0.9);
+  filter: saturate(1.08) contrast(1.04) brightness(0.92);
 }
 
 .landing-copy {
@@ -194,6 +238,17 @@ html.dark .article-link__summary {
 }
 
 @media (max-width: 768px) {
+  body.page-interior .site-shell {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+  }
+
+  body.page-interior #main-content {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+
   .landing-copy {
     padding: 1.25rem 1rem;
   }
