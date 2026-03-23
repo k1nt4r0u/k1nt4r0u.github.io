@@ -1,0 +1,23 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "k1nt4r0u's blog"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "Reverse engineering, binary exploitation, and CTF writeups by k1nt4r0u."
+  copyright = "Copyright (c) Hoang Anh Dung"
+
+[params.author]
+  name = "k1nt4r0u"
+  headline = "Sky1nNorth | Reverse engineering, binary exploitation, and CTFs"
+  bio = "Information security student and Sky1nNorth player documenting solve notes, postmortems, and research breadcrumbs."
+  links = [
+    { github = "https://github.com/k1nt4r0u" },
+    { link = "https://ctftime.org/user/209586" },
+    { link = "https://hackmd.io/@kintarou" },
+  ]

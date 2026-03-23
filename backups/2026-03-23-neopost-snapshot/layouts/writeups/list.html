@@ -1,0 +1,9 @@
+
+{{ define "main" }}
+<div id="content-full">
+    <main class="writeups-page">
+        <h1>CTF Writeups</h1>
+        {{ partial "writeups/contest-sections.html" (dict "context" . "variant" "cards") }}
+    </main>
+</div>
+{{ end }}

@@ -1,0 +1,23 @@
+{{ $themeName := .Site.Params.theme }}
+{{ $theme := index (where .Site.Data.themes "name" $themeName) 0 }}
+{{ $custom_themes := (index .Site.Data "custom_themes") }}
+{{ if $custom_themes }}
+    {{ if not $theme }}
+        {{ $theme = index (where $custom_themes "name" $themeName) 0 }}
+    {{ end }}
+{{ end }}
+
+<style>
+:root {
+    --accent-color: {{ index $theme "accent-color" }};
+    --select-color: {{ index $theme "select-color" }};
+    --link-color: {{ index $theme "link-color" }};
+    --bg-color: {{ index $theme "bg-color" }};
+    --text-color: {{ index $theme "text-color" }};
+    --bg-color2: {{ index $theme "bg2-color" }};
+    --border-color: {{ index $theme "border-color" }};
+    --post-shadow-color: {{ index $theme "post-shadow-color" }};
+    --special-text-color: {{ index $theme "special-text-color" }};
+}
+</style>
+<link rel="stylesheet" href="/css/site.css">

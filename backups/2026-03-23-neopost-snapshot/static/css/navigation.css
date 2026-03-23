@@ -1,0 +1,292 @@
+/* Scroll progress */
+#scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--accent-color);
+    z-index: 9999;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+}
+
+/* Lightbox */
+#image-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+    text-shadow: 0 0 20px var(--accent-color);
+}
+
+/* Navbar */
+#top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: var(--bg-color2);
+    border-bottom: 1px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color), 0 2px 10px var(--post-shadow-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2em;
+    z-index: 1000;
+}
+
+.navbar-center {
+    display: flex;
+    gap: 2em;
+}
+
+.navbar-center .nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.navbar-center .nav-link::before {
+    content: "$ ";
+    color: var(--accent-color);
+    opacity: 0.7;
+}
+
+.navbar-center .nav-link:hover {
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-color), 0 0 5px var(--accent-color) inset;
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+.navbar-left .home-btn {
+    font-size: 24px;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
+}
+
+.navbar-left .home-btn:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+    filter: drop-shadow(0 0 5px var(--accent-color));
+}
+
+.navbar-right {
+    display: flex;
+    gap: 1em;
+}
+
+#search-box,
+#theme-switcher {
+    padding: 8px 12px;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#search-box::placeholder {
+    color: var(--accent-color);
+    opacity: 0.6;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+#search-box:focus,
+#theme-switcher:focus,
+#search-box:hover,
+#theme-switcher:hover {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Scroll-to-top */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    border: 1px solid var(--accent-color);
+    outline: none;
+    background-color: #0a0e0a;
+    color: var(--accent-color);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px var(--post-shadow-color);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+#scrollToTopBtn svg {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 0 3px var(--accent-color));
+}
+
+#scrollToTopBtn.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+#scrollToTopBtn:hover {
+    background-color: var(--accent-color);
+    color: #0a0e0a;
+    box-shadow: 0 0 30px var(--accent-color);
+}
+
+#scrollToTopBtn:hover svg {
+    transform: translateY(-4px);
+    filter: none;
+}
+
+#scrollToTopBtn:active {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 15px var(--accent-color);
+}
+
+/* Footer */
+#footer {
+    margin-top: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color);
+    opacity: 0.6;
+    text-align: center;
+    font-size: 9px;
+    line-height: 1;
+}
+
+#footer a {
+    color: var(--text-color);
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+#footer a:hover {
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.footer-container p {
+    margin: 3px 0 !important;
+    text-align: center !important;
+}
+
+/* Home icon animation */
+.home-btn .feather-home {
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.home-btn .feather-home .home-icon-outline,
+.home-btn .feather-home .home-icon-details {
+    stroke-dashoffset: 0;
+}
+
+.home-btn .feather-home .home-icon-outline {
+    stroke-dasharray: 80;
+}
+
+.home-btn .feather-home .home-icon-details {
+    stroke-dasharray: 30;
+}
+
+@keyframes draw-outline {
+    from { stroke-dashoffset: 80; }
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes draw-details {
+    from { stroke-dashoffset: 30; }
+    to { stroke-dashoffset: 0; }
+}
+
+.home-btn:hover .feather-home {
+    filter: drop-shadow(0 0 6px var(--accent-color)) drop-shadow(0 0 12px var(--accent-color));
+    transform: scale(1.1) rotate(5deg);
+}
+
+.home-btn:hover .feather-home .home-icon-outline {
+    animation: draw-outline 0.5s ease-out forwards;
+}
+
+.home-btn:hover .feather-home .home-icon-details {
+    animation: draw-details 0.5s ease-out forwards 0.2s;
+}

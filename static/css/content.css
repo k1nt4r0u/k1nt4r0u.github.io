@@ -1,0 +1,229 @@
+.post-content {
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.post-content table:not(.lntable),
+#full-content table:not(.lntable) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    border: 1px solid #3a7bd5;
+    background-color: rgba(58, 123, 213, 0.05);
+}
+
+.post-content table:not(.lntable) th,
+.post-content table:not(.lntable) td,
+#full-content table:not(.lntable) th,
+#full-content table:not(.lntable) td {
+    border: 1px solid #3a7bd5;
+    padding: 0.55em 0.75em;
+    text-align: left;
+}
+
+.post-content table:not(.lntable) thead th,
+#full-content table:not(.lntable) thead th {
+    background-color: rgba(58, 123, 213, 0.18);
+}
+
+.post-content a {
+    color: var(--link-color);
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.post-content a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: -3px;
+    left: 0;
+    background-color: var(--accent-color);
+    transform-origin: bottom right;
+    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.post-content a:hover {
+    color: var(--accent-color);
+}
+
+.post-content a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+code:not(.highlight code) {
+    background-color: var(--select-color);
+    color: var(--accent-color);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    line-height: 1.15;
+    border: 1px solid var(--accent-color);
+    text-shadow: 0 0 3px var(--accent-color);
+    display: inline-block;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.highlight {
+    background-color: #0a1628;
+    border: 1px solid #3a7bd5;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(58, 123, 213, 0.15), inset 0 0 60px rgba(58, 123, 213, 0.03);
+    position: relative;
+}
+
+.highlight::before {
+    content: "┌─[ terminal ]─────────────────────────────────────────────────────────────────┐";
+    display: block;
+    font-size: 10px;
+    color: #5a9bf5;
+    opacity: 0.5;
+    padding: 5px 10px 0 10px;
+    letter-spacing: -0.5px;
+}
+
+.highlight:hover {
+    box-shadow: 0 0 30px rgba(58, 123, 213, 0.3), inset 0 0 80px rgba(58, 123, 213, 0.05);
+    border-color: #5a9bf5;
+}
+
+.highlight span {
+    font-family: 'Consolas', 'Monaco', monospace !important;
+    font-size: 14px !important;
+}
+
+.highlight code {
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+}
+
+.highlight pre {
+    background-color: transparent !important;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.highlight table {
+    table-layout: fixed !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    border: none;
+}
+
+.highlight td,
+.highlight td pre,
+.highlight td code,
+.highlight span {
+    line-height: 1.5 !important;
+    font-size: 14px !important;
+    font-family: 'JetBrains Mono', Consolas, Monaco, monospace !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    vertical-align: top !important;
+}
+
+.highlight td:first-child {
+    width: 55px !important;
+    min-width: 55px !important;
+    max-width: 55px !important;
+    text-align: center !important;
+    padding: 10px 0 10px 5px !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    color: #6e7681 !important;
+    border-right: 1px solid #30363d !important;
+    user-select: none;
+}
+
+.highlight td:last-child {
+    width: auto !important;
+    padding: 10px !important;
+    overflow: hidden !important;
+}
+
+.highlight td:last-child pre {
+    width: 100% !important;
+    overflow-x: auto !important;
+    white-space: pre !important;
+    word-wrap: normal !important;
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.highlight pre::-webkit-scrollbar {
+    height: 8px !important;
+    background: #0d1117;
+}
+
+.highlight pre::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb:hover {
+    background: #58a6ff;
+}
+
+.copy-code-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #30363d;
+    color: #c9d1d9;
+    border: 1px solid #444c56;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 99;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.copy-code-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.highlight:hover .copy-code-button {
+    opacity: 1;
+}
+
+.copy-code-button:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.copy-code-button.copied {
+    border-color: #1a2844 !important;
+    background-color: #1a2844 !important;
+    color: white !important;
+    opacity: 1 !important;
+}

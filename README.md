@@ -5,52 +5,31 @@ Personal blog focused on reverse engineering, binary exploitation, and CTF write
 ## About
 
 - **Author:** k1nt4r0u
-- **Theme:** [neopost](https://github.com/salatine/neopost)
+- **Theme:** [Blowfish](https://github.com/nunocoracao/blowfish)
 - **Built with:** Hugo
+- **Backup of previous Neopost setup:** `backups/2026-03-23-neopost-snapshot/`
 
 ## Local Development
 
 ```bash
-# Install Hugo (extended version)
-# https://gohugo.io/installation/
-
-# Clone the repository
-git clone --recursive [your-repo-url]
-cd my-blog
-
-# Run local server
 hugo server -D
-
-# Build site
-hugo
 ```
 
 ## Project Structure
 
+- `config/_default/` - Blowfish Hugo configuration files
 - `content/` - Writeups and section content
-- `layouts/` - Site-specific Hugo layout overrides
-- `static/css/` - Extracted site stylesheet
-- `static/js/` - Client-side behavior for theme switching, search, math rendering, and UI helpers
+- `layouts/partials/comments.html` - Custom Giscus partial used by Blowfish article pages
 - `static/images/` - Post images and other assets
-- `themes/neopost/` - Upstream theme source kept separate from site overrides
-
-## Adding Content
-
-### New Post
-```bash
-hugo new writeups/my-post.md
-```
-
-### New CTF Writeup
-```bash
-hugo new writeups/my-new-writeup.md
-```
+- `themes/blowfish/` - Blowfish theme source
+- `themes/neopost/` - Previous theme retained as backup source
+- `backups/2026-03-23-neopost-snapshot/` - Snapshot of the previous Neopost-based setup
 
 ## Deployment
 
-This blog is deployed to GitHub Pages. Push to `main` branch to deploy.
+This blog is deployed to GitHub Pages. Push to `main` to deploy.
 
 ## License
 
 Content: All rights reserved  
-Theme: GPL-3.0 (neopost)
+Theme: MIT (Blowfish), previous Neopost backup remains GPL-3.0
