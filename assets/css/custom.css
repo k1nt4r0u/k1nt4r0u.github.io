@@ -40,6 +40,13 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: 'JetBrains Mono Nerd';
+  src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 .site-background,
 .site-background-pattern {
   position: fixed;
@@ -174,14 +181,27 @@ body.page-home #main-content {
 .contest-name,
 .article-link--simple h2,
 .article-link--card h2,
-.tag-post-title a {
-  font-family: jetbrainsmononerd, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+.tag-post-title a,
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-family: 'JetBrains Mono Nerd', jetbrainsmononerd, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .article-content :not(pre) > code,
 .prose :not(pre) > code,
 .article-content a code,
 .prose a code {
+  font-family: 'JetBrains Mono Nerd', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
   color: #0b6fa4;
 }
 
