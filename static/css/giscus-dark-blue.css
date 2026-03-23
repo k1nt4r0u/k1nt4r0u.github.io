@@ -84,10 +84,10 @@ main {
   --color-social-reaction-bg-reacted-hover: rgb(58 168 255 / 24%);
 }
 
+html,
+body,
 main {
-  background:
-    radial-gradient(circle at top, rgb(28 63 97 / 38%), transparent 48%),
-    linear-gradient(180deg, #0a1f39 0%, #081b33 100%);
+  background: transparent !important;
 }
 
 main .gsc-comment-box,

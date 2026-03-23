@@ -53,16 +53,6 @@
   --scroll-progress-opacity: 0;
 }
 
-::selection {
-  background: rgba(143, 211, 255, 0.26);
-  color: inherit;
-}
-
-::-moz-selection {
-  background: rgba(143, 211, 255, 0.26);
-  color: inherit;
-}
-
 html,
 body {
   background-color: var(--site-bg-navy);
@@ -151,116 +141,6 @@ body::before {
 .article-content .anchor,
 .prose .anchor {
   scroll-margin-top: 9rem;
-}
-
-.heading-anchor-link {
-  cursor: copy;
-  transition:
-    color 0.18s ease,
-    transform 0.18s ease;
-}
-
-.heading-anchor-link:hover {
-  color: #8fd3ff !important;
-  transform: translateX(1px);
-}
-
-.site-toast {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  z-index: 9998;
-  max-width: min(22rem, calc(100vw - 2rem));
-  padding: 0.7rem 0.95rem;
-  border: 1px solid rgba(143, 211, 255, 0.22);
-  border-radius: 0.9rem;
-  background: rgba(4, 18, 36, 0.92);
-  color: #dff3ff;
-  font-size: 0.92rem;
-  line-height: 1.4;
-  box-shadow: 0 18px 42px rgba(2, 10, 22, 0.35);
-  opacity: 0;
-  transform: translateY(12px);
-  pointer-events: none;
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-  backdrop-filter: blur(10px);
-}
-
-.site-toast.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.article-link--card,
-.article-link--simple,
-.article-link--related {
-  transition:
-    transform 0.24s ease,
-    box-shadow 0.24s ease,
-    border-color 0.24s ease,
-    background-color 0.24s ease;
-  transform: translateZ(0);
-}
-
-.thumbnail img,
-.thumbnail_card img,
-.thumbnail_card_related img {
-  transition:
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.28s ease;
-  transform-origin: center;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .article-link--card:hover,
-  .article-link--simple:hover,
-  .article-link--related:hover {
-    transform: translateY(-4px);
-    border-color: rgba(58, 168, 255, 0.3);
-    box-shadow: 0 20px 44px rgba(2, 10, 22, 0.16);
-  }
-
-  html.dark .article-link--card:hover,
-  html.dark .article-link--simple:hover,
-  html.dark .article-link--related:hover {
-    background-color: rgba(4, 18, 36, 0.5);
-    border-color: rgba(143, 211, 255, 0.24);
-    box-shadow: 0 24px 48px rgba(2, 10, 22, 0.42);
-  }
-
-  .article-link--card:hover .thumbnail_card img,
-  .article-link--simple:hover .thumbnail img,
-  .article-link--related:hover .thumbnail_card_related img {
-    transform: scale(1.035);
-    filter: saturate(1.04);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(18px);
-    transition:
-      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
-  }
-
-  .reveal-on-scroll.reveal-in {
-    opacity: 1;
-    transform: translateY(0);
-    will-change: auto;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 body.page-home .site-shell {
@@ -353,12 +233,6 @@ html.dark .toc a.toc-active {
 }
 
 @media (max-width: 768px) {
-  .site-toast {
-    right: 1rem;
-    bottom: 1rem;
-    max-width: calc(100vw - 2rem);
-  }
-
   body.page-home #main-content {
     padding-left: 0;
     padding-right: 0;
