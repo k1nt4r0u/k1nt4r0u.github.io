@@ -1,40 +1,28 @@
 [[main]]
-  name = "Writeups"
-  pageRef = "writeups"
-  weight = 10
+name = "Writeups"
+pageRef = "writeups"
+weight = 1
 
 [[main]]
-  name = "About"
-  pageRef = "about"
-  weight = 20
+name = "About"
+pageRef = "about"
+weight = 4
 
 [[main]]
-  name = "Tags"
-  pageRef = "tags"
-  weight = 30
+name = "Tags"
+pageRef = "tags"
+weight = 2
 
 [[main]]
-  name = "Categories"
-  pageRef = "categories"
-  weight = 40
+name = "Categories"
+pageRef = "categories"
+weight = 3
 
 [[main]]
-  name = "GitHub"
-  pre = "github"
-  url = "https://github.com/k1nt4r0u"
-  weight = 50
+name = "GitHub"
+pre = "github"
+url = "https://github.com/k1nt4r0u"
+weight = 5
 
 [[footer]]
-  name = "Writeups"
-  pageRef = "writeups"
-  weight = 10
-
-[[footer]]
-  name = "About"
-  pageRef = "about"
-  weight = 20
-
-[[footer]]
-  name = "GitHub"
-  url = "https://github.com/k1nt4r0u"
-  weight = 30
+none = "none"

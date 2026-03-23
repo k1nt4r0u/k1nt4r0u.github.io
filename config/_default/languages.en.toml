@@ -2,22 +2,29 @@ disabled = false
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "k1nt4r0u's blog"
+title = "k1nt4r0u's site"
 
 [params]
-  displayName = "EN"
-  isoCode = "en"
-  rtl = false
-  dateFormat = "2 January 2006"
-  description = "Reverse engineering, binary exploitation, and CTF writeups by k1nt4r0u."
-  copyright = "Copyright (c) k1nt4r0u"
+displayName = "EN"
+isoCode = "en"
+rtl = false
+dateFormat = "2 January 2006"
+description = "Reverse engineering, binary exploitation, and CTF writeups by k1nt4r0u."
+copyright = "Copyright (c) k1nt4r0u"
 
-[params.author]
+  [params.author]
   name = "k1nt4r0u"
   headline = "Sky1nNorth | Reverse engineering, binary exploitation, and CTFs"
   bio = "Information security student and Sky1nNorth player documenting solve notes, postmortems, and research breadcrumbs."
-  links = [
-    { github = "https://github.com/k1nt4r0u" },
-    { link = "https://ctftime.org/user/209586" },
-    { link = "https://hackmd.io/@kintarou" },
-  ]
+
+    [[params.author.links]]
+    github = "https://github.com/k1nt4r0u"
+
+    [[params.author.links]]
+    link = "https://ctftime.org/user/209586"
+
+    [[params.author.links]]
+    link = "https://hackmd.io/@kintarou"
+
+["params.author"]
+image = "arch.png"
