@@ -1,0 +1,111 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "list" }}
+  {{ $enableToc := .Params.showTableOfContents | default (site.Params.list.showTableOfContents | default false) }}
+  {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+
+  {{ if site.Params.list.showHero | default false }}
+    {{ $heroStyle := print "hero/" site.Params.list.heroStyle ".html" }}
+    {{ if templates.Exists (printf "partials/%s" $heroStyle) }}
+      {{ partial $heroStyle . }}
+    {{ else }}
+      {{ partial "hero/basic.html" . }}
+    {{ end }}
+  {{ end }}
+
+  <header>
+    {{ if .Params.showBreadcrumbs | default (site.Params.list.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ partial "article-meta/list.html" (dict "context" . "scope" "single") }}
+    </div>
+  </header>
+
+  {{ $tocMargin := cond $showToc "mt-12" "mt-0" }}
+  {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+  <section class="{{ $tocMargin }} prose mb-10 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+    {{ if $showToc }}
+      <div class="order-first px-0 lg:order-last lg:ms-auto lg:max-w-2xs lg:ps-8">
+        <div class="toc print:hidden lg:sticky {{ $topClass }} ps-5">
+          {{ partial "toc.html" . }}
+        </div>
+      </div>
+    {{ end }}
+    <div class="min-h-0 min-w-0 max-w-prose w-full">
+      {{ .Content }}
+    </div>
+  </section>
+
+  {{ $pages := .RegularPagesRecursive }}
+  {{ if gt (len $pages) 0 }}
+    {{ $contestGroups := slice }}
+    {{ range $pages.GroupByParam "contest" }}
+      {{ $contestName := .Key | default "Other Writeups" }}
+      {{ $pagesByDate := .Pages.ByDate.Reverse }}
+      {{ $pagesByTitle := .Pages.ByTitle }}
+      {{ $latestPage := index $pagesByDate 0 }}
+      {{ $contestGroups = $contestGroups | append (dict
+        "name" $contestName
+        "count" (len .Pages)
+        "latestDate" $latestPage.Date
+        "pages" $pagesByTitle
+      ) }}
+    {{ end }}
+
+    <section class="writeups-accordion not-prose">
+      {{ range sort $contestGroups "latestDate" "desc" }}
+        {{ $contestName := index . "name" }}
+        {{ $contestPages := index . "pages" }}
+        {{ $contestCount := index . "count" }}
+        <details class="writeups-contest-card js-writeups-card">
+          <summary class="writeups-contest-summary">
+            <div class="writeups-contest-header">
+              <p class="writeups-contest-kicker">Contest Archive</p>
+              <h2 class="writeups-contest-title">{{ $contestName }}</h2>
+              <p class="writeups-contest-meta">
+                {{ $contestCount }} writeup{{ if ne $contestCount 1 }}s{{ end }}
+              </p>
+            </div>
+            <div class="writeups-contest-cta" aria-hidden="true">
+              <span class="writeups-contest-cta-label">
+                <span class="writeups-contest-cta-open">Explore</span>
+                <span class="writeups-contest-cta-close">Collapse</span>
+              </span>
+              <span class="writeups-contest-cta-icon">
+                <svg viewBox="0 0 20 20" fill="none" class="writeups-contest-chevron">
+                  <path d="M6 8.5L10 12.5L14 8.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+                </svg>
+              </span>
+            </div>
+          </summary>
+          <div class="writeups-contest-panel js-writeups-panel">
+            <div class="writeups-contest-list">
+            {{ range $contestPages }}
+              <a
+                href="{{ .RelPermalink }}"
+                class="writeups-entry">
+                <div class="writeups-entry-copy">
+                  <p class="writeups-entry-title">{{ .Title }}</p>
+                  {{ with .Params.description }}
+                    <p class="writeups-entry-description">{{ . }}</p>
+                  {{ end }}
+                </div>
+                <time class="writeups-entry-date" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                  {{ .Date.Format "2006-01-02" }}
+                </time>
+              </a>
+            {{ end }}
+            </div>
+          </div>
+        </details>
+      {{ end }}
+    </section>
+  {{ else }}
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="border-t py-8">
+        <em>{{ i18n "list.no_articles" | emojify }}</em>
+      </p>
+    </section>
+  {{ end }}
+{{ end }}

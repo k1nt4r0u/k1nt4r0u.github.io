@@ -1,6 +1,12 @@
 {{ $scrollProgress := resources.Get "js/scroll-progress.js" | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+{{ $writeupsAccordion := resources.Get "js/writeups-accordion.js" | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
 <script
   defer
   type="text/javascript"
   src="{{ $scrollProgress.RelPermalink }}"
   integrity="{{ $scrollProgress.Data.Integrity }}"></script>
+<script
+  defer
+  type="text/javascript"
+  src="{{ $writeupsAccordion.RelPermalink }}"
+  integrity="{{ $writeupsAccordion.Data.Integrity }}"></script>
