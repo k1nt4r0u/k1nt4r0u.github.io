@@ -492,7 +492,6 @@ html.dark #search-results a > div:first-child > div:first-child {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
     0 18px 44px rgba(3, 13, 26, 0.14);
-  backdrop-filter: blur(20px) saturate(160%);
 }
 
 html.dark .writeups-contest-card {
@@ -660,18 +659,11 @@ html.dark .writeups-contest-cta-icon {
 }
 
 .writeups-contest-panel {
-  height: 0;
-  opacity: 0;
   overflow: hidden;
   border-top: 1px solid rgba(var(--color-primary-400), 0);
   background:
     linear-gradient(180deg, rgba(var(--color-primary-200), 0.06), transparent 22%),
     rgba(248, 251, 255, 0.56);
-  transition:
-    height 0.3s cubic-bezier(0.25, 1, 0.3, 1),
-    opacity 0.2s ease,
-    border-color 0.24s ease;
-  transform: translateZ(0);
 }
 
 html.dark .writeups-contest-panel {
@@ -684,23 +676,15 @@ html.dark .writeups-contest-panel {
   border-top-color: rgba(var(--color-primary-400), 0.12);
 }
 
-.writeups-contest-card[open] .writeups-contest-panel:not([data-enhanced="true"]) {
-  height: auto;
-  opacity: 1;
+.writeups-contest-card:not([open]) .writeups-contest-panel {
+  display: none;
 }
 
 .writeups-contest-list {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
   padding: 0.7rem;
-  transform: translateY(-0.18rem);
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.3, 1);
-}
-
-.writeups-contest-card[open] .writeups-contest-list {
-  transform: translateY(0);
 }
 
 .writeups-entry {
@@ -762,6 +746,26 @@ html.dark .writeups-entry-title {
 
 html.dark .writeups-entry-description {
   color: rgba(225, 239, 255, 0.62);
+}
+
+.toc-writeups {
+  background:
+    linear-gradient(180deg, rgba(var(--color-primary-200), 0.08), transparent 26%),
+    rgba(248, 251, 255, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 12px 28px rgba(3, 13, 26, 0.12);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html.dark .toc-writeups {
+  background:
+    linear-gradient(180deg, rgba(var(--color-primary-400), 0.05), transparent 26%),
+    rgba(6, 19, 37, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 12px 28px rgba(0, 0, 0, 0.22);
 }
 
 .writeups-entry-date {

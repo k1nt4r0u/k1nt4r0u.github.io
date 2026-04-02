@@ -58,7 +58,7 @@
         {{ $contestName := index . "name" }}
         {{ $contestPages := index . "pages" }}
         {{ $contestCount := index . "count" }}
-        <details class="writeups-contest-card js-writeups-card">
+        <details class="writeups-contest-card">
           <summary class="writeups-contest-summary">
             <div class="writeups-contest-header">
               <p class="writeups-contest-kicker">Contest Archive</p>
@@ -79,7 +79,7 @@
               </span>
             </div>
           </summary>
-          <div class="writeups-contest-panel js-writeups-panel">
+          <div class="writeups-contest-panel">
             <div class="writeups-contest-list">
             {{ range $contestPages }}
               <a
