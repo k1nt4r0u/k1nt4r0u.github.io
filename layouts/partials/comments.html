@@ -1,34 +1,38 @@
 {{ $giscusDarkTheme := "css/giscus-dark-blue.css" | absURL }}
-<div class="comments-section">
+<div
+  class="comments-section"
+  data-comments-section
+  data-giscus-dark-theme="{{ $giscusDarkTheme }}"
+  data-giscus-repo="{{ .Site.Params.giscus.repo }}"
+  data-giscus-repo-id="{{ .Site.Params.giscus.repoId }}"
+  data-giscus-category="{{ .Site.Params.giscus.category }}"
+  data-giscus-category-id="{{ .Site.Params.giscus.categoryId }}"
+  data-giscus-lang="{{ .Site.Language.Lang | default "en" }}">
   <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral">Comments</h2>
   <div class="mt-6">
-    <script
-      src="https://giscus.app/client.js"
-      data-repo="{{ .Site.Params.giscus.repo }}"
-      data-repo-id="{{ .Site.Params.giscus.repoId }}"
-      data-category="{{ .Site.Params.giscus.category }}"
-      data-category-id="{{ .Site.Params.giscus.categoryId }}"
-      data-mapping="pathname"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="top"
-      data-theme="{{ if eq .Site.Params.defaultAppearance "dark" }}{{ $giscusDarkTheme }}{{ else }}light{{ end }}"
-      data-lang="{{ .Site.Language.Lang | default "en" }}"
-      data-loading="lazy"
-      crossorigin="anonymous"
-      async></script>
+    <button
+      type="button"
+      class="comments-loader inline-flex items-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:border-primary-400 hover:text-primary-600 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-primary-500 dark:hover:text-primary-300"
+      data-comments-loader>
+      Load comments
+    </button>
+    <div class="mt-4" data-comments-container hidden></div>
   </div>
 </div>
 
 <script>
   (() => {
-    const darkTheme = {{ $giscusDarkTheme | jsonify }};
+    const section = document.querySelector("[data-comments-section]");
+    const darkTheme = section?.dataset.giscusDarkTheme || "light";
+    const button = section?.querySelector("[data-comments-loader]");
+    const container = section?.querySelector("[data-comments-container]");
     const giscusTheme = () =>
       document.documentElement.classList.contains("dark") ? darkTheme : "light";
+    let loaded = false;
+    let themeObserver = null;
 
     const syncGiscusTheme = () => {
-      const frame = document.querySelector("iframe.giscus-frame");
+      const frame = container?.querySelector("iframe.giscus-frame");
       if (!frame) {
         return;
       }
@@ -39,12 +43,71 @@
       );
     };
 
-    const themeObserver = new MutationObserver(syncGiscusTheme);
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    const observeTheme = () => {
+      if (themeObserver) {
+        return;
+      }
 
-    window.addEventListener("load", syncGiscusTheme);
+      themeObserver = new MutationObserver(syncGiscusTheme);
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    };
+
+    const loadComments = () => {
+      if (loaded || !container) {
+        return;
+      }
+
+      loaded = true;
+      container.hidden = false;
+      button?.remove();
+
+      const script = document.createElement("script");
+      script.src = "https://giscus.app/client.js";
+      script.crossOrigin = "anonymous";
+      script.async = true;
+      script.setAttribute("data-repo", section.dataset.giscusRepo || "");
+      script.setAttribute("data-repo-id", section.dataset.giscusRepoId || "");
+      script.setAttribute("data-category", section.dataset.giscusCategory || "");
+      script.setAttribute("data-category-id", section.dataset.giscusCategoryId || "");
+      script.setAttribute("data-mapping", "pathname");
+      script.setAttribute("data-strict", "0");
+      script.setAttribute("data-reactions-enabled", "1");
+      script.setAttribute("data-emit-metadata", "0");
+      script.setAttribute("data-input-position", "top");
+      script.setAttribute("data-theme", giscusTheme());
+      script.setAttribute("data-lang", section.dataset.giscusLang || "en");
+      script.setAttribute("data-loading", "lazy");
+      script.addEventListener("load", () => {
+        observeTheme();
+        window.setTimeout(syncGiscusTheme, 0);
+      });
+
+      container.appendChild(script);
+    };
+
+    if (!section) {
+      return;
+    }
+
+    button?.addEventListener("click", loadComments);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) {
+            return;
+          }
+
+          observer.disconnect();
+          loadComments();
+        },
+        { rootMargin: "320px 0px" }
+      );
+
+      observer.observe(section);
+    }
   })();
 </script>

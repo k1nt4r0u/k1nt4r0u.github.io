@@ -1,6 +1,16 @@
 {{ $scrollProgress := resources.Get "js/scroll-progress.js" | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
-<script
-  defer
-  type="text/javascript"
-  src="{{ $scrollProgress.RelPermalink }}"
-  integrity="{{ $scrollProgress.Data.Integrity }}"></script>
+<script>
+  (() => {
+    if (document.body.classList.contains("section-writeups")) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.defer = true;
+    script.type = "text/javascript";
+    script.src = "{{ $scrollProgress.RelPermalink }}";
+    script.integrity = "{{ $scrollProgress.Data.Integrity }}";
+    script.crossOrigin = "anonymous";
+    document.currentScript.after(script);
+  })();
+</script>

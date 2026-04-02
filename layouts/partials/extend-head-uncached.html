@@ -1,4 +1,7 @@
-{{ $enableMath := and .IsPage (eq .Section "writeups") }}
+{{ $enableMath := false }}
+{{ if and .IsPage (eq .Section "writeups") }}
+  {{ $enableMath = gt (len (findRE `(\$\$|\\\(|\\\[)` .RawContent 1)) 0 }}
+{{ end }}
 {{ if isset .Params "math" }}
   {{ $enableMath = .Params.math }}
 {{ end }}
