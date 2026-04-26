@@ -53,18 +53,33 @@
       ) }}
     {{ end }}
 
-    <section class="writeups-accordion not-prose">
+    <section class="writeups-index not-prose" aria-label="Writeup competitions">
+      <div class="writeups-index__header">
+        <div>
+          <p class="writeups-index__eyebrow">competition archive</p>
+          <h2 class="writeups-index__title">Writeups by event</h2>
+        </div>
+        <p class="writeups-index__stats">
+          {{ len $contestGroups }} competition{{ if ne (len $contestGroups) 1 }}s{{ end }} / {{ len $pages }} writeup{{ if ne (len $pages) 1 }}s{{ end }}
+        </p>
+      </div>
+
+      <div class="writeups-accordion">
       {{ range sort $contestGroups "latestDate" "desc" }}
         {{ $contestName := index . "name" }}
         {{ $contestPages := index . "pages" }}
         {{ $contestCount := index . "count" }}
+        {{ $latestDate := index . "latestDate" }}
         <details class="writeups-contest-card">
           <summary class="writeups-contest-summary">
             <div class="writeups-contest-header">
-              <p class="writeups-contest-kicker">Contest Archive</p>
+              <p class="writeups-contest-kicker">Competition</p>
               <h2 class="writeups-contest-title">{{ $contestName }}</h2>
               <p class="writeups-contest-meta">
-                {{ $contestCount }} writeup{{ if ne $contestCount 1 }}s{{ end }}
+                <span>{{ $contestCount }} writeup{{ if ne $contestCount 1 }}s{{ end }}</span>
+                {{ with $latestDate }}
+                  <span>latest {{ .Format "2006-01-02" }}</span>
+                {{ end }}
               </p>
             </div>
             <div class="writeups-contest-cta" aria-hidden="true">
@@ -100,6 +115,7 @@
           </div>
         </details>
       {{ end }}
+      </div>
     </section>
   {{ else }}
     <section class="mt-10 prose dark:prose-invert">

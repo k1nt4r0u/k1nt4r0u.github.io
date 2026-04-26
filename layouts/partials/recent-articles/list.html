@@ -1,0 +1,44 @@
+{{ $recentArticles := .Site.Params.homepage.showRecentItems | default 5 }}
+{{ $mainSections := .Site.Params.mainSections | default (slice "posts") }}
+{{ $pages := first $recentArticles (where .Site.RegularPages "Type" "in" $mainSections) }}
+
+<section class="home-recent not-prose">
+  <div class="home-recent__header">
+    <div>
+      <p class="home-recent__eyebrow">latest field notes</p>
+      <h2 class="home-recent__title">Recent writeups</h2>
+    </div>
+  </div>
+
+  <div class="home-recent-grid">
+    {{ range $pages }}
+      {{ $summary := .Params.description | default (.Summary | plainify | truncate 150) }}
+      <a
+        class="home-recent-card"
+        {{ with .Params.externalUrl }}
+          href="{{ . }}" target="_blank" rel="external"
+        {{ else }}
+          href="{{ .RelPermalink }}"
+        {{ end }}>
+        <div>
+          <div class="home-recent-card__meta">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
+            {{ with .Params.contest }}<span>{{ . }}</span>{{ end }}
+          </div>
+          <h3 class="home-recent-card__title">{{ .Title | emojify }}</h3>
+          {{ with $summary }}
+            <p class="home-recent-card__excerpt">{{ . }}</p>
+          {{ end }}
+        </div>
+
+        {{ with .Params.tags }}
+          <div class="home-recent-card__tags" aria-label="Tags">
+            {{ range first 3 . }}
+              <span class="home-recent-card__tag">{{ . }}</span>
+            {{ end }}
+          </div>
+        {{ end }}
+      </a>
+    {{ end }}
+  </div>
+</section>

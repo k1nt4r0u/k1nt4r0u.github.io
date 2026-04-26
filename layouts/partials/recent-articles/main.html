@@ -1,0 +1,12 @@
+{{ if .Site.Params.homepage.showRecent | default false }}
+  {{ partial "recent-articles/list.html" . }}
+
+  {{ if .Site.Params.homepage.showMoreLink | default false }}
+    {{ $showMoreLinkDest := .Site.Params.homepage.showMoreLinkDest | default "/posts/" }}
+    <div class="home-recent-more">
+      <a href="{{ $showMoreLinkDest | relLangURL }}">
+        {{ i18n "recent.show_more" | markdownify }}
+      </a>
+    </div>
+  {{ end }}
+{{ end }}

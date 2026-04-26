@@ -1,0 +1,14 @@
+{{- $title := or .Attributes.title "" -}}
+{{- $lang := or .Type "text" -}}
+{{- $options := .Options -}}
+{{- if eq .Page.Section "writeups" -}}
+  {{- $options = merge $options (dict "lineNos" false) -}}
+{{- end -}}
+<div class="highlight-wrapper">
+  {{- with $title -}}
+    <div class="codeblock-title">
+      {{- $title -}}
+    </div>
+  {{- end -}}
+  {{- transform.Highlight .Inner $lang $options -}}
+</div>

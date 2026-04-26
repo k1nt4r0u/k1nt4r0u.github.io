@@ -1,7 +1,11 @@
 {{ $scrollProgress := resources.Get "js/scroll-progress.js" | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
 <script>
   (() => {
-    if (document.body.classList.contains("section-writeups")) {
+    if (
+      document.body.classList.contains("section-writeups") ||
+      document.body.classList.contains("page-home") ||
+      window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
 

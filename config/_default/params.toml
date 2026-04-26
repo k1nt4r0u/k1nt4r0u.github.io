@@ -1,6 +1,6 @@
 colorScheme = "kintarou"
 defaultAppearance = "dark"
-autoSwitchAppearance = true
+autoSwitchAppearance = false
 enableA11y = true
 enableSearch = true
 enableCodeCopy = true
