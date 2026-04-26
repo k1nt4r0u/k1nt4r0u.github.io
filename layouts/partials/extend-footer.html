@@ -1,20 +1,33 @@
-{{ $scrollProgress := resources.Get "js/scroll-progress.js" | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+{{ $alg := .Site.Params.fingerprintAlgorithm | default "sha512" }}
+{{ $zoomCSS := resources.Get "lib/zoom/style.css" | resources.Fingerprint $alg }}
+{{ $zoomJS := resources.Get "lib/zoom/zoom.min.umd.js" | resources.Fingerprint $alg }}
 <script>
   (() => {
-    if (
-      document.body.classList.contains("section-writeups") ||
-      document.body.classList.contains("page-home") ||
-      window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)").matches
-    ) {
+    const targets = document.querySelectorAll(
+      "main article .article-content img:not(.nozoom), main article .prose figure img:not(.nozoom)"
+    );
+    if (!targets.length) {
       return;
     }
 
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = "{{ $zoomCSS.RelPermalink }}";
+    css.integrity = "{{ $zoomCSS.Data.Integrity }}";
+    css.crossOrigin = "anonymous";
+    document.head.appendChild(css);
+
     const script = document.createElement("script");
-    script.defer = true;
-    script.type = "text/javascript";
-    script.src = "{{ $scrollProgress.RelPermalink }}";
-    script.integrity = "{{ $scrollProgress.Data.Integrity }}";
+    script.src = "{{ $zoomJS.RelPermalink }}";
+    script.integrity = "{{ $zoomJS.Data.Integrity }}";
     script.crossOrigin = "anonymous";
-    document.currentScript.after(script);
+    script.onload = () => {
+      window.mediumZoom?.(targets, {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    };
+    document.head.appendChild(script);
   })();
 </script>

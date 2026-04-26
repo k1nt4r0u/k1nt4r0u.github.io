@@ -1,9 +1,9 @@
 colorScheme = "kintarou"
 defaultAppearance = "dark"
 autoSwitchAppearance = false
-enableA11y = true
+enableA11y = false
 enableSearch = true
-enableCodeCopy = true
+enableCodeCopy = false
 enableStructuredBreadcrumbs = false
 replyByEmail = false
 mainSections = [ "writeups" ]
@@ -12,16 +12,16 @@ disableImageOptimization = false
 disableImageOptimizationMD = false
 disableTextInHeader = false
 defaultBackgroundImage = "images/home-background.jpg"
-defaultSocialImage = "images/home-background.jpg"
+defaultSocialImage = ""
 hotlinkFeatureImage = false
 imagePosition = "50% 35%"
 fingerprintAlgorithm = "sha512"
 giteaDefaultServer = "https://git.fsfe.org"
 forgejoDefaultServer = "https://v11.next.forgejo.org"
 enableStyledScrollbar = true
-disableImageZoom = false
-showViews = true
-showLikes = true
+disableImageZoom = true
+showViews = false
+showLikes = false
 
 [header]
 layout = "fixed-fill"
@@ -31,7 +31,7 @@ showMenu = true
 showCopyright = true
 showThemeAttribution = true
 showAppearanceSwitcher = true
-showScrollToTop = true
+showScrollToTop = false
 
 [homepage]
 layout = "hero"
@@ -48,7 +48,7 @@ disableHeroImageFilter = false
 [article]
 showDate = true
 showViews = false
-showLikes = true
+showLikes = false
 showDateOnlyInArticle = false
 showDateUpdated = false
 showAuthor = false

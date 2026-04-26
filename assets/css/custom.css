@@ -1,8 +1,6 @@
 @font-face {
   font-family: 'Victor Mono';
-  src:
-    url('/fonts/VictorMono-Regular.woff2') format('woff2'),
-    url('/fonts/VictorMono-Regular.ttf') format('truetype');
+  src: url('/fonts/VictorMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -10,52 +8,18 @@
 
 @font-face {
   font-family: 'Victor Mono';
-  src:
-    url('/fonts/VictorMono-Italic.woff2') format('woff2'),
-    url('/fonts/VictorMono-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Victor Mono';
-  src:
-    url('/fonts/VictorMono-Bold.woff2') format('woff2'),
-    url('/fonts/VictorMono-Bold.ttf') format('truetype');
-  font-weight: 700;
+  src: url('/fonts/VictorMono-Bold.woff2') format('woff2');
+  font-weight: 600 800;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Victor Mono';
-  src:
-    url('/fonts/VictorMono-BoldItalic.woff2') format('woff2'),
-    url('/fonts/VictorMono-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Victor Mono';
-  src:
-    url('/fonts/VictorMono-SemiBold.woff2') format('woff2'),
-    url('/fonts/VictorMono-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Victor Mono';
-  src:
-    url('/fonts/VictorMono-SemiBoldItalic.woff2') format('woff2'),
-    url('/fonts/VictorMono-SemiBoldItalic.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'Victor Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
 .site-background,
@@ -1440,6 +1404,167 @@ html.dark .writeups-entry-date {
   }
 }
 
+/* Performance mode: keep the cold palette, remove paint-heavy decoration. */
+html {
+  scroll-behavior: auto !important;
+}
+
+.site-background,
+.site-background-pattern,
+body::before,
+.home-hero::before,
+.writeups-contest-card::before,
+.article-link--card::before,
+.article-link--related::before,
+.article-link--simple.border::before,
+.article-link--shortcode.border::before,
+.term-link--card::before,
+#search-modal::before,
+.toc-right::before,
+.toc-inside::before,
+.github-card-wrapper > div::before,
+.codeberg-card-wrapper > div::before,
+.gitea-card-wrapper > div::before,
+#search-results a::before {
+  display: none !important;
+}
+
+body,
+html.dark body {
+  background: var(--snow-bg) !important;
+}
+
+#menu-blur,
+#background-blur,
+body:not(.page-home) > .fixed.inset-x-0,
+body.page-home > .fixed,
+body.page-home .fixed.inset-x-0.bg-neutral,
+html.dark #menu-blur,
+html.dark #background-blur,
+html.dark body:not(.page-home) > .fixed.inset-x-0,
+html.dark body.page-home > .fixed,
+html.dark body.page-home .fixed.inset-x-0.bg-neutral {
+  box-shadow: none !important;
+}
+
+.home-hero,
+html.dark .home-hero,
+.home-recent-wrap,
+html.dark .home-recent-wrap {
+  background: var(--snow-bg) !important;
+}
+
+.home-hero__media img,
+html.dark .home-hero__media img {
+  filter: none !important;
+  opacity: 0.12;
+}
+
+.home-hero::after,
+html.dark .home-hero::after {
+  background:
+    linear-gradient(90deg, var(--snow-bg) 0%, rgba(17, 17, 27, 0.92) 58%, rgba(17, 17, 27, 0.72) 100%),
+    linear-gradient(180deg, transparent 0%, var(--snow-bg) 100%);
+}
+
+html:not(.dark) .home-hero::after {
+  background:
+    linear-gradient(90deg, rgba(220, 228, 242, 0.98) 0%, rgba(220, 228, 242, 0.88) 58%, rgba(220, 228, 242, 0.72) 100%),
+    linear-gradient(180deg, transparent 0%, var(--snow-bg) 100%);
+}
+
+.writeups-contest-card,
+.home-recent-card,
+.article-link--card,
+.article-link--related,
+.article-link--simple.border,
+.article-link--shortcode.border,
+.term-link--card,
+.toc-right,
+.toc-inside,
+.github-card-wrapper > div,
+.codeberg-card-wrapper > div,
+.gitea-card-wrapper > div,
+#search-results a,
+html.dark .writeups-contest-card,
+html.dark .home-recent-card,
+html.dark .article-link--card,
+html.dark .article-link--related,
+html.dark .article-link--simple.border,
+html.dark .article-link--shortcode.border,
+html.dark .term-link--card,
+html.dark .toc-right,
+html.dark .toc-inside,
+html.dark .github-card-wrapper > div,
+html.dark .codeberg-card-wrapper > div,
+html.dark .gitea-card-wrapper > div,
+html.dark #search-results a {
+  background: var(--snow-card-bg) !important;
+  box-shadow: none !important;
+}
+
+.writeups-entry,
+html.dark .writeups-entry {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.home-hero__links a,
+.landing-actions a,
+.landing-button,
+.home-recent-more a,
+.home-recent-card,
+.writeups-contest-card,
+.writeups-entry,
+.article-link--card,
+.article-link--related,
+.article-link--simple.border,
+.article-link--shortcode.border,
+.term-link--card,
+.toc a,
+#search-results a,
+html.dark .home-hero__links a,
+html.dark .landing-actions a,
+html.dark .landing-button,
+html.dark .home-recent-more a,
+html.dark .home-recent-card,
+html.dark .writeups-contest-card,
+html.dark .writeups-entry,
+html.dark .article-link--card,
+html.dark .article-link--related,
+html.dark .article-link--simple.border,
+html.dark .article-link--shortcode.border,
+html.dark .term-link--card,
+html.dark .toc a,
+html.dark #search-results a {
+  transition: none !important;
+  transform: none !important;
+}
+
+.home-recent-card:hover,
+.writeups-entry:hover,
+.article-link--card:hover,
+.article-link--related:hover,
+.article-link--simple.border:hover,
+.article-link--shortcode.border:hover,
+.term-link--card:hover,
+.github-card-wrapper > div:hover,
+.codeberg-card-wrapper > div:hover,
+.gitea-card-wrapper > div:hover,
+html.dark .home-recent-card:hover,
+html.dark .writeups-entry:hover,
+html.dark .article-link--card:hover,
+html.dark .article-link--related:hover,
+html.dark .article-link--simple.border:hover,
+html.dark .article-link--shortcode.border:hover,
+html.dark .term-link--card:hover,
+html.dark .github-card-wrapper > div:hover,
+html.dark .codeberg-card-wrapper > div:hover,
+html.dark .gitea-card-wrapper > div:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* Final split-mode snow palette. Dark mode is the default; light mode stays readable. */
 :root {
   --site-bg-navy: #dce4f2;
@@ -1958,6 +2083,11 @@ body.page-home .site-background-pattern {
 #search-results a {
   content-visibility: auto;
   contain-intrinsic-size: 170px;
+}
+
+#search-wrapper {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .writeups-contest-card {

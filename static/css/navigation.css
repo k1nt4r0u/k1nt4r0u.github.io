@@ -148,14 +148,14 @@
     background-color: var(--bg-color);
     color: var(--text-color);
     font-size: 13px;
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-family: 'Victor Mono', 'Consolas', monospace;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #search-box::placeholder {
     color: var(--accent-color);
     opacity: 0.6;
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-family: 'Victor Mono', 'Consolas', monospace;
 }
 
 #search-box:focus,

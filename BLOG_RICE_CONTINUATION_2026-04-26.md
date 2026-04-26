@@ -1,5 +1,15 @@
 # Blog Rice Continuation Notes - 2026-04-26
 
+## Latest Handoff Pointer
+
+For the latest state after restoring the required font, search, and image zoom while keeping the site fast, start with:
+
+```text
+BLOG_PERFORMANCE_RESTORE_HANDOFF_2026-04-26.md
+```
+
+This older continuation note still contains useful visual-history context, but some sections below are stale after the performance restore pass. In particular, do not rely on older statements about search, image zoom, or the full font set without checking the newer handoff first.
+
 ## Scope
 
 Repository:
@@ -322,6 +332,51 @@ Completed after the user said light mode was still too light and the homepage ba
 9. Homepage hero spacing was tightened and top-aligned so the recent-writeups section is visible in the first viewport on mobile and desktop.
 10. Viewport-based font sizing was removed from the custom homepage/writeups CSS touched in this pass.
 
+## Performance Emergency Pass
+
+Completed after the user said the whole page felt visibly laggy and bloated on PC and mobile:
+
+1. Disabled always-on Blowfish widgets: `enableA11y`, `enableSearch`, `enableCodeCopy`, `disableImageZoom = true`, and `footer.showScrollToTop = false`.
+2. Removed the scroll-progress footer injection completely; `layouts/partials/extend-footer.html` is intentionally empty now.
+3. Removed `scroll-smooth` from `layouts/_default/baseof.html`.
+4. Set global views/likes and article likes to false so no metadata counter UI is generated.
+5. Flattened the paint path in `assets/css/custom.css`: no fixed background pattern, no scroll progress pseudo-element, no hero grid overlay, no panel sheen pseudo-elements, no hover transforms, no broad box shadows, no image filter.
+6. Removed shipped local webfonts and font-face declarations. The site now uses system fonts plus local font names if already installed; this cut first-load font bytes to zero.
+7. Removed unused `static/mybackground.jpg` and set `defaultSocialImage = ""` so the original 1.6 MB hero JPEG is no longer emitted just for metadata.
+8. Rebuilt with `hugo --gc --cleanDestinationDir --cacheDir /tmp/hugo_cache_my_blog` to clear stale hashed bundles from `public/`.
+
+Current tradeoffs:
+
+1. Search is disabled from the nav and the search modal is gone.
+2. Image zoom is disabled.
+3. Code-copy JS is disabled.
+4. The appearance switcher remains.
+5. Giscus comments are still lazy-loaded only on article pages.
+
+Latest performance metrics from CDP with cache disabled against `http://127.0.0.1:1314/`:
+
+```text
+home mobile 390x900: 6 resources, 175040 total bytes, 3354 JS bytes, 0 font bytes, 8750 image bytes, load 89ms
+home desktop 1440x900: 5 resources, 218960 total bytes, 3354 JS bytes, 0 font bytes, 54330 image bytes, load 69ms
+writeups mobile 390x900: 4 resources, 164630 total bytes, 3354 JS bytes, 0 font bytes, 0 image bytes, load 92ms
+writeups desktop 1440x900: 4 resources, 164630 total bytes, 3354 JS bytes, 0 font bytes, 0 image bytes, load 49ms
+```
+
+Latest deploy-size check:
+
+```text
+public/ was 22M before cleanup, 9.7M after stale bundle/background cleanup, and 5.5M after removing shipped webfonts.
+```
+
+Latest screenshot paths:
+
+```text
+/tmp/blog-perf2-home-mobile.png
+/tmp/blog-perf2-home-desktop.png
+/tmp/blog-perf2-writeups-mobile.png
+/tmp/blog-perf2-writeups-desktop.png
+```
+
 Latest screenshot paths:
 
 ```text
@@ -382,7 +437,7 @@ These are temporary files under `/tmp`; they are useful while the machine/sessio
 Build:
 
 ```bash
-hugo --gc --cacheDir /tmp/hugo_cache_my_blog
+hugo --gc --cleanDestinationDir --cacheDir /tmp/hugo_cache_my_blog
 ```
 
 Run server:
@@ -455,7 +510,7 @@ These are lightweight recent card overrides. Keep them unless reverting homepage
 
 ### `layouts/partials/extend-footer.html`
 
-Contains runtime gating for scroll progress and related behavior. Be careful not to reintroduce global/mobile work here.
+Intentionally empty after the performance pass. Be careful not to reintroduce global/mobile scroll work here.
 
 ## Completed Continuation Plan
 

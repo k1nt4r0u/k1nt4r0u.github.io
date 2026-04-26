@@ -1,13 +1,14 @@
 @font-face {
-    font-family: 'JetBrains Mono';
-    src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
-    font-weight: normal;
+    font-family: 'Victor Mono';
+    src: url('/fonts/VictorMono-Regular.woff2') format('woff2');
+    font-weight: 400;
     font-style: normal;
+    font-display: swap;
 }
 
 * {
     box-sizing: border-box;
-    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    font-family: 'Victor Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, Monaco, monospace;
 }
 
 html {

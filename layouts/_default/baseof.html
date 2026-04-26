@@ -2,7 +2,7 @@
 <html
   lang="{{ with site.Params.isoCode | default (site.LanguageCode | default `en`) }}{{- . -}}{{ end }}"
   dir="{{ cond (site.Params.rtl | default false) `rtl` `ltr` }}"
-  class="scroll-smooth"
+  class=""
   data-default-appearance="{{ site.Params.defaultAppearance | default `light` }}"
   data-auto-appearance="{{ site.Params.autoSwitchAppearance | default `true` }}">
   {{- partial "head.html" . -}}
