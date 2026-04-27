@@ -5,15 +5,6 @@
     return;
   }
 
-  const disableForWriteupsMobile =
-    document.body.classList.contains("section-writeups") &&
-    window.matchMedia("(max-width: 768px)").matches;
-
-  if (disableForWriteupsMobile) {
-    scrollToTop.remove();
-    return;
-  }
-
   let ticking = false;
 
   const updateScrollToTop = () => {
