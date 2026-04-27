@@ -2250,6 +2250,17 @@ html.dark .toc-writeups > summary {
   box-shadow: none !important;
 }
 
+@media (max-width: 768px) {
+  .toc-inside > summary,
+  .toc-inside.toc-writeups > summary,
+  body.section-writeups .toc-inside.toc-writeups > summary {
+    padding: 0.72rem 1rem !important;
+    padding-inline-start: 1rem !important;
+    padding-inline-end: 1rem !important;
+    transform: translateX(-0.45rem);
+  }
+}
+
 /* Medium Zoom needs to sit above the fixed header and use document scrolling. */
 .medium-zoom-overlay {
   z-index: 900 !important;
