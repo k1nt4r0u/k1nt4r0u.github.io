@@ -1216,8 +1216,7 @@ html.dark .writeups-entry-date {
   }
 
   body.section-writeups .site-background,
-  body.section-writeups .site-background-pattern,
-  body.section-writeups #scroll-to-top {
+  body.section-writeups .site-background-pattern {
     display: none !important;
   }
 
@@ -2263,11 +2262,12 @@ html.dark .toc-writeups > summary {
 
 @media (min-width: 1024px) {
   body.page-interior article {
-    --post-toc-target-width: clamp(11.5rem, 16vw, 17.5rem);
-    --post-content-width: min(92ch, calc(100vw - var(--post-toc-target-width) - var(--post-toc-target-width) - 1.25rem));
+    --post-toc-target-width: clamp(13rem, 18vw, 20rem);
+    --post-content-width: min(92ch, calc(100vw - var(--post-toc-target-width) - var(--post-toc-target-width) - 0.75rem));
     --post-side-gap: calc((100vw - var(--post-content-width)) / 2);
-    --post-toc-width: min(var(--post-toc-target-width), calc(var(--post-side-gap) - 1rem));
-    --post-toc-right: max(0.75rem, calc((var(--post-side-gap) - var(--post-toc-width)) / 2));
+    --post-toc-gutter: 1rem;
+    --post-toc-width: min(var(--post-toc-target-width), calc(var(--post-side-gap) - var(--post-toc-gutter) - var(--post-toc-gutter)));
+    --post-toc-right: max(var(--post-toc-gutter), calc((var(--post-side-gap) - var(--post-toc-width)) / 2));
   }
 
   body.page-interior article > section.prose {
@@ -2305,10 +2305,66 @@ html.dark .toc-writeups > summary {
     max-height: calc(100vh - 6.25rem);
     margin: 0 !important;
     padding-left: 0 !important;
+    overflow: hidden auto !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
   }
 
   body.page-interior article .toc-right {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
     max-height: calc(100vh - 6.25rem);
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.page-interior article .toc-right > div,
+  body.page-interior article .toc-writeups > div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    max-height: calc(100vh - 10rem);
+    margin: 0 !important;
+    overflow: auto !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding-inline: 0.22rem 0.5rem !important;
+  }
+
+  body.page-interior article .toc-right > summary,
+  body.page-interior article .toc-writeups > summary {
+    font-size: 0.96rem !important;
+    line-height: 1.35 !important;
+  }
+
+  body.page-interior article .toc #TableOfContents,
+  body.page-interior article .toc #TableOfContents ul,
+  body.page-interior article .toc #TableOfContents li,
+  body.page-interior article .toc #TableOfContents a {
+    font-size: 0.85rem !important;
+    line-height: 1.42 !important;
+  }
+
+  body.page-interior article .toc #TableOfContents {
+    padding-inline: 0.1rem 0.35rem !important;
+  }
+
+  body.page-interior article .toc #TableOfContents ul {
+    padding-inline-start: 0.72rem !important;
+  }
+
+  body.page-interior article .toc #TableOfContents li {
+    margin: 0.05rem 0 !important;
+  }
+
+  body.page-interior article .toc #TableOfContents a {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0.32rem 0.62rem !important;
+    border-radius: 7px !important;
   }
 }
 
@@ -2332,6 +2388,59 @@ html.dark .toc-writeups > summary {
 
 #site-footer p {
   margin: 0;
+}
+
+#scroll-to-top {
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+  z-index: 80 !important;
+}
+
+#scroll-to-top > a {
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+  border: 1px solid var(--blog-panel-border) !important;
+  border-radius: 999px !important;
+  color: var(--snow-ink) !important;
+  background: var(--snow-button-bg) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 12px 28px rgba(2, 8, 18, 0.16) !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.dark #scroll-to-top > a {
+  color: var(--snow-ink) !important;
+  background: rgba(176, 196, 239, 0.1) !important;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  #scroll-to-top > a:hover,
+  #scroll-to-top > a:focus-visible {
+    color: var(--snow-ink) !important;
+    border-color: var(--blog-panel-border-strong) !important;
+    background: var(--snow-faint) !important;
+    box-shadow: var(--blog-panel-shadow-hover) !important;
+    transform: translateY(-1px) !important;
+    outline: none;
+  }
+}
+
+@media (max-width: 768px) {
+  #scroll-to-top {
+    right: max(0.85rem, env(safe-area-inset-right)) !important;
+    bottom: max(0.85rem, env(safe-area-inset-bottom)) !important;
+  }
+
+  #scroll-to-top > a {
+    width: 2.55rem !important;
+    height: 2.55rem !important;
+    font-size: 0.95rem !important;
+  }
 }
 
 /* Medium Zoom needs to sit above the fixed header and use document scrolling. */
