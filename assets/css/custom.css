@@ -2261,6 +2261,67 @@ html.dark .toc-writeups > summary {
   }
 }
 
+@media (min-width: 1024px) {
+  body.page-interior article {
+    --post-toc-target-width: clamp(11.5rem, 16vw, 17.5rem);
+    --post-content-width: min(92ch, calc(100vw - var(--post-toc-target-width) - var(--post-toc-target-width) - 1.25rem));
+    --post-side-gap: calc((100vw - var(--post-content-width)) / 2);
+    --post-toc-width: min(var(--post-toc-target-width), calc(var(--post-side-gap) - 1rem));
+    --post-toc-right: max(0.75rem, calc((var(--post-side-gap) - var(--post-toc-width)) / 2));
+  }
+
+  body.page-interior article > section.prose {
+    position: relative;
+    display: block !important;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  body.page-interior article > section.prose > .order-first {
+    flex: 0 0 0 !important;
+    width: 0 !important;
+    max-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.page-interior article > section.prose > .min-w-0,
+  body.page-interior article .article-content,
+  body.page-interior article #single_header,
+  body.page-interior article > footer {
+    width: min(100%, var(--post-content-width)) !important;
+    max-width: min(100%, var(--post-content-width)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.page-interior article .toc {
+    position: fixed !important;
+    top: 5.25rem !important;
+    right: var(--post-toc-right) !important;
+    z-index: 60;
+    width: var(--post-toc-width) !important;
+    max-width: var(--post-toc-width) !important;
+    max-height: calc(100vh - 6.25rem);
+    margin: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  body.page-interior article .toc-right {
+    max-height: calc(100vh - 6.25rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  body.page-interior article > section.prose > .min-w-0,
+  body.page-interior article .article-content,
+  body.page-interior article #single_header,
+  body.page-interior article > footer {
+    width: min(100%, var(--post-content-width)) !important;
+    max-width: min(100%, var(--post-content-width)) !important;
+  }
+}
+
 /* Medium Zoom needs to sit above the fixed header and use document scrolling. */
 .medium-zoom-overlay {
   z-index: 900 !important;
@@ -2312,4 +2373,231 @@ html.dark .toc-writeups > summary {
   background: transparent;
   box-shadow: none;
   outline: none;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  /* Lightweight interaction polish for functional desktop controls. */
+  button,
+  [role="button"],
+  label[for],
+  details > summary,
+  .bf-icon-color-hover,
+  .home-hero__links a,
+  .landing-actions a,
+  .landing-button,
+  .home-recent-more a,
+  .home-recent-card,
+  .writeups-contest-summary,
+  .writeups-entry,
+  .article-link--card,
+  .article-link--related,
+  .article-link--simple.border,
+  .article-link--shortcode.border,
+  .term-link--card,
+  .github-card-wrapper > div,
+  .codeberg-card-wrapper > div,
+  .gitea-card-wrapper > div,
+  .toc #TableOfContents a,
+  #search-results a,
+  .comments-loader,
+  .medium-zoom-close-button {
+    cursor: pointer;
+    transition:
+      color 0.16s ease,
+      background 0.16s ease,
+      background-color 0.16s ease,
+      border-color 0.16s ease,
+      box-shadow 0.16s ease,
+      filter 0.16s ease,
+      opacity 0.16s ease,
+      transform 0.16s ease !important;
+  }
+
+  button:hover:not(.medium-zoom-close-button),
+  button:focus-visible:not(.medium-zoom-close-button),
+  [role="button"]:hover,
+  [role="button"]:focus-visible,
+  label[for]:hover,
+  label[for]:focus-visible,
+  .bf-icon-color-hover:hover,
+  .bf-icon-color-hover:focus-visible,
+  .comments-loader:hover,
+  .comments-loader:focus-visible {
+    color: var(--snow-ink) !important;
+    border-color: var(--blog-panel-border-strong) !important;
+    background-color: var(--snow-faint) !important;
+    box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+    outline: none;
+  }
+
+  .home-hero__links a:hover,
+  .home-hero__links a:focus-visible,
+  .landing-actions a:hover,
+  .landing-actions a:focus-visible,
+  .landing-button:hover,
+  .landing-button:focus-visible,
+  .home-recent-more a:hover,
+  .home-recent-more a:focus-visible,
+  .writeups-contest-summary:hover,
+  .writeups-contest-summary:focus-visible {
+    color: var(--snow-ink) !important;
+    border-color: var(--blog-panel-border-strong) !important;
+    background: var(--snow-faint) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 12px 28px rgba(10, 28, 42, 0.1) !important;
+    outline: none;
+  }
+
+  .writeups-contest-card:hover,
+  .writeups-contest-card:focus-within,
+  .home-recent-card:hover,
+  .home-recent-card:focus-visible,
+  .writeups-entry:hover,
+  .writeups-entry:focus-visible,
+  .article-link--card:hover,
+  .article-link--card:focus-visible,
+  .article-link--related:hover,
+  .article-link--related:focus-visible,
+  .article-link--simple.border:hover,
+  .article-link--simple.border:focus-visible,
+  .article-link--shortcode.border:hover,
+  .article-link--shortcode.border:focus-visible,
+  .term-link--card:hover,
+  .term-link--card:focus-visible,
+  .github-card-wrapper > div:hover,
+  .codeberg-card-wrapper > div:hover,
+  .gitea-card-wrapper > div:hover,
+  #search-results a:hover,
+  #search-results a:focus-visible {
+    border-color: var(--blog-panel-border-strong) !important;
+    background: var(--snow-card-hover) !important;
+    box-shadow: var(--blog-panel-shadow-hover) !important;
+    transform: translateY(-1px) !important;
+    outline: none;
+  }
+
+  .writeups-contest-summary:hover .writeups-contest-cta,
+  .writeups-contest-summary:focus-visible .writeups-contest-cta,
+  .writeups-contest-summary:hover .writeups-contest-cta-icon,
+  .writeups-contest-summary:focus-visible .writeups-contest-cta-icon {
+    color: var(--snow-ink) !important;
+    border-color: var(--blog-panel-border-strong) !important;
+    background: var(--snow-button-bg) !important;
+  }
+
+  .toc #TableOfContents a:hover,
+  .toc #TableOfContents a:focus-visible {
+    color: var(--snow-ink) !important;
+    background: var(--snow-faint) !important;
+    box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+    outline: none;
+  }
+
+  .toc-right > summary:hover,
+  .toc-right > summary:focus-visible,
+  .toc-writeups > summary:hover,
+  .toc-writeups > summary:focus-visible {
+    color: var(--snow-ink) !important;
+    border-color: var(--blog-panel-border-strong) !important;
+    background: var(--snow-faint) !important;
+    box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+    outline: none;
+  }
+
+  .medium-zoom-close-button:hover,
+  .medium-zoom-close-button:focus-visible {
+    color: #ffffff;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 2px 8px rgba(147, 197, 253, 0.45));
+    transform: scale(1.08);
+  }
+
+  button:active:not(.medium-zoom-close-button),
+  [role="button"]:active,
+  label[for]:active,
+  .home-hero__links a:active,
+  .landing-actions a:active,
+  .landing-button:active,
+  .home-recent-more a:active,
+  .writeups-contest-summary:active,
+  .writeups-entry:active,
+  .article-link--card:active,
+  .article-link--related:active,
+  .article-link--simple.border:active,
+  .article-link--shortcode.border:active,
+  .term-link--card:active,
+  #search-results a:active,
+  .comments-loader:active {
+    transform: scale(0.99) !important;
+  }
+
+  .medium-zoom-close-button:active {
+    transform: scale(0.96) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  [role="button"],
+  label[for],
+  details > summary,
+  .bf-icon-color-hover,
+  .home-hero__links a,
+  .landing-actions a,
+  .landing-button,
+  .home-recent-more a,
+  .home-recent-card,
+  .writeups-contest-summary,
+  .writeups-entry,
+  .article-link--card,
+  .article-link--related,
+  .article-link--simple.border,
+  .article-link--shortcode.border,
+  .term-link--card,
+  .github-card-wrapper > div,
+  .codeberg-card-wrapper > div,
+  .gitea-card-wrapper > div,
+  .toc #TableOfContents a,
+  #search-results a,
+  .comments-loader,
+  .medium-zoom-close-button {
+    transition: none !important;
+  }
+
+  .home-hero__links a:hover,
+  .home-hero__links a:focus-visible,
+  .landing-actions a:hover,
+  .landing-actions a:focus-visible,
+  .landing-button:hover,
+  .landing-button:focus-visible,
+  .home-recent-more a:hover,
+  .home-recent-more a:focus-visible,
+  .home-recent-card:hover,
+  .home-recent-card:focus-visible,
+  .writeups-contest-card:hover,
+  .writeups-contest-card:focus-within,
+  .writeups-entry:hover,
+  .writeups-entry:focus-visible,
+  .article-link--card:hover,
+  .article-link--card:focus-visible,
+  .article-link--related:hover,
+  .article-link--related:focus-visible,
+  .article-link--simple.border:hover,
+  .article-link--simple.border:focus-visible,
+  .article-link--shortcode.border:hover,
+  .article-link--shortcode.border:focus-visible,
+  .term-link--card:hover,
+  .term-link--card:focus-visible,
+  .github-card-wrapper > div:hover,
+  .codeberg-card-wrapper > div:hover,
+  .gitea-card-wrapper > div:hover,
+  #search-results a:hover,
+  #search-results a:focus-visible,
+  .medium-zoom-close-button:hover,
+  .medium-zoom-close-button:focus-visible {
+    transform: none !important;
+  }
 }

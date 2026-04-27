@@ -2,6 +2,12 @@
 
 ## Latest Handoff Pointer
 
+For the latest state after the April 27 TOC/image-zoom iterations and the pending hover-effects request, start with:
+
+```text
+BLOG_CONTINUE_CODING_HANDOFF_2026-04-27.md
+```
+
 For the latest state after restoring the required font, search, and image zoom while keeping the site fast, start with:
 
 ```text
