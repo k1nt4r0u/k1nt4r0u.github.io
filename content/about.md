@@ -29,7 +29,7 @@ This site is where I keep:
 - Small research breadcrumbs worth keeping around
 - References I expect to need again later
 
-## Tools I Reach For
+## Tools I use
 
 - IDA Pro and Ghidra
 - GDB and pwndbg
