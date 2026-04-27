@@ -2170,3 +2170,135 @@ html.dark .writeups-entry-date {
       linear-gradient(132deg, rgba(176, 196, 239, 0.16), transparent 58%);
   }
 }
+
+/* TOC polish: readable text and a softer title strip. */
+.toc #TableOfContents,
+.toc #TableOfContents ul,
+.toc #TableOfContents li {
+  color: var(--snow-muted) !important;
+}
+
+.toc #TableOfContents a {
+  color: var(--snow-muted) !important;
+  opacity: 1 !important;
+}
+
+.toc #TableOfContents a:hover,
+.toc #TableOfContents a:focus-visible,
+.toc li.toc-active-item > a,
+.toc a.toc-active {
+  color: var(--snow-ink) !important;
+  background: var(--snow-faint) !important;
+  box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+}
+
+.toc-right > summary,
+.toc-inside > summary,
+.toc-writeups > summary {
+  margin: 0.15rem 0.05rem 0.55rem !important;
+  padding: 0.58rem 0.78rem !important;
+  border: 1px solid var(--blog-panel-border) !important;
+  border-radius: 8px !important;
+  color: var(--snow-ink) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent),
+    var(--snow-faint) !important;
+  box-shadow: none !important;
+}
+
+html.dark .toc-right > summary,
+html.dark .toc-inside > summary,
+html.dark .toc-writeups > summary {
+  color: var(--snow-ink) !important;
+  background:
+    linear-gradient(180deg, rgba(176, 196, 239, 0.08), transparent),
+    rgba(176, 196, 239, 0.09) !important;
+}
+
+.toc-right,
+.toc-inside,
+.toc-writeups,
+html.dark .toc-right,
+html.dark .toc-inside,
+html.dark .toc-writeups {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.toc-right::before,
+.toc-inside::before,
+.toc-writeups::before {
+  display: none !important;
+}
+
+.toc-right > div,
+.toc-inside > div,
+.toc-writeups > div {
+  background: transparent !important;
+}
+
+.toc-right > summary,
+.toc-inside > summary,
+.toc-writeups > summary,
+html.dark .toc-right > summary,
+html.dark .toc-inside > summary,
+html.dark .toc-writeups > summary {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Medium Zoom needs to sit above the fixed header and use document scrolling. */
+.medium-zoom-overlay {
+  z-index: 900 !important;
+}
+
+.medium-zoom-image--opened {
+  z-index: 901 !important;
+  cursor: zoom-in !important;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.medium-zoom-image--opened.medium-zoom-image--interactive {
+  cursor: grab !important;
+  transition: transform 120ms ease-out !important;
+}
+
+.medium-zoom-image--opened.medium-zoom-image--dragging {
+  cursor: grabbing !important;
+  transition: none !important;
+}
+
+.medium-zoom-close-button {
+  position: fixed;
+  top: max(0.85rem, env(safe-area-inset-top));
+  right: max(0.85rem, env(safe-area-inset-right));
+  z-index: 902;
+  display: inline-flex;
+  width: 2.4rem;
+  height: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0;
+  color: #cdd6f4;
+  background: transparent;
+  box-shadow: none;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.medium-zoom-close-button:hover,
+.medium-zoom-close-button:focus-visible {
+  color: #f3f8ff;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}

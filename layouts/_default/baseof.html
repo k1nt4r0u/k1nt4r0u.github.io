@@ -8,7 +8,7 @@
   {{- partial "head.html" . -}}
   {{- partialCached "init.html" . -}}
 
-  {{ $bodyLayout := "flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32" }}
+  {{ $bodyLayout := "flex flex-col min-h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32" }}
   {{ $bodyColor := "text-lg text-neutral-900 dark:text-neutral" }}
   <body class="{{ $bodyLayout }} {{ $bodyColor }} {{ if .IsHome }}page-home{{ else }}page-interior{{ end }} {{ with .Section }}section-{{ . | urlize }}{{ end }} {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
     <div class="site-background" aria-hidden="true"></div>

@@ -22,12 +22,250 @@
     script.integrity = "{{ $zoomJS.Data.Integrity }}";
     script.crossOrigin = "anonymous";
     script.onload = () => {
-      window.mediumZoom?.(targets, {
+      const zoom = window.mediumZoom?.(targets, {
         margin: 24,
         background: "rgba(0,0,0,0.5)",
         scrollOffset: 0,
       });
+      if (zoom) {
+        enableFocusedImageZoom(zoom);
+      }
     };
     document.head.appendChild(script);
+
+    function enableFocusedImageZoom(zoom) {
+      const state = {
+        scale: 1,
+        panX: 0,
+        panY: 0,
+        baseTransform: "",
+        dragging: false,
+        moved: false,
+        swallowClick: false,
+        startX: 0,
+        startY: 0,
+        startPanX: 0,
+        startPanY: 0,
+        pinchDistance: 0,
+        pinchScale: 1,
+        closeButton: null,
+      };
+
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+      const openedImage = () => document.querySelector(".medium-zoom-image--opened");
+      const touchDistance = (touches) => {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.hypot(dx, dy);
+      };
+
+      const applyTransform = () => {
+        const image = openedImage();
+        if (!image) {
+          return;
+        }
+
+        image.style.transformOrigin = "center center";
+        image.style.transform = `${state.baseTransform} translate3d(${state.panX}px, ${state.panY}px, 0) scale(${state.scale})`;
+        image.classList.toggle("medium-zoom-image--interactive", state.scale > 1.01);
+      };
+
+      const setScale = (nextScale) => {
+        state.scale = clamp(nextScale, 1, 4);
+        if (state.scale <= 1.01) {
+          state.scale = 1;
+          state.panX = 0;
+          state.panY = 0;
+        }
+        applyTransform();
+      };
+
+      const resetState = () => {
+        const image = openedImage();
+        state.scale = 1;
+        state.panX = 0;
+        state.panY = 0;
+        state.baseTransform = image?.style.transform || "";
+        state.dragging = false;
+        state.moved = false;
+        state.swallowClick = false;
+        state.pinchDistance = 0;
+        state.pinchScale = 1;
+        image?.classList.remove("medium-zoom-image--interactive", "medium-zoom-image--dragging");
+      };
+
+      const addCloseButton = () => {
+        if (state.closeButton) {
+          return;
+        }
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "medium-zoom-close-button";
+        button.setAttribute("aria-label", "Close image");
+        button.textContent = "x";
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          zoom.close();
+        });
+        document.body.appendChild(button);
+        state.closeButton = button;
+      };
+
+      const removeCloseButton = () => {
+        state.closeButton?.remove();
+        state.closeButton = null;
+      };
+
+      const onWheel = (event) => {
+        if (!document.body.classList.contains("medium-zoom--opened")) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        const step = event.deltaY > 0 ? -0.18 : 0.18;
+        setScale(state.scale + step);
+      };
+
+      const onKeyDown = (event) => {
+        if (!document.body.classList.contains("medium-zoom--opened")) {
+          return;
+        }
+
+        if (event.key === "+" || event.key === "=") {
+          event.preventDefault();
+          setScale(state.scale + 0.25);
+        } else if (event.key === "-" || event.key === "_") {
+          event.preventDefault();
+          setScale(state.scale - 0.25);
+        } else if (event.key === "0") {
+          event.preventDefault();
+          setScale(1);
+        }
+      };
+
+      const onImageClick = (event) => {
+        const image = openedImage();
+        if (!image || event.target !== image) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (state.swallowClick) {
+          state.swallowClick = false;
+          return;
+        }
+        setScale(state.scale > 1.05 ? 1 : 2);
+      };
+
+      const onPointerDown = (event) => {
+        if (state.scale <= 1.01 || event.button !== 0) {
+          return;
+        }
+
+        const image = openedImage();
+        if (!image || event.target !== image) {
+          return;
+        }
+
+        state.dragging = true;
+        state.moved = false;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.startPanX = state.panX;
+        state.startPanY = state.panY;
+        image.classList.add("medium-zoom-image--dragging");
+        try {
+          image.setPointerCapture?.(event.pointerId);
+        } catch {}
+      };
+
+      const onPointerMove = (event) => {
+        if (!state.dragging) {
+          return;
+        }
+
+        const dx = event.clientX - state.startX;
+        const dy = event.clientY - state.startY;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+          state.moved = true;
+        }
+        state.panX = state.startPanX + dx;
+        state.panY = state.startPanY + dy;
+        applyTransform();
+      };
+
+      const onPointerUp = (event) => {
+        if (!state.dragging) {
+          return;
+        }
+
+        const image = openedImage();
+        state.dragging = false;
+        state.swallowClick = state.moved;
+        image?.classList.remove("medium-zoom-image--dragging");
+        try {
+          image?.releasePointerCapture?.(event.pointerId);
+        } catch {}
+      };
+
+      const onTouchStart = (event) => {
+        if (event.touches.length !== 2) {
+          return;
+        }
+
+        state.pinchDistance = touchDistance(event.touches);
+        state.pinchScale = state.scale;
+      };
+
+      const onTouchMove = (event) => {
+        if (event.touches.length !== 2 || !state.pinchDistance) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        setScale(state.pinchScale * (touchDistance(event.touches) / state.pinchDistance));
+      };
+
+      const addControls = () => {
+        const image = openedImage();
+        if (!image) {
+          return;
+        }
+
+        resetState();
+        addCloseButton();
+        document.addEventListener("wheel", onWheel, { passive: false });
+        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("pointermove", onPointerMove);
+        document.addEventListener("pointerup", onPointerUp);
+        document.addEventListener("touchstart", onTouchStart, { passive: true });
+        document.addEventListener("touchmove", onTouchMove, { passive: false });
+        image.addEventListener("click", onImageClick, true);
+        image.addEventListener("pointerdown", onPointerDown);
+      };
+
+      const removeControls = () => {
+        const image = openedImage();
+        document.removeEventListener("wheel", onWheel);
+        document.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener("pointermove", onPointerMove);
+        document.removeEventListener("pointerup", onPointerUp);
+        document.removeEventListener("touchstart", onTouchStart);
+        document.removeEventListener("touchmove", onTouchMove);
+        image?.removeEventListener("click", onImageClick, true);
+        image?.removeEventListener("pointerdown", onPointerDown);
+        image?.classList.remove("medium-zoom-image--interactive", "medium-zoom-image--dragging");
+        removeCloseButton();
+        resetState();
+      };
+
+      zoom.on("opened", addControls);
+      zoom.on("close", removeControls);
+    }
   })();
 </script>
