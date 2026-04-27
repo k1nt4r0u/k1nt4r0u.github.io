@@ -1615,8 +1615,7 @@ html.dark .gitea-card-wrapper > div:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.86),
     0 16px 42px rgba(49, 56, 82, 0.14);
   --blog-panel-shadow-hover:
-    inset 0 1px 0 rgba(255, 255, 255, 0.94),
-    0 18px 48px rgba(49, 56, 82, 0.19);
+    0 18px 44px rgba(49, 56, 82, 0.17);
   --blog-panel-highlight: linear-gradient(90deg, transparent, rgba(176, 196, 239, 0.78), rgba(255, 255, 255, 0.9), transparent);
 }
 
@@ -1670,8 +1669,7 @@ html.dark {
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 16px 42px rgba(0, 0, 0, 0.24);
   --blog-panel-shadow-hover:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 18px 48px rgba(0, 0, 0, 0.28);
+    0 20px 50px rgba(0, 0, 0, 0.32);
   --blog-panel-highlight: linear-gradient(90deg, transparent, rgba(176, 196, 239, 0.36), rgba(255, 255, 255, 0.18), transparent);
 }
 
@@ -2546,8 +2544,9 @@ html.dark #scroll-to-top > a {
   .comments-loader:focus-visible {
     color: var(--snow-ink) !important;
     border-color: var(--blog-panel-border-strong) !important;
-    background-color: var(--snow-faint) !important;
-    box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+    background-color: transparent !important;
+    box-shadow: 0 8px 20px rgba(2, 8, 18, 0.1) !important;
+    filter: brightness(1.04);
     outline: none;
   }
 
@@ -2558,15 +2557,29 @@ html.dark #scroll-to-top > a {
   .landing-button:hover,
   .landing-button:focus-visible,
   .home-recent-more a:hover,
-  .home-recent-more a:focus-visible,
-  .writeups-contest-summary:hover,
-  .writeups-contest-summary:focus-visible {
+  .home-recent-more a:focus-visible {
     color: var(--snow-ink) !important;
     border-color: var(--blog-panel-border-strong) !important;
-    background: var(--snow-faint) !important;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 12px 28px rgba(10, 28, 42, 0.1) !important;
+    background: var(--snow-button-bg) !important;
+    box-shadow: 0 12px 28px rgba(2, 8, 18, 0.14) !important;
+    filter: brightness(1.04) saturate(1.02);
+    transform: translateY(-1px) !important;
+    outline: none;
+  }
+
+  .landing-actions a:first-child:hover,
+  .landing-actions a:first-child:focus-visible,
+  .landing-button--primary:hover,
+  .landing-button--primary:focus-visible,
+  .home-recent-more a:hover,
+  .home-recent-more a:focus-visible {
+    background: var(--snow-button-primary-bg) !important;
+  }
+
+  .writeups-contest-summary:hover,
+  .writeups-contest-summary:focus-visible {
+    background: transparent !important;
+    box-shadow: none !important;
     outline: none;
   }
 
@@ -2594,6 +2607,7 @@ html.dark #scroll-to-top > a {
     border-color: var(--blog-panel-border-strong) !important;
     background: var(--snow-card-hover) !important;
     box-shadow: var(--blog-panel-shadow-hover) !important;
+    filter: brightness(1.02);
     transform: translateY(-1px) !important;
     outline: none;
   }
@@ -2611,7 +2625,7 @@ html.dark #scroll-to-top > a {
   .toc #TableOfContents a:focus-visible {
     color: var(--snow-ink) !important;
     background: var(--snow-faint) !important;
-    box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+    box-shadow: none !important;
     outline: none;
   }
 
@@ -2622,7 +2636,7 @@ html.dark #scroll-to-top > a {
     color: var(--snow-ink) !important;
     border-color: var(--blog-panel-border-strong) !important;
     background: var(--snow-faint) !important;
-    box-shadow: inset 0 0 0 1px var(--blog-panel-border) !important;
+    box-shadow: none !important;
     outline: none;
   }
 
