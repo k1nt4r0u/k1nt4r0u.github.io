@@ -1,6 +1,6 @@
 disabled = false
-languageCode = "en"
-languageName = "English"
+locale = "en"
+label = "English"
 weight = 1
 title = "k1nt4r0u's site"
 
@@ -25,6 +25,3 @@ copyright = "Copyright (c) k1nt4r0u"
 
     [[params.author.links]]
     link = "https://hackmd.io/@kintarou"
-
-["params.author"]
-image = "arch.png"

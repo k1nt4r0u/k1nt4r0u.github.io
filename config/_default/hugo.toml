@@ -1,7 +1,7 @@
 theme = "blowfish"
 baseURL = "https://k1nt4r0u.github.io/"
 defaultContentLanguage = "en"
-languageCode = "en"
+locale = "en"
 enableRobotsTXT = true
 enableEmoji = true
 summaryLength = 18

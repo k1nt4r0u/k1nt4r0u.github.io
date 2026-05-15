@@ -14,9 +14,9 @@ description: "Two CSCV reversing solves: an anti-debug fake flag checker and a P
 
 My first read on this binary was completely wrong. It looked like a normal flag checker, so I did what I usually do for that kind of challenge: identify the comparison logic, lift the constants, and script the inverse.
 
-![image](/images/CSCV/CSCV_1.png)
+![image](/images/CSCV/CSCV_1.webp)
 
-![image](/images/CSCV/CSCV_2.png)
+![image](/images/CSCV/CSCV_2.webp)
 
 That script only gave me:
 
@@ -37,13 +37,13 @@ Same input, same binary, different result. That is not a math mistake. That is e
 
 After the contest I came back to the import table, and the answer was sitting there:
 
-![image](/images/CSCV/CSCV_3.png)
+![image](/images/CSCV/CSCV_3.webp)
 
 `IsDebuggerPresent` is imported, and the program checks it very early.
 
-![image](/images/CSCV/CSCV_4.png)
+![image](/images/CSCV/CSCV_4.webp)
 
-![image](/images/CSCV/CSCV_5.png)
+![image](/images/CSCV/CSCV_5.webp)
 
 That explained the split behavior perfectly. The fake string was not a failed inversion of the real checker. It was bait. The binary was selecting different encoded data depending on whether a debugger was attached.
 
@@ -84,11 +84,11 @@ The whole solve really came down to noticing that the checker was lying differen
 
 This executable looked different right away. Opening it in IDA showed PyInstaller-style markers, so instead of treating it like a normal native binary, I treated it like a packaged Python app with a native helper library.
 
-![image](/images/CSCV/CSCV_6.png)
+![image](/images/CSCV/CSCV_6.webp)
 
 That meant the first useful step was extraction, not decompilation. I used `pyinstxtractor.py` to unpack the bundled files:
 
-![image](/images/CSCV/CSCV_7.png)
+![image](/images/CSCV/CSCV_7.webp)
 
 I did not have `decompyle3` available, so I used an online decompiler to get a readable `main.py`. The high-level flow was enough:
 
@@ -101,17 +101,17 @@ That last point was the real clue. The program pretends the hard part is token v
 
 So I stopped caring about forging a VIP token and moved straight to `libnative.so`.
 
-![image](/images/CSCV/CSCV_8.png)
+![image](/images/CSCV/CSCV_8.webp)
 
 ### Native side
 
 Inside the library, `decrypt_flag_file` calls `recover_key`:
 
-![image](/images/CSCV/CSCV_9.png)
+![image](/images/CSCV/CSCV_9.webp)
 
 And `recover_key` is much simpler than the name makes it sound. It just rebuilds the original AES key from an obfuscated byte array and a short repeating mask:
 
-![image](/images/CSCV/CSCV_10.png)
+![image](/images/CSCV/CSCV_10.webp)
 
 Back in `decrypt_flag_file`, the logic is straightforward:
 
@@ -177,5 +177,4 @@ CSCV2025{reversed_vip*_chatbot_bypassed}
 ```
 
 The nice part of this challenge is that the intended story is "become VIP," but the cleaner reversing route is just to follow the local decryption path and ignore the access-control theater entirely.
-
 

@@ -56,9 +56,9 @@ The key material itself was not the hardest part. Most of it was easy to recover
 
 With that seed, I could reverse the layers:
 
-![image](/images/WGC2025/WGC2025_1.png)
+![image](/images/WGC2025/WGC2025_1.webp)
 
-![image](/images/WGC2025/WGC2025_2.png)
+![image](/images/WGC2025/WGC2025_2.webp)
 
 ```python
 from Crypto.Cipher import ARC4, ChaCha20
@@ -117,7 +117,7 @@ This challenge unpacked into an APK, so the first pass was standard Android reve
 - a native library load for `check_new_detection`
 - logic that appeared to reject unauthorized devices before the real app flow could continue
 
-![image](/images/WGC2025/WGC2025_3.png)
+![image](/images/WGC2025/WGC2025_3.webp)
 
 The `UnlockTime` value is set to `currentTimeMillis() + 180000`, so getting rejected means waiting three minutes before the app will even let you try again. That made the device-gating logic worth bypassing first.
 
@@ -134,7 +134,7 @@ if-nez v4, :cond_c
 
 with an added branch to skip the rejection path.
 
-![image](/images/WGC2025/WGC2025_4.png)
+![image](/images/WGC2025/WGC2025_4.webp)
 
 That was the meaningful pivot. After rebuilding and retrying post-contest, I could at least reach the security-key screen, which confirmed that the Java layer was only the front door and the real logic likely lived in the native library.
 
@@ -154,6 +154,5 @@ So the honest state of this writeup is:
 - I identified and bypassed the device-gating layer,
 - I confirmed the native library was the next target,
 - I do not have the rest of the solve path or final flag saved in this repo.
-
 
 

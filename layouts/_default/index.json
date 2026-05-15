@@ -1,0 +1,21 @@
+{{- $index := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- if and (not .Params.excludeFromSearch) (not .Params.searchHidden) (ne .Layout "search") -}}
+    {{- $section := .Site.GetPage "section" .Section -}}
+    {{- $plain := .Plain | plainify | htmlUnescape -}}
+    {{- $item := dict
+      "title" (.Title | emojify)
+      "section" ($section.Title | emojify)
+      "summary" (.Summary | plainify | htmlUnescape | truncate 220)
+      "content" ($plain | truncate 1800)
+      "permalink" .RelPermalink
+      "externalUrl" .Params.externalUrl
+      "type" .Type
+    -}}
+    {{- with .Date -}}
+      {{- $item = merge $item (dict "date" (. | time.Format ($.Site.Language.Params.dateFormat | default ":date_long"))) -}}
+    {{- end -}}
+    {{- $index = $index | append $item -}}
+  {{- end -}}
+{{- end -}}
+{{- $index | jsonify -}}
