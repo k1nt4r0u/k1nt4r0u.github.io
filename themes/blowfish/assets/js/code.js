@@ -15,14 +15,15 @@ function setCopyButtonState(button, state) {
 }
 
 function createCopyButton(highlightWrapper) {
-  if (highlightWrapper.querySelector(":scope > .copy-button")) return;
+  const highlightDiv = highlightWrapper.querySelector(".highlight") || highlightWrapper;
+  if (highlightDiv.querySelector(":scope > .copy-button")) return;
 
   const button = document.createElement("button");
   button.className = "copy-button";
   button.type = "button";
   setCopyButtonState(button, "copy");
   button.addEventListener("click", () => copyCodeToClipboard(button, highlightWrapper));
-  highlightWrapper.insertBefore(button, highlightWrapper.firstChild);
+  highlightDiv.insertBefore(button, highlightDiv.firstChild);
 }
 
 async function copyCodeToClipboard(button, highlightWrapper) {

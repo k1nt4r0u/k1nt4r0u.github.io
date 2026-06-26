@@ -6284,7 +6284,11 @@ body.page-interior article > footer,
   position: relative;
 }
 
-.highlight-wrapper > .copy-button {
+.highlight-wrapper > .highlight {
+  position: relative !important;
+}
+
+.highlight-wrapper > .highlight > .copy-button {
   display: inline-grid !important;
   place-items: center;
   position: absolute !important;
@@ -6323,7 +6327,7 @@ body.page-interior article > footer,
   padding-inline-end: max(1rem, 3.2rem) !important;
 }
 
-.highlight-wrapper > .copy-button .copy-button__icon {
+.highlight-wrapper > .highlight > .copy-button .copy-button__icon {
   width: 1.05rem;
   height: 1.05rem;
   fill: none;
@@ -6333,16 +6337,16 @@ body.page-interior article > footer,
   stroke-linejoin: round;
 }
 
-.highlight-wrapper > .copy-button.is-copied {
+.highlight-wrapper > .highlight > .copy-button.is-copied {
   color: #031426 !important;
   border-color: rgba(177, 231, 255, 0.78) !important;
   background: #9ddcff !important;
   opacity: 1 !important;
 }
 
-.highlight-wrapper > .copy-button:hover,
-.highlight-wrapper > .copy-button:focus-visible,
-.highlight-wrapper > .copy-button:active {
+.highlight-wrapper > .highlight > .copy-button:hover,
+.highlight-wrapper > .highlight > .copy-button:focus-visible,
+.highlight-wrapper > .highlight > .copy-button:active {
   color: #031426 !important;
   border-color: rgba(177, 231, 255, 0.72) !important;
   background: #9ddcff !important;
@@ -6351,54 +6355,46 @@ body.page-interior article > footer,
   outline: none !important;
 }
 
-html:not(.dark) .highlight-wrapper > .copy-button {
+html:not(.dark) .highlight-wrapper > .highlight > .copy-button {
   color: #184765 !important;
   border-color: rgba(75, 148, 190, 0.36) !important;
   background: rgba(216, 239, 252, 0.88) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 8px 18px rgba(33, 70, 96, 0.16) !important;
 }
 
-html:not(.dark) .highlight-wrapper > .copy-button.is-copied {
+html:not(.dark) .highlight-wrapper > .highlight > .copy-button.is-copied {
   color: #062235 !important;
   border-color: rgba(61, 133, 178, 0.58) !important;
   background: #bfe8ff !important;
 }
 
-html:not(.dark) .highlight-wrapper > .copy-button:hover,
-html:not(.dark) .highlight-wrapper > .copy-button:focus-visible,
-html:not(.dark) .highlight-wrapper > .copy-button:active {
+html:not(.dark) .highlight-wrapper > .highlight > .copy-button:hover,
+html:not(.dark) .highlight-wrapper > .highlight > .copy-button:focus-visible,
+html:not(.dark) .highlight-wrapper > .highlight > .copy-button:active {
   color: #062235 !important;
   border-color: rgba(61, 133, 178, 0.54) !important;
   background: #bfe8ff !important;
 }
 
 @media (max-width: 768px) {
-  body.section-writeups .highlight-wrapper,
-  .highlight-wrapper {
-    isolation: isolate;
-  }
-
-  body.section-writeups .highlight-wrapper > .copy-button,
-  .highlight-wrapper > .copy-button {
-    display: grid !important;
-    position: sticky !important;
-    inset-block-start: calc(4.25rem + env(safe-area-inset-top)) !important;
-    inset-inline-start: auto !important;
-    inset-inline-end: auto !important;
-    width: 2.35rem !important;
-    min-width: 2.35rem !important;
-    max-width: 2.35rem !important;
-    height: 2.35rem !important;
-    margin-inline-start: auto !important;
-    margin-inline-end: 0.55rem !important;
-    margin-block-end: -2.9rem !important;
+  body.section-writeups .highlight-wrapper > .highlight > .copy-button,
+  .highlight-wrapper > .highlight > .copy-button {
+    display: inline-grid !important;
+    position: absolute !important;
+    inset-block-start: 0.55rem !important;
+    inset-inline-end: 0.55rem !important;
+    width: 2.2rem !important;
+    min-width: 2.2rem !important;
+    max-width: 2.2rem !important;
+    height: 2.2rem !important;
+    margin: 0 !important;
     padding: 0 !important;
     font-size: 0 !important;
     visibility: visible !important;
   }
 
-  body.section-writeups .highlight-wrapper > .copy-button .copy-button__icon,
-  .highlight-wrapper > .copy-button .copy-button__icon {
+  body.section-writeups .highlight-wrapper > .highlight > .copy-button .copy-button__icon,
+  .highlight-wrapper > .highlight > .copy-button .copy-button__icon {
     width: 1.08rem;
     height: 1.08rem;
   }
@@ -6491,7 +6487,7 @@ body.page-interior .article-content > pre {
   .comments-loader,
   #scroll-to-top > a,
   .site-hack-logo,
-  .highlight-wrapper > .copy-button {
+  .highlight-wrapper > .highlight > .copy-button {
     transition:
       border-color 90ms ease,
       background-color 90ms ease,
@@ -6514,11 +6510,192 @@ body.page-interior .article-content > pre {
   .comments-loader:hover,
   #scroll-to-top > a:hover,
   .site-hack-logo:hover,
-  .highlight-wrapper > .copy-button:hover {
+  .highlight-wrapper > .highlight > .copy-button:hover {
     transform: none !important;
   }
 
   .site-hack-logo__cursor {
     animation: none !important;
   }
+}
+
+/* Scroll-first mode: remove reveal/layout work and expensive repaint surfaces. */
+html {
+  scroll-behavior: auto !important;
+}
+
+body.page-interior .site-background,
+body.section-writeups .site-background {
+  background:
+    linear-gradient(180deg, rgba(5, 13, 26, 0.96), rgba(7, 17, 31, 0.98)),
+    #06111f !important;
+}
+
+html:not(.dark) body.page-interior .site-background,
+html:not(.dark) body.section-writeups .site-background {
+  background:
+    linear-gradient(180deg, rgba(113, 145, 171, 0.96), rgba(105, 137, 164, 0.98)),
+    #7896ae !important;
+}
+
+.home-recent-wrap::before,
+html.dark .home-recent-wrap::before,
+html:not(.dark) .home-recent-wrap::before {
+  display: none !important;
+}
+
+body.page-interior .article-content > *,
+body.section-writeups .highlight-wrapper,
+body.section-writeups .article-content figure,
+body.section-writeups .prose figure,
+.home-recent-card,
+.writeups-contest-card,
+.writeups-contest-panel,
+.writeups-entry,
+.article-link--card,
+.article-link--related,
+.article-link--simple.border,
+.article-link--shortcode.border,
+.term-link--card,
+#search-results a,
+.comments-section,
+.toc-inside,
+.toc-right,
+body.page-interior article > footer,
+#site-footer {
+  content-visibility: visible !important;
+  contain-intrinsic-size: none !important;
+}
+
+.home-recent-card,
+.writeups-contest-card,
+.writeups-contest-panel,
+.writeups-entry,
+.article-link--card,
+.article-link--related,
+.article-link--simple.border,
+.article-link--shortcode.border,
+.term-link--card,
+#search-results a,
+.comments-section,
+.toc-inside,
+.toc-right,
+.highlight,
+#scroll-to-top > a {
+  box-shadow: inset 0 1px 0 rgba(184, 226, 255, 0.08) !important;
+}
+
+.home-recent-card:hover,
+.writeups-contest-card:hover,
+.writeups-contest-card:focus-within,
+.writeups-entry:hover,
+.article-link--card:hover,
+.article-link--related:hover,
+.article-link--simple.border:hover,
+.article-link--shortcode.border:hover,
+.term-link--card:hover,
+#search-results a:hover,
+#search-results a:focus-visible,
+#scroll-to-top > a:hover,
+#scroll-to-top > a:focus-visible {
+  box-shadow: inset 0 1px 0 rgba(184, 226, 255, 0.1) !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+@media (max-width: 1024px), (hover: none) {
+  .site-background,
+  html.dark .site-background,
+  html:not(.dark) .site-background {
+    background:
+      linear-gradient(180deg, rgba(5, 13, 26, 0.97), rgba(7, 17, 31, 0.99)),
+      #06111f !important;
+  }
+
+  html:not(.dark) .site-background {
+    background:
+      linear-gradient(180deg, rgba(113, 145, 171, 0.97), rgba(105, 137, 164, 0.99)),
+      #7896ae !important;
+  }
+
+  .site-background,
+  .site-background-pattern,
+  #menu-blur,
+  #background-blur,
+  body.page-interior article .toc,
+  #scroll-to-top {
+    will-change: auto !important;
+    transform: none !important;
+  }
+
+  .home-recent-card,
+  .writeups-contest-card,
+  .writeups-entry,
+  .article-link--card,
+  .article-link--related,
+  .article-link--simple.border,
+  .article-link--shortcode.border,
+  .term-link--card,
+  .comments-loader,
+  .highlight-wrapper > .highlight > .copy-button,
+  #scroll-to-top > a {
+    transition: none !important;
+  }
+}
+
+html.dark body .home-recent-card,
+html.dark body .writeups-contest-card,
+html.dark body .writeups-contest-panel,
+html.dark body .writeups-entry,
+html.dark body .article-link--card,
+html.dark body .article-link--related,
+html.dark body .article-link--simple.border,
+html.dark body .article-link--shortcode.border,
+html.dark body .term-link--card,
+html.dark body #search-results a,
+html.dark body .comments-section,
+html.dark body .toc-inside,
+html.dark body .toc-right,
+html.dark body .highlight,
+html:not(.dark) body .home-recent-card,
+html:not(.dark) body .writeups-contest-card,
+html:not(.dark) body .writeups-contest-panel,
+html:not(.dark) body .writeups-entry,
+html:not(.dark) body .article-link--card,
+html:not(.dark) body .article-link--related,
+html:not(.dark) body .article-link--simple.border,
+html:not(.dark) body .article-link--shortcode.border,
+html:not(.dark) body .term-link--card,
+html:not(.dark) body #search-results a,
+html:not(.dark) body .comments-section,
+html:not(.dark) body .toc-inside,
+html:not(.dark) body .toc-right,
+html:not(.dark) body .highlight,
+body.section-writeups .highlight,
+body.section-writeups .highlight:hover {
+  box-shadow: inset 0 1px 0 rgba(184, 226, 255, 0.08) !important;
+  filter: none !important;
+}
+
+html.dark body .home-recent-card:hover,
+html.dark body .writeups-contest-card:hover,
+html.dark body .writeups-contest-card:focus-within,
+html.dark body .writeups-entry:hover,
+html.dark body .article-link--card:hover,
+html.dark body .article-link--related:hover,
+html.dark body .article-link--simple.border:hover,
+html.dark body .article-link--shortcode.border:hover,
+html.dark body .term-link--card:hover,
+html:not(.dark) body .home-recent-card:hover,
+html:not(.dark) body .writeups-contest-card:hover,
+html:not(.dark) body .writeups-contest-card:focus-within,
+html:not(.dark) body .writeups-entry:hover,
+html:not(.dark) body .article-link--card:hover,
+html:not(.dark) body .article-link--related:hover,
+html:not(.dark) body .article-link--simple.border:hover,
+html:not(.dark) body .article-link--shortcode.border:hover,
+html:not(.dark) body .term-link--card:hover {
+  box-shadow: inset 0 1px 0 rgba(184, 226, 255, 0.1) !important;
+  filter: none !important;
+  transform: none !important;
 }
