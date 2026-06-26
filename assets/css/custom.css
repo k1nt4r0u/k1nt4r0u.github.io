@@ -6291,11 +6291,11 @@ body.page-interior article > footer,
   inset-block-start: 0.55rem !important;
   inset-inline-end: 0.55rem !important;
   z-index: 20 !important;
-  width: auto !important;
-  min-width: 3.65rem !important;
-  max-width: 6rem !important;
-  height: 1.9rem !important;
-  padding: 0 0.65rem !important;
+  width: 2.15rem !important;
+  min-width: 2.15rem !important;
+  max-width: 2.15rem !important;
+  height: 2.15rem !important;
+  padding: 0 !important;
   border: 1px solid rgba(145, 210, 246, 0.42) !important;
   border-radius: 7px !important;
   color: #b9e7ff !important;
@@ -6319,6 +6319,27 @@ body.page-interior article > footer,
     transform 120ms ease !important;
 }
 
+.highlight-wrapper > .highlight pre {
+  padding-inline-end: max(1rem, 3.2rem) !important;
+}
+
+.highlight-wrapper > .copy-button .copy-button__icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.highlight-wrapper > .copy-button.is-copied {
+  color: #031426 !important;
+  border-color: rgba(177, 231, 255, 0.78) !important;
+  background: #9ddcff !important;
+  opacity: 1 !important;
+}
+
 .highlight-wrapper > .copy-button:hover,
 .highlight-wrapper > .copy-button:focus-visible,
 .highlight-wrapper > .copy-button:active {
@@ -6337,6 +6358,12 @@ html:not(.dark) .highlight-wrapper > .copy-button {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 8px 18px rgba(33, 70, 96, 0.16) !important;
 }
 
+html:not(.dark) .highlight-wrapper > .copy-button.is-copied {
+  color: #062235 !important;
+  border-color: rgba(61, 133, 178, 0.58) !important;
+  background: #bfe8ff !important;
+}
+
 html:not(.dark) .highlight-wrapper > .copy-button:hover,
 html:not(.dark) .highlight-wrapper > .copy-button:focus-visible,
 html:not(.dark) .highlight-wrapper > .copy-button:active {
@@ -6346,16 +6373,39 @@ html:not(.dark) .highlight-wrapper > .copy-button:active {
 }
 
 @media (max-width: 768px) {
+  body.section-writeups .highlight-wrapper,
+  .highlight-wrapper {
+    isolation: isolate;
+  }
+
   body.section-writeups .highlight-wrapper > .copy-button,
   .highlight-wrapper > .copy-button {
-    display: inline-grid !important;
-    inset-block-start: 0.45rem !important;
-    inset-inline-end: 0.45rem !important;
-    min-width: 3.2rem !important;
-    height: 1.75rem !important;
-    padding: 0 0.5rem !important;
-    font-size: 0.66rem !important;
+    display: grid !important;
+    position: sticky !important;
+    inset-block-start: calc(4.25rem + env(safe-area-inset-top)) !important;
+    inset-inline-start: auto !important;
+    inset-inline-end: auto !important;
+    width: 2.35rem !important;
+    min-width: 2.35rem !important;
+    max-width: 2.35rem !important;
+    height: 2.35rem !important;
+    margin-inline-start: auto !important;
+    margin-inline-end: 0.55rem !important;
+    margin-block-end: -2.9rem !important;
+    padding: 0 !important;
+    font-size: 0 !important;
     visibility: visible !important;
+  }
+
+  body.section-writeups .highlight-wrapper > .copy-button .copy-button__icon,
+  .highlight-wrapper > .copy-button .copy-button__icon {
+    width: 1.08rem;
+    height: 1.08rem;
+  }
+
+  body.section-writeups .highlight-wrapper > .highlight pre,
+  .highlight-wrapper > .highlight pre {
+    padding-inline-end: 3.4rem !important;
   }
 }
 

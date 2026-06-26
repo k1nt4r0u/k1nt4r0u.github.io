@@ -1,13 +1,26 @@
 var scriptBundle = document.getElementById("script-bundle");
 var copyText = scriptBundle?.getAttribute("data-copy") || "Copy";
 var copiedText = scriptBundle?.getAttribute("data-copied") || "Copied";
+var copyIcon =
+  '<svg class="copy-button__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 9h10v10H9z"/><path d="M5 5h10v4"/><path d="M5 5v10h4"/></svg>';
+var copiedIcon =
+  '<svg class="copy-button__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.2 4.2L19 7"/></svg>';
+
+function setCopyButtonState(button, state) {
+  const isCopied = state === "copied";
+  button.innerHTML = isCopied ? copiedIcon : copyIcon;
+  button.ariaLabel = isCopied ? copiedText : copyText;
+  button.title = isCopied ? copiedText : copyText;
+  button.classList.toggle("is-copied", isCopied);
+}
 
 function createCopyButton(highlightWrapper) {
+  if (highlightWrapper.querySelector(":scope > .copy-button")) return;
+
   const button = document.createElement("button");
   button.className = "copy-button";
   button.type = "button";
-  button.ariaLabel = copyText;
-  button.innerText = copyText;
+  setCopyButtonState(button, "copy");
   button.addEventListener("click", () => copyCodeToClipboard(button, highlightWrapper));
   highlightWrapper.insertBefore(button, highlightWrapper.firstChild);
 }
@@ -34,7 +47,7 @@ async function copyCodeToClipboard(button, highlightWrapper) {
   }
 
   try {
-    result = await navigator.permissions.query({ name: "clipboard-write" });
+    const result = await navigator.permissions.query({ name: "clipboard-write" });
     if (result.state == "granted" || result.state == "prompt") {
       await navigator.clipboard.writeText(codeToCopy);
     } else {
@@ -44,9 +57,9 @@ async function copyCodeToClipboard(button, highlightWrapper) {
     fallback(codeToCopy, highlightWrapper);
   } finally {
     button.blur();
-    button.innerText = copiedText;
+    setCopyButtonState(button, "copied");
     setTimeout(function () {
-      button.innerText = copyText;
+      setCopyButtonState(button, "copy");
     }, 2000);
   }
 }
