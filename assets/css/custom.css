@@ -3,7 +3,7 @@
   src: url('/fonts/VictorMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   src: url('/fonts/VictorMono-Bold.woff2') format('woff2');
   font-weight: 600 800;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 body,
@@ -6356,5 +6356,119 @@ html:not(.dark) .highlight-wrapper > .copy-button:active {
     padding: 0 0.5rem !important;
     font-size: 0.66rem !important;
     visibility: visible !important;
+  }
+}
+
+/* Smoother runtime pass: fewer viewport layers, no live image filters, less scroll jank. */
+:root {
+  --perf-card-shadow: 0 8px 18px rgba(2, 8, 20, 0.12);
+  --perf-card-shadow-hover: 0 10px 22px rgba(2, 8, 20, 0.16);
+}
+
+.site-background,
+html.dark .site-background,
+html:not(.dark) .site-background {
+  filter: none !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.site-background-pattern,
+html.dark .site-background-pattern,
+html:not(.dark) .site-background-pattern,
+body.page-home .site-background-pattern {
+  display: none !important;
+}
+
+.home-hero__media,
+.home-hero__media img {
+  display: none !important;
+}
+
+.home-hero,
+html.dark .home-hero,
+html:not(.dark) .home-hero {
+  background: linear-gradient(180deg, rgba(8, 13, 23, 0.28), rgba(8, 13, 23, 0.62)) !important;
+}
+
+html:not(.dark) .home-hero {
+  background: linear-gradient(180deg, rgba(177, 209, 231, 0.42), rgba(126, 158, 184, 0.62)) !important;
+}
+
+.home-hero::before,
+html.dark .home-hero::before,
+html:not(.dark) .home-hero::before {
+  background: linear-gradient(132deg, rgba(159, 218, 255, 0.13), transparent 52%) !important;
+}
+
+.home-recent-wrap::before,
+html.dark .home-recent-wrap::before,
+html:not(.dark) .home-recent-wrap::before {
+  filter: none !important;
+  opacity: 0.2 !important;
+}
+
+body.page-interior .article-content > * {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+}
+
+body.page-interior .article-content > .highlight-wrapper,
+body.page-interior .article-content > figure,
+body.page-interior .article-content > table,
+body.page-interior .article-content > pre {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 18rem;
+}
+
+@media (max-width: 768px), (hover: none) {
+  .home-recent-wrap::before {
+    display: none !important;
+  }
+
+  .home-recent-card,
+  .writeups-contest-card,
+  .writeups-entry,
+  .article-link--card,
+  .article-link--related,
+  .article-link--simple.border,
+  .article-link--shortcode.border,
+  .term-link--card,
+  .home-hero__links a,
+  .landing-actions a,
+  .landing-button,
+  .home-recent-more a,
+  .comments-loader,
+  #scroll-to-top > a,
+  .site-hack-logo,
+  .highlight-wrapper > .copy-button {
+    transition:
+      border-color 90ms ease,
+      background-color 90ms ease,
+      color 90ms ease,
+      opacity 90ms ease !important;
+  }
+
+  .home-recent-card:hover,
+  .writeups-contest-card:hover,
+  .writeups-entry:hover,
+  .article-link--card:hover,
+  .article-link--related:hover,
+  .article-link--simple.border:hover,
+  .article-link--shortcode.border:hover,
+  .term-link--card:hover,
+  .home-hero__links a:hover,
+  .landing-actions a:hover,
+  .landing-button:hover,
+  .home-recent-more a:hover,
+  .comments-loader:hover,
+  #scroll-to-top > a:hover,
+  .site-hack-logo:hover,
+  .highlight-wrapper > .copy-button:hover {
+    transform: none !important;
+  }
+
+  .site-hack-logo__cursor {
+    animation: none !important;
   }
 }

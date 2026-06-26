@@ -1,4 +1,5 @@
 {{ $enableMath := false }}
+<link rel="preload" as="image" href="{{ "winter_japan.avif" | relURL }}" type="image/avif" fetchpriority="high">
 {{ if and .IsPage (eq .Section "writeups") }}
   {{ $enableMath = gt (len (findRE `(\$\$|\\\(|\\\[)` .RawContent 1)) 0 }}
 {{ end }}

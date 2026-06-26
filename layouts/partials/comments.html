@@ -97,20 +97,10 @@
 
     button?.addEventListener("click", loadComments);
 
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (!entries.some((entry) => entry.isIntersecting)) {
-            return;
-          }
-
-          observer.disconnect();
-          loadComments();
-        },
-        { rootMargin: "320px 0px" }
-      );
-
-      observer.observe(section);
-    }
+    section.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && event.target === section) {
+        loadComments();
+      }
+    });
   })();
 </script>

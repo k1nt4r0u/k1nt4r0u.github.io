@@ -11,7 +11,7 @@ smartTOC = true
 disableImageOptimization = false
 disableImageOptimizationMD = false
 disableTextInHeader = false
-defaultBackgroundImage = "images/home-background.jpg"
+defaultBackgroundImage = ""
 defaultSocialImage = ""
 hotlinkFeatureImage = false
 imagePosition = "50% 35%"
@@ -35,7 +35,7 @@ showScrollToTop = true
 
 [homepage]
 layout = "hero"
-homepageImage = "images/home-background.jpg"
+homepageImage = ""
 showRecent = true
 showRecentItems = 6
 showMoreLink = true
