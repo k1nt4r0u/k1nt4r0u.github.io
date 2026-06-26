@@ -1,4 +1,5 @@
 {{ $isWriteupsSection := eq .Section "writeups" }}
+{{ $toc := .TableOfContents | emojify }}
 <details
   open
   id="TOCView"
@@ -9,7 +10,7 @@
   </summary>
   <div
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-    {{ .TableOfContents | emojify }}
+    {{ $toc }}
   </div>
 </details>
 <details class="toc-inside {{ if $isWriteupsSection }}toc-writeups{{ end }} mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
@@ -19,7 +20,7 @@
   </summary>
   <div
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-    {{ .TableOfContents | emojify }}
+    {{ replace $toc `id="TableOfContents"` `id="TableOfContentsMobile"` | safeHTML }}
   </div>
 </details>
 

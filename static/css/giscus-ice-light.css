@@ -1,0 +1,109 @@
+main {
+  color-scheme: light;
+  --color-prettylights-syntax-comment: #607f99;
+  --color-prettylights-syntax-constant: #166ca6;
+  --color-prettylights-syntax-entity: #2f6f9f;
+  --color-prettylights-syntax-storage-modifier-import: #18364f;
+  --color-prettylights-syntax-entity-tag: #1d7e8c;
+  --color-prettylights-syntax-keyword: #255f90;
+  --color-prettylights-syntax-string: #0d6f9e;
+  --color-prettylights-syntax-variable: #386c92;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #a83b4d;
+  --color-prettylights-syntax-invalid-illegal-text: #f5fbff;
+  --color-prettylights-syntax-invalid-illegal-bg: #8d3446;
+  --color-prettylights-syntax-carriage-return-text: #f5fbff;
+  --color-prettylights-syntax-carriage-return-bg: #8d3446;
+  --color-prettylights-syntax-string-regexp: #087e83;
+  --color-prettylights-syntax-markup-list: #626f1d;
+  --color-prettylights-syntax-markup-heading: #155f94;
+  --color-prettylights-syntax-markup-italic: #18364f;
+  --color-prettylights-syntax-markup-bold: #10253a;
+  --color-prettylights-syntax-markup-deleted-text: #8d3446;
+  --color-prettylights-syntax-markup-deleted-bg: #f2dce2;
+  --color-prettylights-syntax-markup-inserted-text: #1a6b5d;
+  --color-prettylights-syntax-markup-inserted-bg: #d8f0eb;
+  --color-prettylights-syntax-markup-changed-text: #6b5e1f;
+  --color-prettylights-syntax-markup-changed-bg: #f1ebc9;
+  --color-prettylights-syntax-markup-ignored-text: #46657e;
+  --color-prettylights-syntax-markup-ignored-bg: #d8e8f4;
+  --color-prettylights-syntax-meta-diff-range: #386c92;
+  --color-prettylights-syntax-brackethighlighter-angle: #607f99;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #87acc6;
+  --color-prettylights-syntax-constant-other-reference-link: #166ca6;
+  --color-btn-text: #10253a;
+  --color-btn-bg: #dceef8;
+  --color-btn-border: rgb(72 142 190 / 38%);
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: #cce4f3;
+  --color-btn-hover-border: #267db8;
+  --color-btn-active-bg: #c1dceb;
+  --color-btn-active-border: #155f94;
+  --color-btn-selected-bg: #bed9ea;
+  --color-btn-primary-text: #f5fbff;
+  --color-btn-primary-bg: #267db8;
+  --color-btn-primary-border: rgb(21 95 148 / 52%);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #155f94;
+  --color-btn-primary-hover-border: rgb(16 71 111 / 64%);
+  --color-btn-primary-selected-bg: #10476f;
+  --color-btn-primary-selected-shadow: 0 0 transparent;
+  --color-btn-primary-disabled-text: rgb(245 251 255 / 72%);
+  --color-btn-primary-disabled-bg: rgb(38 125 184 / 46%);
+  --color-btn-primary-disabled-border: rgb(38 125 184 / 22%);
+  --color-action-list-item-default-hover-bg: rgb(38 125 184 / 10%);
+  --color-segmented-control-bg: rgb(72 142 190 / 16%);
+  --color-segmented-control-button-bg: #e3f1f9;
+  --color-segmented-control-button-selected-border: #267db8;
+  --color-fg-default: #10253a;
+  --color-fg-muted: #46657e;
+  --color-fg-subtle: #607f99;
+  --color-canvas-default: #dcebf5;
+  --color-canvas-overlay: #e6f3fa;
+  --color-canvas-inset: #cfdfeb;
+  --color-canvas-subtle: #d4e7f3;
+  --color-border-default: #84acc8;
+  --color-border-muted: #a8c6da;
+  --color-neutral-muted: rgb(72 142 190 / 14%);
+  --color-accent-fg: #155f94;
+  --color-accent-emphasis: #267db8;
+  --color-accent-muted: rgb(38 125 184 / 28%);
+  --color-accent-subtle: rgb(38 125 184 / 12%);
+  --color-success-fg: #1a6b5d;
+  --color-attention-fg: #776a20;
+  --color-attention-muted: rgb(119 106 32 / 24%);
+  --color-attention-subtle: rgb(119 106 32 / 12%);
+  --color-danger-fg: #8d3446;
+  --color-danger-muted: rgb(141 52 70 / 26%);
+  --color-danger-subtle: rgb(141 52 70 / 10%);
+  --color-primer-shadow-inset: 0 0 transparent;
+  --color-scale-gray-7: #46657e;
+  --color-scale-blue-8: #155f94;
+  --color-social-reaction-bg-hover: rgb(38 125 184 / 14%);
+  --color-social-reaction-bg-reacted-hover: rgb(38 125 184 / 22%);
+}
+
+html,
+body,
+main {
+  background: transparent !important;
+}
+
+main .gsc-comment-box,
+main .gsc-comment-box-tabs,
+main .gsc-comment-box-textarea,
+main .gsc-comment-box-write,
+main .gsc-comment-box-preview,
+main .gsc-reactions,
+main .gsc-comment,
+main .gsc-homepage-bg {
+  background-color: transparent;
+}
+
+main .gsc-comment-box-textarea,
+main .gsc-comment-box-preview,
+main .gsc-comment,
+main .gsc-reactions {
+  border-radius: 8px;
+}

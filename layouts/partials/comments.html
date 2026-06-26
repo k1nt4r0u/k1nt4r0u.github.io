@@ -1,8 +1,10 @@
 {{ $giscusDarkTheme := "css/giscus-dark-blue.css" | absURL }}
+{{ $giscusLightTheme := "css/giscus-ice-light.css" | absURL }}
 <div
   class="comments-section"
   data-comments-section
   data-giscus-dark-theme="{{ $giscusDarkTheme }}"
+  data-giscus-light-theme="{{ $giscusLightTheme }}"
   data-giscus-repo="{{ .Site.Params.giscus.repo }}"
   data-giscus-repo-id="{{ .Site.Params.giscus.repoId }}"
   data-giscus-category="{{ .Site.Params.giscus.category }}"
@@ -24,10 +26,11 @@
   (() => {
     const section = document.querySelector("[data-comments-section]");
     const darkTheme = section?.dataset.giscusDarkTheme || "light";
+    const lightTheme = section?.dataset.giscusLightTheme || "light";
     const button = section?.querySelector("[data-comments-loader]");
     const container = section?.querySelector("[data-comments-container]");
     const giscusTheme = () =>
-      document.documentElement.classList.contains("dark") ? darkTheme : "light";
+      document.documentElement.classList.contains("dark") ? darkTheme : lightTheme;
     let loaded = false;
     let themeObserver = null;
 
